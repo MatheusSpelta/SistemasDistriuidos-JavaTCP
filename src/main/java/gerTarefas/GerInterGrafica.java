@@ -4,9 +4,9 @@
  */
 package gerTarefas;
 
-import intergraf.DlgEstoque;
-import intergraf.DlgVenda;
-import intergraf.DlgClient;
+import intergraf.DlgMenuEstoque;
+import intergraf.DlgMenuVenda;
+import intergraf.DlgMenuClient;
 import intergraf.FrmPrincipal;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
@@ -20,9 +20,9 @@ import javax.swing.JOptionPane;
  */
 public class GerInterGrafica {
     private FrmPrincipal janPrinc = null;
-    private DlgEstoque janEstoque = null;
-    private DlgClient janCliente = null;
-    private DlgVenda janVenda = null;
+    private DlgMenuEstoque janEstoque = null;
+    private DlgMenuClient janCliente = null;
+    private DlgMenuVenda janVenda = null;
     
     GerenciadorDominio gerDominio;
     
@@ -58,15 +58,15 @@ public class GerInterGrafica {
     }
     
     public void JanelaCliente(){
-        janCliente = (DlgClient) abrirDialog(janPrinc, janCliente,DlgClient.class);
+        janCliente = (DlgMenuClient) abrirDialog(janPrinc, janCliente,DlgMenuClient.class);
     }
     
     public void JanelaEstoque(){
-        janEstoque = (DlgEstoque) abrirDialog(janPrinc, janEstoque, DlgEstoque.class);
+        janEstoque = (DlgMenuEstoque) abrirDialog(janPrinc, janEstoque, DlgMenuEstoque.class);
     }
     
     public void JanelaVenda(){
-        janVenda = (DlgVenda) abrirDialog(janPrinc, janVenda, DlgVenda.class);
+        janVenda = (DlgMenuVenda) abrirDialog(janPrinc, janVenda, DlgMenuVenda.class);
     }
  
     
