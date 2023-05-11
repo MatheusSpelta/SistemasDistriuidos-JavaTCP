@@ -27,12 +27,7 @@ public class GerInterGrafica {
     GerenciadorDominio gerDominio;
     
     public GerInterGrafica(){
-        try{
-            gerDominio = new GerenciadorDominio();
-        }catch (ClassNotFoundException | SQLException ex){
-            JOptionPane.showMessageDialog(janPrinc, "Erro de conexão com o banco. " + ex.getMessage() );
-                System.exit(-1);
-        }
+        gerDominio = new GerenciadorDominio();
     }
     
     public GerenciadorDominio getGerDominio(){

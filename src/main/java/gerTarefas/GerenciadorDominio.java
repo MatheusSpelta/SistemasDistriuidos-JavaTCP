@@ -4,7 +4,11 @@
  */
 package gerTarefas;
 
+import dao.ClienteDAO;
+import dao.ConexaoHibernate;
+import dao.GenericDAO;
 import java.sql.SQLException;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -12,10 +16,14 @@ import java.sql.SQLException;
  */
 public class GerenciadorDominio {
     
+    ClienteDAO cliDao = null;
+    GenericDAO genDao = null;
     
-    
-    
-    public GerenciadorDominio() throws ClassNotFoundException, SQLException{
+    public GerenciadorDominio() throws HibernateException {
+        // TESTE
+        ConexaoHibernate.getSessionFactory();
         
+        genDao = new GenericDAO();
+        cliDao = new ClienteDAO();
     }
 }
