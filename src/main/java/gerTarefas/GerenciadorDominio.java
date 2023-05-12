@@ -7,7 +7,6 @@ package gerTarefas;
 import dao.ClienteDAO;
 import dao.ConexaoHibernate;
 import dao.GenericDAO;
-import java.sql.SQLException;
 import org.hibernate.HibernateException;
 
 /**

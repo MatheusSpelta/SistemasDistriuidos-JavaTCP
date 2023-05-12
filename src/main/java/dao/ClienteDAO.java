@@ -5,7 +5,6 @@
 package dao;
 
 import java.time.LocalDate;
-import static java.time.temporal.TemporalQueries.localDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -77,7 +76,7 @@ public class ClienteDAO {
         this.cpf = cpf;
         this.cnpj = cnpj;
         this.telefone = telefone;
-        this.dataCadastro = LocalDate.now();
+        this.dataCadastro = dataCadastro;
         this.Pontos = 0;
         this.ativo = true;
         this.endereco = endereco;
@@ -86,10 +85,6 @@ public class ClienteDAO {
     public ClienteDAO() {
     }
     
-    
-
-   
-   
     public Long getIdCliente() {
         return idCliente;
     }

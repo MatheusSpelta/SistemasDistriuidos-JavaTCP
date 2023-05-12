@@ -15,6 +15,9 @@ import org.hibernate.Session;
  * @author math
  */
 public class GenericDAO {
+
+    public GenericDAO() {
+    }    
     
     public void inserir(Object obj) throws HibernateException {        
         

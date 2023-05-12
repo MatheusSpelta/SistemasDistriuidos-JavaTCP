@@ -5,10 +5,6 @@
 package dao;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -56,5 +51,88 @@ public class ProdutoVendaDAO {
     
     @Column(name = "desconto_total")
     private BigDecimal descontoTotal;
+    
+    
+    
+    //Setter, Getter and Constructors
+
+    public ProdutoVendaDAO() {
+    }
+
+    public ProdutoVendaDAO(Long id, ProdutoDAO produto, VendaDAO venda, Integer quantidade, BigDecimal valorUnit, BigDecimal valorTotal, BigDecimal descontoUnit, BigDecimal descontoTotal) {
+        this.id = id;
+        this.produto = produto;
+        this.venda = venda;
+        this.quantidade = quantidade;
+        this.valorUnit = valorUnit;
+        this.valorTotal = valorTotal;
+        this.descontoUnit = descontoUnit;
+        this.descontoTotal = descontoTotal;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public ProdutoDAO getProduto() {
+        return produto;
+    }
+
+    public void setProduto(ProdutoDAO produto) {
+        this.produto = produto;
+    }
+
+    public VendaDAO getVenda() {
+        return venda;
+    }
+
+    public void setVenda(VendaDAO venda) {
+        this.venda = venda;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public BigDecimal getValorUnit() {
+        return valorUnit;
+    }
+
+    public void setValorUnit(BigDecimal valorUnit) {
+        this.valorUnit = valorUnit;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public BigDecimal getDescontoUnit() {
+        return descontoUnit;
+    }
+
+    public void setDescontoUnit(BigDecimal descontoUnit) {
+        this.descontoUnit = descontoUnit;
+    }
+
+    public BigDecimal getDescontoTotal() {
+        return descontoTotal;
+    }
+
+    public void setDescontoTotal(BigDecimal descontoTotal) {
+        this.descontoTotal = descontoTotal;
+    }
+    
     
 }
