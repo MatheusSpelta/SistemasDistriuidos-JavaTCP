@@ -4,7 +4,7 @@
  */
 package gerTarefas;
 
-import dao.ClienteDAO;
+import dominio.Cliente;
 import dao.ConexaoHibernate;
 import dao.GenericDAO;
 import org.hibernate.HibernateException;
@@ -15,7 +15,7 @@ import org.hibernate.HibernateException;
  */
 public class GerenciadorDominio {
     
-    ClienteDAO cliDao = null;
+    Cliente cliDao = null;
     GenericDAO genDao = null;
     
     public GerenciadorDominio() throws HibernateException {
@@ -23,6 +23,6 @@ public class GerenciadorDominio {
         ConexaoHibernate.getSessionFactory();
         
         genDao = new GenericDAO();
-        cliDao = new ClienteDAO();
+        cliDao = new Cliente();
     }
 }

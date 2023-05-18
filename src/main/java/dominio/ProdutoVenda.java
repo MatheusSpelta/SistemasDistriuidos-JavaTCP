@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dao;
+package dominio;
 
+import dominio.Produto;
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,18 +25,18 @@ import javax.persistence.Table;
 @Table(name = "produto_venda")
 
 //Tabela auxiliar, que relaciona os produtos as vendas feitas
-public class ProdutoVendaDAO {
+public class ProdutoVenda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "produto_id")
-    private ProdutoDAO produto;
+    private Produto produto;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "venda_id")
-    private VendaDAO venda;
+    private Venda venda;
     
     @Column(name = "quantidade")
     private Integer quantidade;
@@ -56,10 +57,10 @@ public class ProdutoVendaDAO {
     
     //Setter, Getter and Constructors
 
-    public ProdutoVendaDAO() {
+    public ProdutoVenda() {
     }
 
-    public ProdutoVendaDAO(Long id, ProdutoDAO produto, VendaDAO venda, Integer quantidade, BigDecimal valorUnit, BigDecimal valorTotal, BigDecimal descontoUnit, BigDecimal descontoTotal) {
+    public ProdutoVenda(Long id, Produto produto, Venda venda, Integer quantidade, BigDecimal valorUnit, BigDecimal valorTotal, BigDecimal descontoUnit, BigDecimal descontoTotal) {
         this.id = id;
         this.produto = produto;
         this.venda = venda;
@@ -78,19 +79,19 @@ public class ProdutoVendaDAO {
         this.id = id;
     }
 
-    public ProdutoDAO getProduto() {
+    public Produto getProduto() {
         return produto;
     }
 
-    public void setProduto(ProdutoDAO produto) {
+    public void setProduto(Produto produto) {
         this.produto = produto;
     }
 
-    public VendaDAO getVenda() {
+    public Venda getVenda() {
         return venda;
     }
 
-    public void setVenda(VendaDAO venda) {
+    public void setVenda(Venda venda) {
         this.venda = venda;
     }
 

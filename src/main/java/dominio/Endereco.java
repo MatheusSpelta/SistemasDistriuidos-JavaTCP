@@ -4,90 +4,78 @@
  */
 package dominio;
 
-import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
- * @author mathe
+ * @author Matheus
  */
 
 @Entity
-public class Endereco implements Serializable{
-    
-    @Id
-    private int idEndereco;
-    
-    @Column ( length = 9)
-    private String cep;   
-    private String bairro;
-    private String logradouro;
-    private int numero;
-    private String complemento;
-    private String referencia;  
-    private String cidade;
-    
-    @Column ( length = 2)
-    private String uf;   
+@Table(name = "endereco")
 
-    @OneToOne ( mappedBy = "endereco")
-    @MapsId
-    @JoinColumn (name = "idEndereco")
-    private Cliente cliente;
+public class Endereco {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(name = "rua")
+    private String rua;
+    
+    @Column(name = "bairro")
+    private String bairro;
+    
+    @Column(name = "numero")
+    private String numero;
+    
+    @Column(name = "cep")
+    private String cep;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cidade_id")
+    private Cidade cidade;
+    
+    @Column(name = "estado")
+    private String estado;
+    
+    //Setter, Getter and Constructors
 
     public Endereco() {
     }
 
-    
-    public Endereco(String cep, String uf, String bairro, String cidade, String logradouro, String complemento) {
-        this.cep = cep;
-        this.uf = uf;
+    public Endereco(Long id, String rua, String bairro, String numero, String cep, Cidade cidade, String estado) {
+        this.id = id;
+        this.rua = rua;
         this.bairro = bairro;
+        this.numero = numero;
+        this.cep = cep;
         this.cidade = cidade;
-        this.logradouro = logradouro;
-        this.complemento = complemento;
+        this.estado = estado;
     }
 
-    // Para ser UTILIZADO pela classe CLIENTE
-    public Endereco(String cep, String bairro, String logradouro, int num, String complemento, String ref) {
-        this.cep = cep;
-        this.uf = "";
-        this.bairro = bairro;
-        this.cidade = "";
-        this.logradouro = logradouro;
-        this.numero = num;
-        this.complemento = complemento;
-        this.referencia = ref;
+    public Long getId() {
+        return id;
     }
 
-    
-    public int getIdEndereco() {
-        return idEndereco;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setIdEndereco(int idEndereco) {
-        this.idEndereco = idEndereco;
+    public String getRua() {
+        return rua;
     }
 
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getUf() {
-        return uf;
-    }
-
-    public void setUf(String uf) {
-        this.uf = uf;
+    public void setRua(String rua) {
+        this.rua = rua;
     }
 
     public String getBairro() {
@@ -98,45 +86,37 @@ public class Endereco implements Serializable{
         this.bairro = bairro;
     }
 
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
-    public String getReferencia() {
-        return referencia;
+    public String getCep() {
+        return cep;
     }
 
-    public void setReferencia(String referencia) {
-        this.referencia = referencia;
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
     
 }

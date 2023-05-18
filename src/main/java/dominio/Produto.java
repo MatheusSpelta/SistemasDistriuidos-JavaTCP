@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dao;
+package dominio;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ import javax.persistence.Table;
 
 @Entity 
 @Table(name = "produto")
-public class ProdutoDAO {
+public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -59,15 +59,15 @@ public class ProdutoDAO {
     //Um produto pode estar relacionado a diversas vendas, para isso existe a tabela auxiliar
     //com a qual se relaciona um para muitos.
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProdutoVendaDAO> vendas = new ArrayList<>();
+    private List<ProdutoVenda> vendas = new ArrayList<>();
     
     
     //Setter, Getter and Constructors
 
-    public ProdutoDAO() {
+    public Produto() {
     }
 
-    public ProdutoDAO(Long id, String descricaoCurta, String descricaoLonga, String marca, Integer quantidade, String unidadeMedida, BigDecimal valorVenda, BigDecimal valorCompra, boolean ativo, LocalDate dataCadastro) {
+    public Produto(Long id, String descricaoCurta, String descricaoLonga, String marca, Integer quantidade, String unidadeMedida, BigDecimal valorVenda, BigDecimal valorCompra, boolean ativo, LocalDate dataCadastro) {
         this.id = id;
         this.descricaoCurta = descricaoCurta;
         this.descricaoLonga = descricaoLonga;
@@ -160,11 +160,11 @@ public class ProdutoDAO {
         this.dataCadastro = dataCadastro;
     }
 
-    public List<ProdutoVendaDAO> getVendas() {
+    public List<ProdutoVenda> getVendas() {
         return vendas;
     }
 
-    public void setVendas(List<ProdutoVendaDAO> vendas) {
+    public void setVendas(List<ProdutoVenda> vendas) {
         this.vendas = vendas;
     }
     

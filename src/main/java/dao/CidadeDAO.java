@@ -5,6 +5,7 @@
 package dao;
 
 import dominio.Cidade;
+import dominio.Cidade;
 import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.Column;

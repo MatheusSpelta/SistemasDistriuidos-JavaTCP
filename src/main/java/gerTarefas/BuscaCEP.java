@@ -4,7 +4,7 @@
  */
 package gerTarefas;
 
-import dominio.Endereco;
+import dominio.teste;
 import jakarta.xml.soap.MessageFactory;
 import jakarta.xml.soap.SOAPMessage;
 import java.io.ByteArrayInputStream;
@@ -32,15 +32,15 @@ public class BuscaCEP {
      * @param cep String no formato 00000000
      * @return instancia de br.com.correios.Endereco
      */
-    public static Endereco getEnderecoPorCep(String cep) {
+    public static teste getEnderecoPorCep(String cep) {
 
         Document document = getCepResponse(cep);
-        Endereco endereco = null;
+        teste endereco = null;
 
         if (document != null) {
             Map<String, String> mapa = buscaNodes(document.getChildNodes(), new HashMap<String, String>());
 
-            endereco = new Endereco(mapa.get("cep"), mapa.get("uf"), mapa.get("bairro"),
+            endereco = new teste(mapa.get("cep"), mapa.get("uf"), mapa.get("bairro"),
                     mapa.get("cidade"), mapa.get("end"), mapa.get("complemento") );
         }
 

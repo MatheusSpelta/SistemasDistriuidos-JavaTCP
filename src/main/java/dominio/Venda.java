@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dao;
+package dominio;
 
+import dominio.ProdutoVenda;
+import dominio.Cliente;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "venda")
 
-public class VendaDAO {
+public class Venda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_venda")
@@ -36,7 +38,7 @@ public class VendaDAO {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cliente")
-    private ClienteDAO cliente;
+    private Cliente cliente;
     
     @Column(name = "data_venda")
     private LocalDateTime dataVenda;
@@ -60,15 +62,15 @@ public class VendaDAO {
     private String funcionario;
     
     @OneToMany(mappedBy = "venda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ProdutoVendaDAO> produtos = new ArrayList<>();
+    private List<ProdutoVenda> produtos = new ArrayList<>();
 
     
     //Setter, Getter and Constructors
 
-    public VendaDAO() {
+    public Venda() {
     }
 
-    public VendaDAO(Long idVenda, ClienteDAO cliente, LocalDateTime dataVenda, BigDecimal valorTotal, String formaPagamento, boolean entrega, BigDecimal valorFrete, boolean cancelada, String funcionario) {
+    public Venda(Long idVenda, Cliente cliente, LocalDateTime dataVenda, BigDecimal valorTotal, String formaPagamento, boolean entrega, BigDecimal valorFrete, boolean cancelada, String funcionario) {
         this.idVenda = idVenda;
         this.cliente = cliente;
         this.dataVenda = dataVenda;
@@ -88,11 +90,11 @@ public class VendaDAO {
         this.idVenda = idVenda;
     }
 
-    public ClienteDAO getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(ClienteDAO cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
@@ -152,11 +154,11 @@ public class VendaDAO {
         this.funcionario = funcionario;
     }
 
-    public List<ProdutoVendaDAO> getProdutos() {
+    public List<ProdutoVenda> getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(List<ProdutoVendaDAO> produtos) {
+    public void setProdutos(List<ProdutoVenda> produtos) {
         this.produtos = produtos;
     }
     
