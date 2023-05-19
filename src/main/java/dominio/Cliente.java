@@ -70,6 +70,10 @@ public class Cliente {
    
    //Setter, Getter and Constructors
 
+   
+    public Cliente() {
+    }
+   
     public Cliente(Long idCliente, String nome, String cpf, String cnpj, String telefone, LocalDate dataCadastro, Integer qtdProntos, Boolean ativo, Endereco endereco) {
         this.idCliente = idCliente;
         this.nome = nome;
@@ -82,9 +86,6 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    public Cliente() {
-    }
-    
     public Long getIdCliente() {
         return idCliente;
     }
@@ -164,6 +165,8 @@ public class Cliente {
     public void setVendas(List<Venda> vendas) {
         this.vendas = vendas;
     }
+    
+    
    
    
 }

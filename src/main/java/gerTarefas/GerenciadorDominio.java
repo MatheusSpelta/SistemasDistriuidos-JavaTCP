@@ -4,9 +4,12 @@
  */
 package gerTarefas;
 
+import dao.ClienteDAO;
 import dominio.Cliente;
 import dao.ConexaoHibernate;
 import dao.GenericDAO;
+import dominio.Cidade;
+import java.util.List;
 import org.hibernate.HibernateException;
 
 /**
@@ -15,14 +18,18 @@ import org.hibernate.HibernateException;
  */
 public class GerenciadorDominio {
     
-    Cliente cliDao = null;
-    GenericDAO genDao = null;
+    private GenericDAO genDAO;
+    private ClienteDAO cliDAO;
     
     public GerenciadorDominio() throws HibernateException {
         // TESTE
         ConexaoHibernate.getSessionFactory();
         
-        genDao = new GenericDAO();
-        cliDao = new Cliente();
+        genDAO = new GenericDAO();
+        cliDAO = new ClienteDAO();
+    }
+    
+    public List<Cidade> listarCidades(){
+        return genDAO.listar(Cidade.class);
     }
 }

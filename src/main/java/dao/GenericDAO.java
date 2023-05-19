@@ -27,7 +27,6 @@ public class GenericDAO {
             sessao = ConexaoHibernate.getSessionFactory().openSession();
             sessao.beginTransaction();
 
-            //OPERAÇÕES
             sessao.save(obj);
 
             sessao.getTransaction().commit();              
@@ -49,7 +48,6 @@ public class GenericDAO {
             sessao = ConexaoHibernate.getSessionFactory().openSession();
             sessao.beginTransaction();
 
-            //OPERAÇÕES
             sessao.update(obj);
 
             sessao.getTransaction().commit();              
@@ -70,7 +68,6 @@ public class GenericDAO {
             sessao = ConexaoHibernate.getSessionFactory().openSession();
             sessao.beginTransaction();
 
-            //OPERAÇÕES
             sessao.delete(obj);
 
             sessao.getTransaction().commit();              
@@ -84,7 +81,6 @@ public class GenericDAO {
         }
     }
     
-    
     public List listar(Class classe ) throws HibernateException {
         Session sessao = null;
         List lista = null;
@@ -93,7 +89,6 @@ public class GenericDAO {
             sessao = ConexaoHibernate.getSessionFactory().openSession();
             sessao.beginTransaction();
 
-            //OPERAÇÕES
             CriteriaQuery consulta = sessao.getCriteriaBuilder().createQuery(classe);
             consulta.from(classe);
             lista = sessao.createQuery(consulta).getResultList();            
@@ -109,10 +104,6 @@ public class GenericDAO {
         return lista;
     }
     
-
-       // -----------------------------------------------
-    // Se não existir no banco retorna NULL
-    // -----------------------------------------------
     public Object get(Class classe, int id) throws HibernateException {
         Session sessao = null;
         Object objReturn = null;
@@ -134,17 +125,7 @@ public class GenericDAO {
         return objReturn;
 
     }
-    
-    
-    // -----------------------------------------------------
-    //  Se não existir no banco, retorna uma EXCEÇÃO
-    // ----------------------------------------------------
-    // Sempre retorna um PROXY e não o objeto em si.
-    // PROXY é apenas uma referência ao objeto. 
-    // Ele será realmente carregado quando o primeiro acesso
-    // for feito ao objeto
-    // ENTÃO, por isso que colocamos um primeiro acesso ao objeto 
-    // dentro dessa função, como o método toString (somente para teste)
+     
     public Object load(Class classe, int id) throws HibernateException {
         Session sessao = null;
         Object objReturn = null;

@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,17 +34,11 @@ public class Produto {
     @Column(name = "descricao_curta")
     private String descricaoCurta;
     
-    @Column(name = "descricao_longa")
-    private String descricaoLonga;
-    
     @Column(name = "marca")
     private String marca;
     
     @Column(name = "quantidade")
     private Integer quantidade;
-    
-    @Column(name = "unidade_medida")
-    private String unidadeMedida;
     
     @Column(name = "valor_venda")
     private BigDecimal valorVenda;
@@ -61,16 +57,18 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProdutoVenda> vendas = new ArrayList<>();
     
+    @ManyToOne
+    @JoinColumn(name = "idUnidadeMedida")
+    private UnidadeMedida unidadeMedida;
     
     //Setter, Getter and Constructors
 
     public Produto() {
     }
 
-    public Produto(Long id, String descricaoCurta, String descricaoLonga, String marca, Integer quantidade, String unidadeMedida, BigDecimal valorVenda, BigDecimal valorCompra, boolean ativo, LocalDate dataCadastro) {
+    public Produto(Long id, String descricaoCurta, String descricaoLonga, String marca, Integer quantidade, UnidadeMedida unidadeMedida, BigDecimal valorVenda, BigDecimal valorCompra, boolean ativo, LocalDate dataCadastro) {
         this.id = id;
         this.descricaoCurta = descricaoCurta;
-        this.descricaoLonga = descricaoLonga;
         this.marca = marca;
         this.quantidade = quantidade;
         this.unidadeMedida = unidadeMedida;
@@ -96,14 +94,6 @@ public class Produto {
         this.descricaoCurta = descricaoCurta;
     }
 
-    public String getDescricaoLonga() {
-        return descricaoLonga;
-    }
-
-    public void setDescricaoLonga(String descricaoLonga) {
-        this.descricaoLonga = descricaoLonga;
-    }
-
     public String getMarca() {
         return marca;
     }
@@ -118,14 +108,6 @@ public class Produto {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
-    }
-
-    public String getUnidadeMedida() {
-        return unidadeMedida;
-    }
-
-    public void setUnidadeMedida(String unidadeMedida) {
-        this.unidadeMedida = unidadeMedida;
     }
 
     public BigDecimal getValorVenda() {
@@ -167,5 +149,15 @@ public class Produto {
     public void setVendas(List<ProdutoVenda> vendas) {
         this.vendas = vendas;
     }
+
+    public UnidadeMedida getUnidadeMedida() {
+        return unidadeMedida;
+    }
+
+    public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
+        this.unidadeMedida = unidadeMedida;
+    }
+    
+    
     
 }
