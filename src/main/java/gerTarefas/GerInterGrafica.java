@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author mathe
+ * @author matheus
  */
 public class GerInterGrafica {
     private FrmPrincipal janPrinc = null;

@@ -1,30 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package gerTarefas;
 
-import dominio.teste;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+import dominio.Endereco;
 import jakarta.xml.soap.MessageFactory;
 import jakarta.xml.soap.SOAPMessage;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
+
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
+
+
+
+import java.util.HashMap;
+import java.util.Map;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+
 /**
  *
- * @author mathe
+ * @author Matheus
  */
-
 public class BuscaCEP {
 
     /**
@@ -32,15 +41,15 @@ public class BuscaCEP {
      * @param cep String no formato 00000000
      * @return instancia de br.com.correios.Endereco
      */
-    public static teste getEnderecoPorCep(String cep) {
+    public static Endereco getEnderecoPorCep(String cep) {
 
         Document document = getCepResponse(cep);
-        teste endereco = null;
+        Endereco endereco = null;
 
         if (document != null) {
             Map<String, String> mapa = buscaNodes(document.getChildNodes(), new HashMap<String, String>());
 
-            endereco = new teste(mapa.get("cep"), mapa.get("uf"), mapa.get("bairro"),
+            endereco = new Endereco(mapa.get("cep"), mapa.get("uf"), mapa.get("bairro"),
                     mapa.get("cidade"), mapa.get("end"), mapa.get("complemento") );
         }
 

@@ -1,19 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dominio;
 
-
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+
+
+
 
 /**
  *
@@ -21,77 +20,68 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "endereco")
-
-public class Endereco {
+public class Endereco implements Serializable{
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int idEndereco;
     
-    @Column(name = "rua")
-    private String rua;
-    
-    @Column(name = "bairro")
+    @Column ( length = 9)
+    private String cep;   
     private String bairro;
+    private String logradouro;
+    private int numero;
+    private String complemento;
+    private String referencia;  
+    private String cidade;
     
-    @Column(name = "numero")
-    private String numero;
-    
-    @Column(name = "cep")
-    private String cep;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cidade_id")
-    private Cidade cidade;
-    
-    @Column(name = "estado")
-    private String estado;
-    
-    //Setter, Getter and Constructors
+    @Column ( length = 2)
+    private String uf;   
+   
+    @OneToOne 
+    @MapsId
+    @JoinColumn (name = "idEndereco")
+    private Cliente cliente;
 
     public Endereco() {
     }
 
-    public Endereco(Long id, String rua, String bairro, String numero, String cep, Cidade cidade, String estado) {
-        this.id = id;
-        this.rua = rua;
-        this.bairro = bairro;
-        this.numero = numero;
+    
+    public Endereco(String cep, String uf, String bairro, String cidade, String logradouro, String complemento) {
         this.cep = cep;
-        this.cidade = cidade;
-        this.estado = estado;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getRua() {
-        return rua;
-    }
-
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
+        this.uf = uf;
         this.bairro = bairro;
+        this.cidade = cidade;
+        this.logradouro = logradouro;
+        this.complemento = complemento;
     }
 
-    public String getNumero() {
-        return numero;
+    // Para ser UTILIZADO pela classe CLIENTE
+    public Endereco(String cep, String bairro, String logradouro, int num, String complemento, String ref) {
+        this.cep = cep;
+        this.uf = "";
+        this.bairro = bairro;
+        this.cidade = "";
+        this.logradouro = logradouro;
+        this.numero = num;
+        this.complemento = complemento;
+        this.referencia = ref;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    
+    public int getIdEndereco() {
+        return idEndereco;
+    }
+
+    public void setIdEndereco(int idEndereco) {
+        this.idEndereco = idEndereco;
     }
 
     public String getCep() {
@@ -102,21 +92,61 @@ public class Endereco {
         this.cep = cep;
     }
 
-    public Cidade getCidade() {
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
         return cidade;
     }
 
-    public void setCidade(Cidade cidade) {
+    public void setCidade(String cidade) {
         this.cidade = cidade;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
-    
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
     
 }

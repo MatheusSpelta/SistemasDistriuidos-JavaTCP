@@ -11,7 +11,7 @@ import org.hibernate.HibernateException;
 
 /**
  *
- * @author mathe
+ * @author matheus
  */
 public class GerenciadorDominio {
     

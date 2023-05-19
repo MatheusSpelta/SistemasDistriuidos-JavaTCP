@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  *
- * @author mathe
+ * @author matheus
  */
 
 public class FuncoesUteis {
