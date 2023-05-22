@@ -19,7 +19,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -46,14 +48,14 @@ public class Venda {
     @Column(name = "valor_total")
     private BigDecimal valorTotal;
     
-    @Column(name = "forma_pagamento")
-    private String formaPagamento;
-    
     @Column(name = "entrega")
     private boolean entrega;
     
     @Column(name = "valor_frete")
     private BigDecimal valorFrete;
+    
+    @Column(name = "desconto")
+    private BigDecimal valorDesconto;
     
     @Column(name = "cancelada")
     private boolean cancelada;
@@ -63,21 +65,26 @@ public class Venda {
     
     @OneToMany(mappedBy = "venda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProdutoVenda> produtos = new ArrayList<>();
-
+    
+    @OneToOne 
+    @MapsId
+    @JoinColumn (name = "idFP")
+    private FormaPagamento fp;
     
     //Setter, Getter and Constructors
 
     public Venda() {
     }
 
-    public Venda(Long idVenda, Cliente cliente, LocalDateTime dataVenda, BigDecimal valorTotal, String formaPagamento, boolean entrega, BigDecimal valorFrete, boolean cancelada, String funcionario) {
+    public Venda(Long idVenda, Cliente cliente, LocalDateTime dataVenda, BigDecimal valorTotal, FormaPagamento formaPagamento, boolean entrega, BigDecimal valorFrete, BigDecimal valorDesconto, boolean cancelada, String funcionario) {
         this.idVenda = idVenda;
         this.cliente = cliente;
         this.dataVenda = dataVenda;
         this.valorTotal = valorTotal;
-        this.formaPagamento = formaPagamento;
+        this.fp = formaPagamento;
         this.entrega = entrega;
         this.valorFrete = valorFrete;
+        this.valorDesconto = valorDesconto;
         this.cancelada = cancelada;
         this.funcionario = funcionario;
     }
@@ -112,14 +119,6 @@ public class Venda {
 
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
-    }
-
-    public String getFormaPagamento() {
-        return formaPagamento;
-    }
-
-    public void setFormaPagamento(String formaPagamento) {
-        this.formaPagamento = formaPagamento;
     }
 
     public boolean isEntrega() {
@@ -160,6 +159,22 @@ public class Venda {
 
     public void setProdutos(List<ProdutoVenda> produtos) {
         this.produtos = produtos;
+    }
+
+    public BigDecimal getValorDesconto() {
+        return valorDesconto;
+    }
+
+    public void setValorDesconto(BigDecimal valorDesconto) {
+        this.valorDesconto = valorDesconto;
+    }
+
+    public FormaPagamento getFp() {
+        return fp;
+    }
+
+    public void setFp(FormaPagamento fp) {
+        this.fp = fp;
     }
     
     
