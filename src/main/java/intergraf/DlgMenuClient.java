@@ -476,7 +476,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
 
                 if (cliSelecionado == null) {
                     int id = gerIG.getGerDominio().inserirCliente(nome, cpf, cnpj, celular, cep, cidade, rua, bairro, num, estado);
-                    JOptionPane.showMessageDialog(this, "Cliente " + id + "inseriddo com sucesso.", "Inserir Cliente", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Cliente " + id + " inseriddo com sucesso.", "Inserir Cliente", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (HibernateException ex) {
                 JOptionPane.showMessageDialog(this, ex, "Erro Cliente", JOptionPane.ERROR_MESSAGE);

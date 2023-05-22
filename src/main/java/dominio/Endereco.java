@@ -17,7 +17,7 @@ import javax.persistence.Transient;
  */
 @Entity
 public class Endereco implements Serializable {
-
+    
     @Id
     private int idEndereco;
 

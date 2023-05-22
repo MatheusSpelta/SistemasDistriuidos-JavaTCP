@@ -54,10 +54,7 @@ public class Cliente {
     @Column(name = "ativo")
     private Boolean ativo;
 
-    //Relação de cliente com endereço, cada cliente so possui um endereço
-    //e cada endereço esta relacionado somente a um cliente
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "endereco_id")
+    @OneToOne(mappedBy = "cliente", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Endereco endereco;
 
     //Relação de cliente com Vendas - Um cliente pode se relacionar a varias vendas
@@ -65,17 +62,18 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Venda> vendas = new ArrayList<>();
 
-    //Setter, Getter and Constructors
+    //Constructor para CPF
     public Cliente(String nome, String cpf, String cnpj, String celular, Endereco endereco) {
         this.nome = nome;
         this.cpf = cpf;
         this.cnpj = cnpj;
         this.celular = celular;
-
+        this.endereco = endereco;
         this.dataCadastro = LocalDate.now();
         this.Pontos = 0;
         this.ativo = true;
-        this.endereco = endereco;
+        endereco.setCliente(this);
+
     }
 
     public int getIdCliente() {
@@ -156,6 +154,9 @@ public class Cliente {
 
     public void setCelular(String celular) {
         this.celular = celular;
+    }
+
+    public Cliente() {
     }
 
 }
