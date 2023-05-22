@@ -11,72 +11,60 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-
-
-
 /**
  *
  * @author Matheus
  */
-
 @Entity
-public class Endereco implements Serializable{
-    
+public class Endereco implements Serializable {
+
     @Id
     private int idEndereco;
-    
-    @Column ( length = 9)
-    private String cep;   
+
+    @Column(length = 9)
+    private String cep;
     private String bairro;
-    private String logradouro;
+    private String rua;
     private int numero;
-    private String complemento;
-    private String referencia;  
     private String cidade;
-    
-    @Column ( length = 2)
-    private String uf;   
-   
-    @OneToOne 
+
+    @Column(length = 2)
+    private String uf;
+
+    @OneToOne
     @MapsId
-    @JoinColumn (name = "idEndereco")
+    @JoinColumn(name = "idEndereco")
     private Cliente cliente;
 
     public Endereco() {
     }
 
-    
     public Endereco(String cep, String uf, String bairro, String cidade, String logradouro, String complemento) {
         this.cep = cep;
         this.uf = uf;
         this.bairro = bairro;
         this.cidade = cidade;
-        this.logradouro = logradouro;
-        this.complemento = complemento;
+        this.rua = logradouro;
     }
 
     // Para ser UTILIZADO pela classe CLIENTE
-    public Endereco(String cep, String bairro, String logradouro, int num, String complemento, String ref) {
+    public Endereco(String cep, String bairro, String rua, int num) {
         this.cep = cep;
         this.uf = "";
         this.bairro = bairro;
         this.cidade = "";
-        this.logradouro = logradouro;
+        this.rua = rua;
         this.numero = num;
-        this.complemento = complemento;
-        this.referencia = ref;
     }
 
     //Para utilizar na tabela de vendas
-    public Endereco(String bairro, String logradouro, int numero, String cidade, Cliente cliente) {
+    public Endereco(String bairro, String rua, int numero, String cidade, Cliente cliente) {
         this.bairro = bairro;
-        this.logradouro = logradouro;
+        this.rua = rua;
         this.numero = numero;
         this.cidade = cidade;
         this.cliente = cliente;
     }
-    
-    
 
     public Cliente getCliente() {
         return cliente;
@@ -86,7 +74,6 @@ public class Endereco implements Serializable{
         this.cliente = cliente;
     }
 
-    
     public int getIdEndereco() {
         return idEndereco;
     }
@@ -127,20 +114,12 @@ public class Endereco implements Serializable{
         this.cidade = cidade;
     }
 
-    public String getLogradouro() {
-        return logradouro;
+    public String getRua() {
+        return rua;
     }
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
+    public void setRua(String rua) {
+        this.rua = rua;
     }
 
     public int getNumero() {
@@ -150,14 +129,4 @@ public class Endereco implements Serializable{
     public void setNumero(int numero) {
         this.numero = numero;
     }
-
-    public String getReferencia() {
-        return referencia;
-    }
-
-    public void setReferencia(String referencia) {
-        this.referencia = referencia;
-    }
-
-    
 }

@@ -23,74 +23,66 @@ import javax.persistence.Table;
  *
  * @author Matheus
  */
-
 @Entity
 @Table(name = "cliente")
 
 public class Cliente {
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "id_cliente")
-   private Long idCliente;
-   
-   @Column(name = "nome")
-   private String nome;
-   
-   @Column(name = "cpf")
-   private String cpf;
-   
-   @Column(name = "cnpj")
-   private String cnpj;
-   
-   @Column(name = "telefone")
-   private String telefone;
-   
-   @Column(name = "data_cadastro")
-   private LocalDate dataCadastro;
-   
-   @Column(name = "qtdPontos")
-   private Integer Pontos;
-   
-   @Column(name = "ativo")
-   private Boolean ativo;
-   
-   
-   //Relação de cliente com endereço, cada cliente so possui um endereço
-   //e cada endereço esta relacionado somente a um cliente
-   @OneToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name = "endereco_id")
-   private Endereco endereco;
-   
-   
-   //Relação de cliente com Vendas - Um cliente pode se relacionar a varias vendas
-   //mas uma venda so pertence a um cliente
-   @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-   private List<Venda> vendas = new ArrayList<>();
-   
-   
-   //Setter, Getter and Constructors
 
-   
-    public Cliente() {
-    }
-   
-    public Cliente(Long idCliente, String nome, String cpf, String cnpj, String telefone, LocalDate dataCadastro, Integer qtdProntos, Boolean ativo, Endereco endereco) {
-        this.idCliente = idCliente;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_cliente")
+    private int idCliente;
+
+    @Column(name = "nome")
+    private String nome;
+
+    @Column(name = "cpf")
+    private String cpf;
+
+    @Column(name = "cnpj")
+    private String cnpj;
+
+    @Column(name = "celular")
+    private String celular;
+
+    @Column(name = "data_cadastro")
+    private LocalDate dataCadastro;
+
+    @Column(name = "qtdPontos")
+    private Integer Pontos;
+
+    @Column(name = "ativo")
+    private Boolean ativo;
+
+    //Relação de cliente com endereço, cada cliente so possui um endereço
+    //e cada endereço esta relacionado somente a um cliente
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "endereco_id")
+    private Endereco endereco;
+
+    //Relação de cliente com Vendas - Um cliente pode se relacionar a varias vendas
+    //mas uma venda so pertence a um cliente
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Venda> vendas = new ArrayList<>();
+
+    //Setter, Getter and Constructors
+    public Cliente(String nome, String cpf, String cnpj, String celular, Endereco endereco) {
         this.nome = nome;
         this.cpf = cpf;
         this.cnpj = cnpj;
-        this.telefone = telefone;
-        this.dataCadastro = dataCadastro;
+        this.celular = celular;
+
+        this.dataCadastro = LocalDate.now();
         this.Pontos = 0;
         this.ativo = true;
         this.endereco = endereco;
     }
 
-    public Long getIdCliente() {
+    public int getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(Long idCliente) {
+    public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
@@ -116,14 +108,6 @@ public class Cliente {
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
     }
 
     public LocalDate getDataCadastro() {
@@ -165,8 +149,13 @@ public class Cliente {
     public void setVendas(List<Venda> vendas) {
         this.vendas = vendas;
     }
-    
-    
-   
-   
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
 }
