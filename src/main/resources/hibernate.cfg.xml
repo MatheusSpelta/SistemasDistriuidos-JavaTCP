@@ -19,6 +19,7 @@
     <mapping class="dominio.Produto"></mapping>
     <mapping class="dominio.ProdutoVenda"></mapping>
     <mapping class="dominio.UnidadeMedida"></mapping>
+    <mapping class="dominio.FormaPagamento"></mapping>
     
   </session-factory>
 </hibernate-configuration>

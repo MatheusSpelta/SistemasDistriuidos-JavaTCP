@@ -67,6 +67,17 @@ public class Endereco implements Serializable{
         this.referencia = ref;
     }
 
+    //Para utilizar na tabela de vendas
+    public Endereco(String bairro, String logradouro, int numero, String cidade, Cliente cliente) {
+        this.bairro = bairro;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.cidade = cidade;
+        this.cliente = cliente;
+    }
+    
+    
+
     public Cliente getCliente() {
         return cliente;
     }

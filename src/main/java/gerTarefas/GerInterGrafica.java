@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -26,19 +27,24 @@ public class GerInterGrafica {
     
     GerenciadorDominio gerDominio;
     
+    
     public GerInterGrafica(){
-        gerDominio = new GerenciadorDominio();
+        try{
+            gerDominio = new GerenciadorDominio();
+        }catch (HibernateException ex){
+            JOptionPane.showMessageDialog(janPrinc, "Erro de conexão com o banco." + ex.getMessage());
+                System.exit(-1);
+        }
     }
     
     public GerenciadorDominio getGerDominio(){
         return gerDominio;
     }
     
-    
     private JDialog abrirDialog(java.awt.Frame parent, JDialog dlg,Class classe){
         if(dlg == null){
             try {
-                dlg = (JDialog) classe.getConstructor(Frame.class, boolean.class, GerInterGrafica.class).newInstance(true, this);
+                dlg = (JDialog) classe.getConstructor(Frame.class, boolean.class, GerInterGrafica.class).newInstance(parent, true, this);
             }catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex){
                 JOptionPane.showMessageDialog(parent, "Erro ao abrir a janela " + classe.getName() );
             }
