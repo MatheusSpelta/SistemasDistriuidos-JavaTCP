@@ -34,11 +34,44 @@ public class GerenciadorDominio {
     }
 
     public int inserirCliente(String nome, String CPF, String CNPJ, String celular, String CEP, String cidade, String rua, String bairro, int numero, String UF) throws HibernateException {
-        Endereco endereco = new Endereco(CEP, bairro, rua, numero);
-        //Cliente cli = new Cliente(nome, CPF, CNPJ, celular, endereco);
+        Endereco endereco = new Endereco(CEP, bairro, rua, numero, UF, cidade);
         Cliente cli = new Cliente(nome, CPF, CNPJ, celular, endereco);
         cliDAO.inserir(cli);
         return cli.getIdCliente();
+    }
+
+    public int alterarCliente() {
+
+        return 0;
+    }
+
+    public List<Cliente> pesquisarCliente(String pesq, int tipo) throws HibernateException {
+        List<Cliente> lista = null;
+        switch (tipo) {
+            case 0:
+                lista = cliDAO.pesquisarCodigo(pesq);
+                break;
+            case 1:
+                lista = cliDAO.pesquisarNome(pesq);
+                break;
+            case 2:
+                lista = cliDAO.pesquisarPontos(pesq);
+                break;
+            case 3:
+                lista = cliDAO.pesquisarCPF(pesq);
+                break;
+            case 4:
+                lista = cliDAO.pesquisarCNPJ(pesq);
+                break;
+            case 5:
+                lista = cliDAO.pesquisarCidade(pesq);
+                break;
+            case 6:
+                lista = cliDAO.pesquisarUF(pesq);
+                break;
+
+        }
+        return lista;
     }
 
     public List listar(Class classe) throws HibernateException {

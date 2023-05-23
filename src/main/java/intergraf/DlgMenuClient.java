@@ -76,6 +76,48 @@ public class DlgMenuClient extends javax.swing.JDialog {
         }
     }
 
+    private void limparCampos() {
+        txtCodigo.setText("");
+        txtPontos.setText("");
+        txtNome.setText("");
+        rdbCPF.setSelected(true);
+        rdbCNPJ.setSelected(false);
+        txtCPF.setText("");
+        txtCNPJ.setText("");
+        txtCelular.setText("");
+        txtCEP.setText("");
+        txtCidade.setText("");
+        txtRua.setText("");
+        txtBairro.setText("");
+        txtNumero.setText("");
+        txtUF.setText("");
+
+    }
+
+    private void preencherCampos(Cliente cli) throws ParseException {
+        if (cli != null) {
+            txtCodigo.setText(String.valueOf(cli.getIdCliente()));
+            txtPontos.setText(String.valueOf(cli.getPontos()));
+            txtNome.setText(cli.getNome());
+            txtCelular.setText(cli.getCelular());
+            txtCEP.setText(cli.getEndereco().getCep());
+            txtCidade.setText(cli.getEndereco().getCidade());
+            txtRua.setText(cli.getEndereco().getRua());
+            txtBairro.setText(cli.getEndereco().getBairro());
+            txtNumero.setText(String.valueOf(cli.getEndereco().getNumero()));
+            txtUF.setText(cli.getEndereco().getUf());
+
+            if (cli.getCpf() != null) {
+                rdbCPF.setSelected(true);
+                txtCPF.setText(cli.getCpf());
+            } else {
+                rdbCNPJ.setSelected(true);
+                txtCNPJ.setText(cli.getCnpj());
+            }
+
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,6 +161,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         txtPontos = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
@@ -239,8 +282,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
 
         lblBairro.setText("Bairro");
 
-        txtBairro.setEnabled(false);
-
         lblNumero.setText("Numero");
 
         lblCEP.setText("CEP");
@@ -260,8 +301,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
         txtUF.setEnabled(false);
 
         lblRua.setText("Rua");
-
-        txtRua.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -332,20 +371,34 @@ public class DlgMenuClient extends javax.swing.JDialog {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnNovo.setText("Novo");
+
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
+                .addGap(17, 17, 17)
                 .addComponent(btnNovo)
                 .addGap(18, 18, 18)
                 .addComponent(btnCancelar)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar)
+                .addGap(18, 18, 18)
+                .addComponent(btnSair)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -355,7 +408,8 @@ public class DlgMenuClient extends javax.swing.JDialog {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnSalvar)
-                    .addComponent(btnNovo))
+                    .addComponent(btnNovo)
+                    .addComponent(btnSair))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -365,6 +419,11 @@ public class DlgMenuClient extends javax.swing.JDialog {
         txtPontos.setEnabled(false);
 
         btnPesquisar.setText("jButton1");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -455,9 +514,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
     }//GEN-LAST:event_rdbCNPJActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        String codigo = txtCodigo.getText();
         String nome = txtNome.getText();
-        String pontos = txtPontos.getText();
         String cnpj = txtCNPJ.getText();
         String cpf = txtCPF.getText();
         String celular = txtCelular.getText();
@@ -476,6 +533,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
 
                 if (cliSelecionado == null) {
                     int id = gerIG.getGerDominio().inserirCliente(nome, cpf, cnpj, celular, cep, cidade, rua, bairro, num, estado);
+                    limparCampos();
                     JOptionPane.showMessageDialog(this, "Cliente " + id + " inseriddo com sucesso.", "Inserir Cliente", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (HibernateException ex) {
@@ -506,6 +564,24 @@ public class DlgMenuClient extends javax.swing.JDialog {
 
     }//GEN-LAST:event_txtCEPFocusLost
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        cliSelecionado = gerIG.janelaPesqCliente();
+        try {
+            preencherCampos(cliSelecionado);
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Erro Cliente", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        limparCampos();
+        this.setVisible(false);
+    }//GEN-LAST:event_btnSairActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -514,6 +590,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
     private javax.swing.ButtonGroup btnGroupTipoPessoa;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
@@ -548,4 +625,5 @@ public class DlgMenuClient extends javax.swing.JDialog {
     private javax.swing.JTextField txtRua;
     private javax.swing.JTextField txtUF;
     // End of variables declaration//GEN-END:variables
+
 }

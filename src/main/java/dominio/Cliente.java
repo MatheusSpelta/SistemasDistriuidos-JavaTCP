@@ -4,6 +4,7 @@
  */
 package dominio;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -61,6 +63,10 @@ public class Cliente {
     //mas uma venda so pertence a um cliente
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Venda> vendas = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "idCidade")
+    private Cidade cidade;
 
     //Constructor para CPF
     public Cliente(String nome, String cpf, String cnpj, String celular, Endereco endereco) {
@@ -157,6 +163,10 @@ public class Cliente {
     }
 
     public Cliente() {
+    }
+
+    public Object[] toArray() throws ParseException {
+        return new Object[]{this.endereco.getBairro(), cidade, celular};
     }
 
 }

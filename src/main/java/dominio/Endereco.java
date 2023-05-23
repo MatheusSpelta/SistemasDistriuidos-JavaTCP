@@ -17,7 +17,7 @@ import javax.persistence.Transient;
  */
 @Entity
 public class Endereco implements Serializable {
-    
+
     @Id
     private int idEndereco;
 
@@ -48,11 +48,11 @@ public class Endereco implements Serializable {
     }
 
     // Para ser UTILIZADO pela classe CLIENTE
-    public Endereco(String cep, String bairro, String rua, int num) {
+    public Endereco(String cep, String bairro, String rua, int num, String uf, String cidade) {
         this.cep = cep;
-        this.uf = "";
+        this.uf = uf;
         this.bairro = bairro;
-        this.cidade = "";
+        this.cidade = cidade;
         this.rua = rua;
         this.numero = num;
     }

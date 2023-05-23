@@ -14,21 +14,37 @@ import org.hibernate.HibernateException;
  *
  * @author Matheus
  */
-public class ClienteDAO extends GenericDAO{
-   
-    private List<Cliente> pesquisar(String pesq, int tipo){
-       return null;
-   }
-   
-    public List<Cliente> pesquisarPorNome(String pesq){
-        return pesquisar(pesq,1);
+public class ClienteDAO extends GenericDAO {
+
+    private List<Cliente> pesquisar(String pesq, int tipo) {
+        return listar(Cliente.class);
     }
-    
-    public List<Cliente> pesquisarPorBairro(String pesq){
-        return pesquisar(pesq,2);
+
+    public List<Cliente> pesquisarCodigo(String pesq) {
+        return pesquisar(pesq, 0);
     }
-    
-    public List<Cliente> pesquisarPorMes(String pesq){
-        return pesquisar(pesq,3);
+
+    public List<Cliente> pesquisarNome(String pesq) {
+        return pesquisar(pesq, 1);
+    }
+
+    public List<Cliente> pesquisarPontos(String pesq) {
+        return pesquisar(pesq, 2);
+    }
+
+    public List<Cliente> pesquisarCPF(String pesq) {
+        return pesquisar(pesq, 3);
+    }
+
+    public List<Cliente> pesquisarCNPJ(String pesq) {
+        return pesquisar(pesq, 4);
+    }
+
+    public List<Cliente> pesquisarCidade(String pesq) {
+        return pesquisar(pesq, 5);
+    }
+
+    public List<Cliente> pesquisarUF(String pesq) {
+        return pesquisar(pesq, 6);
     }
 }
