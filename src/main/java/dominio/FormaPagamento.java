@@ -15,14 +15,15 @@ import javax.persistence.Table;
  *
  * @author Matheus
  */
-
-@Entity 
+@Entity
+@Table(name = "formaPagamento")
 public class FormaPagamento {
+
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idFP;
-    
-    @Column (name="formaPagamento", length = 250, nullable = false)
+
+    @Column(name = "formaPagamento", length = 250, nullable = false)
     private String forma_Pagamento;
 
     public int getIdFP() {
@@ -47,5 +48,5 @@ public class FormaPagamento {
     }
 
     public FormaPagamento() {
-    }    
+    }
 }

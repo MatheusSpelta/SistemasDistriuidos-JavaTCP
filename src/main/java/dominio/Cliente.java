@@ -64,10 +64,6 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Venda> vendas = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "idCidade")
-    private Cidade cidade;
-
     //Constructor para CPF
     public Cliente(String nome, String cpf, String cnpj, String celular, Endereco endereco) {
         this.nome = nome;
@@ -166,7 +162,7 @@ public class Cliente {
     }
 
     public Object[] toArray() throws ParseException {
-        return new Object[]{this.endereco.getBairro(), cidade, celular};
+        return new Object[]{this.getIdCliente(), this.getNome(), this.getPontos(), this.getCpf(), this.getCnpj(), endereco.getCidade(), endereco.getUf(), this.getAtivo()};
     }
 
 }

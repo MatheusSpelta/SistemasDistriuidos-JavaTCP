@@ -9,8 +9,11 @@ import dominio.Cliente;
 import dao.ConexaoHibernate;
 import dao.EnderecoDAO;
 import dao.GenericDAO;
-import dominio.Cidade;
+import dao.ProdutoDAO;
+
 import dominio.Endereco;
+import dominio.Produto;
+import dominio.UnidadeMedida;
 import java.util.List;
 import org.hibernate.HibernateException;
 
@@ -23,6 +26,7 @@ public class GerenciadorDominio {
     private GenericDAO genDAO;
     private ClienteDAO cliDAO;
     private EnderecoDAO endDAO;
+    private ProdutoDAO proDAO;
 
     public GerenciadorDominio() throws HibernateException {
         // TESTE
@@ -31,6 +35,13 @@ public class GerenciadorDominio {
         genDAO = new GenericDAO();
         cliDAO = new ClienteDAO();
         endDAO = new EnderecoDAO();
+        proDAO = new ProdutoDAO();
+    }
+
+    public int inserirProduto(String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, String valorVenda, String valorCompra) {
+        Produto pro = new Produto(descricao, marca, estoque, valorVenda, valorCompra, unidadeMedida);
+        proDAO.inserir(pro);
+        return pro.getId();
     }
 
     public int inserirCliente(String nome, String CPF, String CNPJ, String celular, String CEP, String cidade, String rua, String bairro, int numero, String UF) throws HibernateException {
@@ -40,9 +51,21 @@ public class GerenciadorDominio {
         return cli.getIdCliente();
     }
 
-    public int alterarCliente() {
+    public void alterarCliente(Cliente cli, boolean ativo, int pontos, String nome, String CPF, String CNPJ, String celular, String CEP, String cidade, String rua, String bairro, int numero, String UF) throws HibernateException {
+        cli.setNome(nome);
+        cli.setCpf(CPF);
+        cli.setCnpj(CNPJ);
+        cli.setCelular(celular);
+        cli.getEndereco().setCep(CEP);
+        cli.getEndereco().setCidade(cidade);
+        cli.getEndereco().setRua(rua);
+        cli.getEndereco().setBairro(bairro);
+        cli.getEndereco().setNumero(numero);
+        cli.getEndereco().setUf(UF);
+        cli.setAtivo(ativo);
+        cli.setPontos(pontos);
 
-        return 0;
+        cliDAO.alterar(cli);
     }
 
     public List<Cliente> pesquisarCliente(String pesq, int tipo) throws HibernateException {
@@ -82,7 +105,4 @@ public class GerenciadorDominio {
         genDAO.excluir(obj);
     }
 
-    public List<Cidade> listarCidades() {
-        return genDAO.listar(Cidade.class);
-    }
 }

@@ -4,7 +4,14 @@
  */
 package intergraf;
 
+import dominio.Produto;
+import dominio.UnidadeMedida;
 import gerTarefas.GerInterGrafica;
+import java.awt.Color;
+import java.awt.HeadlessException;
+import java.text.ParseException;
+import javax.swing.JOptionPane;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -13,6 +20,7 @@ import gerTarefas.GerInterGrafica;
 public class DlgMenuEstoque extends javax.swing.JDialog {
 
     private GerInterGrafica gerIG;
+    private Produto proSelecionado;
 
     /**
      * Creates new form DlgMenuEstoque
@@ -21,6 +29,52 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.gerIG = gerIG;
+        gerIG.carregarComboUnidadeMedida(cmbUniMedida, UnidadeMedida.class);
+    }
+
+    private void limparCampos() {
+        txtDescricao.setText("");
+        txtMarca.setText("");
+        spnEstoque.setValue(0);
+        txtValorCompra.setText("");
+        txtValorVenda.setText("");
+    }
+
+    private boolean validarCampos() {
+        String msgErro = "";
+        lblDescricao.setForeground(Color.black);
+        lblMarca.setForeground(Color.black);
+        lblEstoque.setForeground(Color.black);
+        lblValorCompra.setForeground(Color.black);
+        lblValorVenda.setForeground(Color.black);
+
+        if (txtDescricao.getText().isEmpty()) {
+            msgErro = msgErro + "Informe a descricao do produto. \n";
+            lblDescricao.setForeground(Color.red);
+        }
+        if (txtMarca.getText().isEmpty()) {
+            msgErro = msgErro + "Informe a marca do produto. \n";
+            lblMarca.setForeground(Color.red);
+        }
+        if (Integer.parseInt(spnEstoque.getValue().toString()) < 0) {
+            msgErro = msgErro + "Quantidade não pode ser menor do que zero. \n";
+            lblEstoque.setForeground(Color.red);
+        }
+        if (Integer.parseInt(txtValorCompra.getText()) < 0 || Integer.parseInt(txtValorCompra.getText()) > (Integer.parseInt(txtValorVenda.getText()))) {
+            msgErro = msgErro + "Valor de compra não pode ser menor que zero ou maior que valor de venda \n";
+            lblValorCompra.setForeground(Color.red);
+        }
+        if (Integer.parseInt(txtValorVenda.getText()) < 0 || Integer.parseInt(txtValorVenda.getText()) < (Integer.parseInt(txtValorCompra.getText()))) {
+            msgErro = msgErro + "Valor de venda não pode ser menor que zero ou menor que valor de compra. \n";
+            lblValorVenda.setForeground(Color.red);
+        }
+        if (msgErro.isEmpty()) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, msgErro, "Erro Estoque", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -44,8 +98,9 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
         txtValorCompra = new javax.swing.JTextField();
         lblValorVenda = new javax.swing.JLabel();
         txtValorVenda = new javax.swing.JTextField();
-        btnCancelar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         btnSalvar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Estoque");
@@ -54,6 +109,11 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
         lblCodigo.setText("Codigo");
 
         btnPesquisar.setText("jButton1");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         chckAtivo.setText("Ativo");
 
@@ -61,15 +121,9 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
 
         lblMarca.setText("Marca");
 
-        txtMarca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMarcaActionPerformed(evt);
-            }
-        });
-
         lblUniMedida.setText("Unidade de Medida");
 
-        cmbUniMedida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbUniMedida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         lblEstoque.setText("Estoque");
 
@@ -77,9 +131,40 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
 
         lblValorVenda.setText("Valor de Venda");
 
-        btnCancelar.setText("Cancelar");
-
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(158, 158, 158)
+                .addComponent(btnSalvar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCancelar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar)
+                    .addComponent(btnCancelar))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -96,7 +181,7 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -109,22 +194,19 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
                             .addComponent(lblValorCompra)
                             .addComponent(lblUniMedida))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbUniMedida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtValorCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbUniMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSalvar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblEstoque, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblValorVenda, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(spnEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(btnCancelar))
+                            .addComponent(lblEstoque, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblValorVenda, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(spnEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(44, 44, 44))))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,15 +232,14 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
                     .addComponent(lblEstoque)
                     .addComponent(spnEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblValorVenda)
-                    .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblValorCompra))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnSalvar))
+                    .addComponent(lblValorVenda, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblValorCompra)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -167,9 +248,40 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMarcaActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        limparCampos();
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+
+        String descricao = txtDescricao.getText();
+        String marca = txtMarca.getText();
+        UnidadeMedida unidadeMedida = (UnidadeMedida) cmbUniMedida.getSelectedItem();
+        int estoque = Integer.parseInt(spnEstoque.getValue().toString());
+        String valorCompra = txtValorCompra.getText();
+        String valorVenda = txtValorVenda.getText();
+
+        if (validarCampos()) {
+            try {
+                if (proSelecionado == null) {
+                    int id = gerIG.getGerDominio().inserirProduto(descricao, marca, unidadeMedida, estoque, valorCompra, valorVenda);
+                    limparCampos();
+                    JOptionPane.showMessageDialog(this, "Produto " + id + " inseriddo com sucesso.", "Inserir Produto", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (HibernateException ex) {
+                JOptionPane.showMessageDialog(this, ex, "Erro Produto", JOptionPane.ERROR_MESSAGE);
+            } catch (HeadlessException ex) {
+                JOptionPane.showMessageDialog(this, ex, "Erro Produto", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        proSelecionado = gerIG.janelaPesqProduto();
+        preencherCampos(proSelecionado);
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -177,6 +289,7 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox chckAtivo;
     private javax.swing.JComboBox<String> cmbUniMedida;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblDescricao;
@@ -192,4 +305,8 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
     private javax.swing.JTextField txtValorCompra;
     private javax.swing.JTextField txtValorVenda;
     // End of variables declaration//GEN-END:variables
+
+    private void preencherCampos(Produto proSelecionado) {
+
+    }
 }

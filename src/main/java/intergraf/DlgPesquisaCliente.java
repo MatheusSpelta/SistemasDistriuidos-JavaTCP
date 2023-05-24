@@ -172,7 +172,8 @@ public class DlgPesquisaCliente extends javax.swing.JDialog {
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         try {
             List<Cliente> lista = gerIG.getGerDominio().pesquisarCliente(txtTipo.getText(), cmbTipo.getSelectedIndex());
-            ((DefaultTableModel) tblClientes.getModel()).setNumRows(0);
+
+            ((DefaultTableModel) tblClientes.getModel()).setRowCount(0);
 
             for (Cliente cli : lista) {
                 ((DefaultTableModel) tblClientes.getModel()).addRow(cli.toArray());
@@ -189,6 +190,7 @@ public class DlgPesquisaCliente extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um cliente.", "Pesquisar Cliente", JOptionPane.ERROR_MESSAGE);
         }
+
         this.setVisible(false);
     }//GEN-LAST:event_btnSelecionarActionPerformed
 

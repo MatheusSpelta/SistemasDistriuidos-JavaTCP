@@ -5,14 +5,19 @@
 package gerTarefas;
 
 import dominio.Cliente;
+import dominio.Produto;
+import dominio.UnidadeMedida;
 import intergraf.DlgMenuEstoque;
 import intergraf.DlgMenuVenda;
 import intergraf.DlgMenuClient;
 import intergraf.DlgPesquisaCliente;
+import intergraf.DlgPesquisaProduto;
 import intergraf.FrmPrincipal;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
@@ -28,6 +33,7 @@ public class GerInterGrafica {
     private DlgMenuClient janCliente = null;
     private DlgMenuVenda janVenda = null;
     private DlgPesquisaCliente janPesqCli = null;
+    private DlgPesquisaProduto janPesqPro = null;
 
     GerenciadorDominio gerDominio;
 
@@ -67,6 +73,7 @@ public class GerInterGrafica {
 
     public void JanelaEstoque() {
         janEstoque = (DlgMenuEstoque) abrirDialog(janPrinc, janEstoque, DlgMenuEstoque.class);
+
     }
 
     public void JanelaVenda() {
@@ -76,6 +83,20 @@ public class GerInterGrafica {
     public Cliente janelaPesqCliente() {
         janPesqCli = (DlgPesquisaCliente) abrirDialog(janPrinc, janPesqCli, DlgPesquisaCliente.class);
         return janPesqCli.getCliente();
+    }
+
+    public Produto janelaPesqProduto() {
+        janPesqPro = (DlgPesquisaProduto) abrirDialog(janPrinc, janPesqPro, DlgPesquisaProduto.class);
+        return janPesqPro.getProduto();
+    }
+
+    public void carregarComboUnidadeMedida(JComboBox combo, Class classe) {
+        try {
+            List<UnidadeMedida> lista = gerDominio.listar(classe);
+            combo.setModel(new DefaultComboBoxModel(lista.toArray()));
+        } catch (HibernateException ex) {
+            JOptionPane.showMessageDialog(janPrinc, "Erro ao carregar unidades de medida." + ex.getMessage());
+        }
     }
 
     public static void main(String args[]) {

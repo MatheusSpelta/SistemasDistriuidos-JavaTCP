@@ -38,6 +38,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
         lblCEP.setForeground(Color.black);
         lblCPF.setForeground(Color.black);
         lblCNPJ.setForeground(Color.black);
+        lblCelular.setForeground(Color.black);
 
         if (txtNome.getText().isEmpty()) {
             msgErro = msgErro + "Digite seu nome. \n";
@@ -46,6 +47,11 @@ public class DlgMenuClient extends javax.swing.JDialog {
         if (txtCEP.getText().isEmpty()) {
             msgErro = msgErro + "Digite seu CEP. \n";
             lblCEP.setForeground(Color.red);
+        }
+        if (txtCelular.getText().isEmpty()) {
+            msgErro = msgErro + "Celular invalido. \n";
+            lblCelular.setForeground(Color.red);
+
         }
         if (rdbCNPJ.isSelected()) {
             if (FuncoesUteis.isCNPJ(txtCNPJ.getText()) == false) {
@@ -57,14 +63,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
             if (FuncoesUteis.isCPF(txtCPF.getText()) == false) {
                 msgErro = msgErro + "CPF invalido. \n";
                 lblCPF.setForeground(Color.red);
-            }
-        }
-        if (txtCelular.getText().isEmpty()) {
-            try {
-                int num = Integer.parseInt(txtCelular.getText());
-            } catch (NumberFormatException erro) {
-                msgErro = msgErro + "Celular invalido. \n";
-                lblCelular.setForeground(Color.red);
             }
         }
 
@@ -160,7 +158,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
         jPanel5 = new javax.swing.JPanel();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        btnNovo = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         txtPontos = new javax.swing.JTextField();
@@ -377,8 +374,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
             }
         });
 
-        btnNovo.setText("Novo");
-
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -390,16 +385,14 @@ public class DlgMenuClient extends javax.swing.JDialog {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(btnNovo)
-                .addGap(18, 18, 18)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCancelar)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar)
                 .addGap(18, 18, 18)
                 .addComponent(btnSair)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(59, 59, 59))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,7 +401,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnSalvar)
-                    .addComponent(btnNovo)
                     .addComponent(btnSair))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -588,7 +580,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.ButtonGroup btnGroupTipoPessoa;
-    private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;

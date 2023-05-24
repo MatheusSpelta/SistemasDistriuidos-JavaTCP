@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
@@ -16,6 +17,7 @@ import javax.persistence.Transient;
  * @author Matheus
  */
 @Entity
+@Table(name = "endereco")
 public class Endereco implements Serializable {
 
     @Id

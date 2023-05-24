@@ -18,25 +18,25 @@ import javax.persistence.Table;
  *
  * @author Matheus
  */
+@Entity
+@Table(name = "unidade_medida")
+public class UnidadeMedida implements Serializable {
 
-@Entity 
-public class UnidadeMedida implements Serializable{
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUnidadeMedida;
-    
+
     @Column(name = "unidade_medida")
     private String unidadeMedida;
-    
+
     @OneToMany(mappedBy = "unidadeMedida")
     private List<Produto> produtos;
-    
-    public List<Produto> getProduto(){
+
+    public List<Produto> getProduto() {
         return produtos;
     }
-    
-    public void setProdutos(List<Produto> produtos){
+
+    public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
     }
 }

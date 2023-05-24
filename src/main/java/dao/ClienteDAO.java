@@ -5,8 +5,6 @@
 package dao;
 
 import dominio.Cliente;
-import org.hibernate.Session;
-import java.sql.SQLException;
 import java.util.List;
 import org.hibernate.HibernateException;
 
@@ -16,7 +14,7 @@ import org.hibernate.HibernateException;
  */
 public class ClienteDAO extends GenericDAO {
 
-    private List<Cliente> pesquisar(String pesq, int tipo) {
+    private List<Cliente> pesquisar(String pesq, int tipo) throws HibernateException {
         return listar(Cliente.class);
     }
 

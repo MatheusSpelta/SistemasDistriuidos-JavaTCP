@@ -23,75 +23,85 @@ import javax.persistence.Table;
  *
  * @author Matheus
  */
-
-@Entity 
+@Entity
 @Table(name = "produto")
 public class Produto {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(name = "descricao_curta")
-    private String descricaoCurta;
-    
+    private int id;
+
+    @Column(name = "descricao")
+    private String descricao;
+
     @Column(name = "marca")
     private String marca;
-    
+
     @Column(name = "quantidade")
     private Integer quantidade;
-    
+
     @Column(name = "valor_venda")
-    private BigDecimal valorVenda;
-    
+    private String valorVenda;
+
     @Column(name = "valor_Compra")
-    private BigDecimal valorCompra;
-    
+    private String valorCompra;
+
     @Column(name = "ativo")
     private boolean ativo;
-    
+
     @Column(name = "data_cadastro")
     private LocalDate dataCadastro;
-    
+
     //Um produto pode estar relacionado a diversas vendas, para isso existe a tabela auxiliar
     //com a qual se relaciona um para muitos.
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProdutoVenda> vendas = new ArrayList<>();
-    
+
     @ManyToOne
     @JoinColumn(name = "idUnidadeMedida")
     private UnidadeMedida unidadeMedida;
-    
-    //Setter, Getter and Constructors
 
+    //Setter, Getter and Constructors
     public Produto() {
     }
 
-    public Produto(Long id, String descricaoCurta, String descricaoLonga, String marca, Integer quantidade, UnidadeMedida unidadeMedida, BigDecimal valorVenda, BigDecimal valorCompra, boolean ativo, LocalDate dataCadastro) {
+    public Produto(int id, String descricao, String descricaoLonga, String marca, Integer quantidade, UnidadeMedida unidadeMedida, String valorVenda, String valorCompra, boolean ativo, LocalDate dataCadastro) {
         this.id = id;
-        this.descricaoCurta = descricaoCurta;
+        this.descricao = descricao;
         this.marca = marca;
         this.quantidade = quantidade;
         this.unidadeMedida = unidadeMedida;
         this.valorVenda = valorVenda;
         this.valorCompra = valorCompra;
         this.ativo = ativo;
-        this.dataCadastro = dataCadastro;
+        this.dataCadastro = LocalDate.now();
     }
 
-    public Long getId() {
+    public Produto(String descricao, String marca, Integer quantidade, String valorVenda, String valorCompra, UnidadeMedida unidadeMedida) {
+        this.descricao = descricao;
+        this.marca = marca;
+        this.quantidade = quantidade;
+        this.valorVenda = valorVenda;
+        this.valorCompra = valorCompra;
+        this.unidadeMedida = unidadeMedida;
+        this.ativo = ativo;
+        this.dataCadastro = LocalDate.now();
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getDescricaoCurta() {
-        return descricaoCurta;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescricaoCurta(String descricaoCurta) {
-        this.descricaoCurta = descricaoCurta;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getMarca() {
@@ -110,19 +120,19 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public BigDecimal getValorVenda() {
+    public String getValorVenda() {
         return valorVenda;
     }
 
-    public void setValorVenda(BigDecimal valorVenda) {
+    public void setValorVenda(String valorVenda) {
         this.valorVenda = valorVenda;
     }
 
-    public BigDecimal getValorCompra() {
+    public String getValorCompra() {
         return valorCompra;
     }
 
-    public void setValorCompra(BigDecimal valorCompra) {
+    public void setValorCompra(String valorCompra) {
         this.valorCompra = valorCompra;
     }
 
@@ -157,7 +167,5 @@ public class Produto {
     public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
         this.unidadeMedida = unidadeMedida;
     }
-    
-    
-    
+
 }
