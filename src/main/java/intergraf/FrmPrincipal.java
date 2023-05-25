@@ -16,7 +16,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      * Creates new form FrmPrincipal
      */
     private GerInterGrafica gerIG;
-    
+
     public FrmPrincipal(GerInterGrafica gerIG) {
         initComponents();
         this.gerIG = gerIG;
@@ -154,8 +154,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCliente;
     private javax.swing.JButton btnEstoque;

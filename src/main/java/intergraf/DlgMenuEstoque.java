@@ -29,7 +29,6 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.gerIG = gerIG;
-        gerIG.carregarComboUnidadeMedida(cmbUniMedida, UnidadeMedida.class);
     }
 
     private void limparCampos() {

@@ -39,4 +39,9 @@ public class UnidadeMedida implements Serializable {
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
     }
+
+    public String toArray() {
+        return "UnidadeMedida{" + "unidadeMedida=" + unidadeMedida + '}';
+    }
+
 }

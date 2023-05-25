@@ -54,7 +54,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
 
         }
         if (rdbCNPJ.isSelected()) {
-            if (FuncoesUteis.isCNPJ(txtCNPJ.getText()) == false) {
+            if (FuncoesUteis.isCNPJ(txtCNPJ.getText().replaceAll("[^0-9]+", "")) == false) {
                 msgErro = msgErro + "CNPJ invalido. \n";
                 lblCNPJ.setForeground(Color.red);
             }
@@ -80,6 +80,8 @@ public class DlgMenuClient extends javax.swing.JDialog {
         txtNome.setText("");
         rdbCPF.setSelected(true);
         rdbCNPJ.setSelected(false);
+        txtCPF.setEnabled(true);
+        txtCNPJ.setEnabled(false);
         txtCPF.setText("");
         txtCNPJ.setText("");
         txtCelular.setText("");
@@ -367,7 +369,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
             }
         });
 
-        btnCancelar.setText("Cancelar");
+        btnCancelar.setText("Limpar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -385,14 +387,14 @@ public class DlgMenuClient extends javax.swing.JDialog {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(65, 65, 65)
                 .addComponent(btnCancelar)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar)
                 .addGap(18, 18, 18)
                 .addComponent(btnSair)
-                .addGap(59, 59, 59))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

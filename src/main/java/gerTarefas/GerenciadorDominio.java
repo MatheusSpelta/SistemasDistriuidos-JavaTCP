@@ -10,6 +10,7 @@ import dao.ConexaoHibernate;
 import dao.EnderecoDAO;
 import dao.GenericDAO;
 import dao.ProdutoDAO;
+import dao.VendaDAO;
 
 import dominio.Endereco;
 import dominio.Produto;
@@ -27,6 +28,7 @@ public class GerenciadorDominio {
     private ClienteDAO cliDAO;
     private EnderecoDAO endDAO;
     private ProdutoDAO proDAO;
+    private VendaDAO venDAO;
 
     public GerenciadorDominio() throws HibernateException {
         // TESTE
@@ -36,6 +38,7 @@ public class GerenciadorDominio {
         cliDAO = new ClienteDAO();
         endDAO = new EnderecoDAO();
         proDAO = new ProdutoDAO();
+        venDAO = new VendaDAO();
     }
 
     public int inserirProduto(String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, String valorVenda, String valorCompra) {

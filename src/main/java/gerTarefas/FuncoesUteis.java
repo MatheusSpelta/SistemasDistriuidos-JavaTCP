@@ -102,7 +102,7 @@ public class FuncoesUteis {
                 || CNPJ.equals("44444444444444") || CNPJ.equals("55555555555555")
                 || CNPJ.equals("66666666666666") || CNPJ.equals("77777777777777")
                 || CNPJ.equals("88888888888888") || CNPJ.equals("99999999999999")
-                || (CNPJ.length() != 18)) {
+                || (CNPJ.length() != 14)) {
             return (false);
         }
 
