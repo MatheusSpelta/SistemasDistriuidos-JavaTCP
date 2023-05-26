@@ -51,7 +51,7 @@ public class Cliente {
     private LocalDate dataCadastro;
 
     @Column(name = "qtdPontos")
-    private Integer Pontos;
+    private int Pontos;
 
     @Column(name = "ativo")
     private Boolean ativo;
@@ -161,8 +161,16 @@ public class Cliente {
     public Cliente() {
     }
 
+    public String toStringId() {
+        return "Cliente{" + "idCliente=" + idCliente + '}';
+    }
+
+    public String toStringPontos() {
+        return "Cliente{" + "Pontos=" + Pontos + '}';
+    }
+
     public Object[] toArray() throws ParseException {
-        return new Object[]{this.getIdCliente(), this.getNome(), this.getPontos(), this.getCpf(), this.getCnpj(), endereco.getCidade(), endereco.getUf(), this.getAtivo()};
+        return new Object[]{this, endereco.getBairro(), endereco.getNumero(), endereco.getRua(), endereco.getCidade(), endereco.getUf()};
     }
 
 }

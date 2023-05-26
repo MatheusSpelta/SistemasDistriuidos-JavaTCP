@@ -11,6 +11,8 @@ import gerTarefas.FuncoesUteis;
 import gerTarefas.GerInterGrafica;
 import java.awt.Color;
 import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 
@@ -96,8 +98,8 @@ public class DlgMenuClient extends javax.swing.JDialog {
 
     private void preencherCampos(Cliente cli) throws ParseException {
         if (cli != null) {
-            txtCodigo.setText(String.valueOf(cli.getIdCliente()));
-            txtPontos.setText(String.valueOf(cli.getPontos()));
+            txtCodigo.setText(String.valueOf(cli.toStringId()));
+            txtPontos.setText(String.valueOf(cli.toStringPontos()));
             txtNome.setText(cli.getNome());
             txtCelular.setText(cli.getCelular());
             txtCEP.setText(cli.getEndereco().getCep());
@@ -567,7 +569,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
         try {
             preencherCampos(cliSelecionado);
         } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(this, ex, "Erro Cliente", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(DlgMenuClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 

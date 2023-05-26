@@ -4,6 +4,9 @@
  */
 package intergraf;
 
+import dominio.Cliente;
+import dominio.Produto;
+import dominio.Venda;
 import gerTarefas.GerInterGrafica;
 
 /**
@@ -13,6 +16,9 @@ import gerTarefas.GerInterGrafica;
 public class DlgMenuVenda extends javax.swing.JDialog {
 
     private GerInterGrafica gerIG;
+    private Venda venSelecionada;
+    private Cliente cliSelecionado;
+    private Produto proSelecionado;
 
     /**
      * Creates new form DlgMenuVenda
@@ -115,6 +121,12 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         txtCidadeCliente.setFocusable(false);
 
         lblCodigoCliente.setText("Codigo");
+
+        btnPesquisarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarClienteActionPerformed(evt);
+            }
+        });
 
         lblDocumentoCliente.setText("Documento");
 
@@ -490,6 +502,11 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_chckEntregaActionPerformed
 
+    private void btnPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClienteActionPerformed
+        cliSelecionado = gerIG.janelaPesqCliente();
+        preencherCamposCliente(cliSelecionado);
+    }//GEN-LAST:event_btnPesquisarClienteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -551,4 +568,16 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     private javax.swing.JTextField txtTotalVenda;
     private javax.swing.JTextField txtValorUnit;
     // End of variables declaration//GEN-END:variables
+
+    private void preencherCamposCliente(Cliente cliSelecionado) {
+
+    }
+
+    private void preencherCamposProduto(Produto proSelecionado) {
+
+    }
+
+    private void preencherCamposVenda(Venda venSelecionada) {
+
+    }
 }
