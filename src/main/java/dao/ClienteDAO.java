@@ -6,7 +6,14 @@ package dao;
 
 import dominio.Cliente;
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
 
 /**
  *
@@ -15,7 +22,58 @@ import org.hibernate.HibernateException;
 public class ClienteDAO extends GenericDAO {
 
     private List<Cliente> pesquisar(String pesq, int tipo) throws HibernateException {
-        return listar(Cliente.class);
+        List lista = null;
+        Session sessao = null;
+
+        try {
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            sessao.beginTransaction();
+
+            CriteriaBuilder builder = sessao.getCriteriaBuilder();
+            CriteriaQuery consulta = builder.createQuery(Cliente.class);
+
+            Root tabela = consulta.from(Cliente.class);
+
+            Predicate restricoes = null;
+
+            switch (tipo) {
+                case 0:
+                    Expression exp = builder.function("Integer", Integer.class, tabela.get("idCliente"));
+                    restricoes = builder.equal(exp, pesq);
+                    break;
+                case 1:
+                    restricoes = builder.like(tabela.get("nome"), pesq + "%");
+                    break;
+                case 2:
+                    exp = builder.function("Integer", Integer.class, tabela.get("pontos"));
+                    restricoes = builder.equal(exp, pesq);
+                    break;
+                case 3:
+                    restricoes = builder.like(tabela.get("cpf"), pesq + "%");
+                    break;
+                case 4:
+                    restricoes = builder.like(tabela.get("cnpj"), pesq + "%");
+                    break;
+                case 5:
+                    restricoes = builder.like(tabela.get("endereco").get("cidade"), pesq + "%");
+                    break;
+                case 6:
+                    restricoes = builder.like(tabela.get("endereco").get("UF"), pesq + "%");
+                    break;
+            }
+            consulta.where(restricoes);
+            lista = sessao.createQuery(consulta).getResultList();
+
+            sessao.getTransaction().commit();
+            sessao.close();
+        } catch (HibernateException ex) {
+            if (sessao != null) {
+                sessao.getTransaction().rollback();
+                sessao.close();
+            }
+            throw new HibernateException(ex);
+        }
+        return lista;
     }
 
     public List<Cliente> pesquisarCodigo(String pesq) {

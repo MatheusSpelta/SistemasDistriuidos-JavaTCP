@@ -505,6 +505,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     private void btnPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClienteActionPerformed
         cliSelecionado = gerIG.janelaPesqCliente();
         preencherCamposCliente(cliSelecionado);
+
     }//GEN-LAST:event_btnPesquisarClienteActionPerformed
 
     /**
@@ -569,8 +570,20 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     private javax.swing.JTextField txtValorUnit;
     // End of variables declaration//GEN-END:variables
 
-    private void preencherCamposCliente(Cliente cliSelecionado) {
-
+    private void preencherCamposCliente(Cliente cli) {
+        if (cli != null) {
+            txtCodigo.setText(String.valueOf(cli.getIdCliente()));
+            txtNomeCliente.setText(cli.getNome());
+            txtCidadeCliente.setText(cli.getEndereco().getCidade());
+            txtRuaCliente.setText(cli.getEndereco().getRua());
+            txtBairroCliente.setText(cli.getEndereco().getBairro());
+            txtNumeroCliente.setText(String.valueOf(cli.getEndereco().getNumero()));
+            if (cli.getCpf() != null) {
+                txtDocumentoCliente.setText(cli.getCpf());
+            } else {
+                txtDocumentoCliente.setText(cli.getCnpj());
+            }
+        }
     }
 
     private void preencherCamposProduto(Produto proSelecionado) {

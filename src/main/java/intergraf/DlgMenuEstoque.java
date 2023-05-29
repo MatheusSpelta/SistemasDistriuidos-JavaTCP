@@ -39,6 +39,18 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
         txtValorVenda.setText("");
     }
 
+    private void preencherCampos(Produto pro) {
+        if (pro != null) {
+            chckAtivo.setEnabled(pro.isAtivo());
+            txtDescricao.setText(pro.getDescricao());
+            txtMarca.setText(pro.getMarca());
+            spnEstoque.setValue(pro.getQuantidade());
+            txtValorCompra.setText(pro.getValorCompra());
+            txtValorVenda.setText(pro.getValorVenda());
+            cmbUniMedida.setSelectedItem(pro.getUnidadeMedida());
+        }
+    }
+
     private boolean validarCampos() {
         String msgErro = "";
         lblDescricao.setForeground(Color.black);
@@ -104,8 +116,15 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Estoque");
         setName("Estoque"); // NOI18N
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         lblCodigo.setText("Codigo");
+
+        txtCodigo.setEnabled(false);
 
         btnPesquisar.setText("jButton1");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -282,6 +301,10 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
         preencherCampos(proSelecionado);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        gerIG.carregarComboUnidadeMedida(cmbUniMedida, Produto.class);
+    }//GEN-LAST:event_formComponentShown
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnPesquisar;
@@ -305,7 +328,4 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
     private javax.swing.JTextField txtValorVenda;
     // End of variables declaration//GEN-END:variables
 
-    private void preencherCampos(Produto proSelecionado) {
-
-    }
 }

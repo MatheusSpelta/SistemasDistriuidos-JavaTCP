@@ -5,9 +5,11 @@
 package dominio;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -166,6 +168,10 @@ public class Produto {
 
     public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
         this.unidadeMedida = unidadeMedida;
+    }
+
+    public Object[] toArray() throws ParseException {
+        return new Object[]{this};
     }
 
 }

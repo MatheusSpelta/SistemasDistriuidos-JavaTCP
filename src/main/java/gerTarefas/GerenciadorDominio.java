@@ -108,4 +108,17 @@ public class GerenciadorDominio {
         genDAO.excluir(obj);
     }
 
+    public List<Produto> pesquisarProduto(String pesq, int tipo) throws HibernateException {
+        List<Produto> lista = null;
+        switch (tipo) {
+            case 0:
+                lista = proDAO.pesquisarDescricao(pesq);
+                break;
+            case 1:
+                lista = proDAO.pesquisarMarca(pesq);
+                break;
+        }
+        return lista;
+    }
+
 }
