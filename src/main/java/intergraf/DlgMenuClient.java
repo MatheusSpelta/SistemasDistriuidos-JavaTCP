@@ -41,6 +41,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
         lblCPF.setForeground(Color.black);
         lblCNPJ.setForeground(Color.black);
         lblCelular.setForeground(Color.black);
+        lblNumero.setForeground(Color.black);
 
         if (txtNome.getText().isEmpty()) {
             msgErro = msgErro + "Digite seu nome. \n";
@@ -51,11 +52,10 @@ public class DlgMenuClient extends javax.swing.JDialog {
             lblCEP.setForeground(Color.red);
         }
 
-        if (txtCelular.getText().isEmpty()) {
+        /*if (txtCelular.getText().isEmpty()) {
             msgErro = msgErro + "Celular Invalido. \n";
             lblCelular.setForeground(Color.red);
-        }
-
+        }*/
         if (rdbCNPJ.isSelected()) {
             if (FuncoesUteis.isCNPJ(txtCNPJ.getText().replaceAll("[^0-9]+", "")) == false) {
                 msgErro = msgErro + "CNPJ invalido. \n";
@@ -67,6 +67,11 @@ public class DlgMenuClient extends javax.swing.JDialog {
                 msgErro = msgErro + "CPF invalido. \n";
                 lblCPF.setForeground(Color.red);
             }
+        }
+
+        if (txtNumero.getText().isEmpty()) {
+            msgErro = msgErro + "Informe o numero da residencia. \n";
+            lblNumero.setForeground(Color.red);
         }
 
         if (msgErro.isEmpty()) {
@@ -507,12 +512,13 @@ public class DlgMenuClient extends javax.swing.JDialog {
     private void rdbCNPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbCNPJActionPerformed
         if (rdbCNPJ.isSelected()) {
             txtCNPJ.setEnabled(true);
+            txtCPF.setText("");
             txtCPF.setEnabled(false);
         }
     }//GEN-LAST:event_rdbCNPJActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Integer pontos = Integer.valueOf(txtPontos.getText());
+        int pontos = 0;
         boolean ativo = chckAtivo.isSelected();
         String nome = txtNome.getText();
         String cnpj = txtCNPJ.getText();
@@ -554,6 +560,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
     private void rdbCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbCPFActionPerformed
         if (rdbCPF.isSelected()) {
             txtCNPJ.setEnabled(false);
+            txtCNPJ.setText("");
             txtCPF.setEnabled(true);
         }
     }//GEN-LAST:event_rdbCPFActionPerformed

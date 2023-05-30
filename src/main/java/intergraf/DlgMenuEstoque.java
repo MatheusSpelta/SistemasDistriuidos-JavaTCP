@@ -286,6 +286,10 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
                     int id = gerIG.getGerDominio().inserirProduto(descricao, marca, unidadeMedida, estoque, valorCompra, valorVenda);
                     limparCampos();
                     JOptionPane.showMessageDialog(this, "Produto " + id + " inseriddo com sucesso.", "Inserir Produto", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    gerIG.getGerDominio().alterarProduto(proSelecionado, descricao, marca, unidadeMedida, estoque, valorCompra, valorVenda);
+                    limparCampos();
+                    JOptionPane.showMessageDialog(this, "Produto" + proSelecionado.getId() + " alterado com sucesso.", "Alterar produto", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (HibernateException ex) {
                 JOptionPane.showMessageDialog(this, ex, "Erro Produto", JOptionPane.ERROR_MESSAGE);

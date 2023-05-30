@@ -71,6 +71,17 @@ public class GerenciadorDominio {
         cliDAO.alterar(cli);
     }
 
+    public void alterarProduto(Produto pro, String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, String valorVenda, String valorCompra) {
+        pro.setDescricao(descricao);
+        pro.setMarca(marca);
+        pro.setUnidadeMedida(unidadeMedida);
+        pro.setQuantidade(estoque);
+        pro.setValorCompra(valorCompra);
+        pro.setValorVenda(valorVenda);
+
+        proDAO.alterar(pro);
+    }
+
     public List<Cliente> pesquisarCliente(String pesq, int tipo) throws HibernateException {
         List<Cliente> lista = null;
         switch (tipo) {
