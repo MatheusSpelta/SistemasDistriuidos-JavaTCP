@@ -302,7 +302,7 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        gerIG.carregarComboUnidadeMedida(cmbUniMedida, Produto.class);
+        gerIG.carregarComboUnidadeMedida(cmbUniMedida, UnidadeMedida.class);
     }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

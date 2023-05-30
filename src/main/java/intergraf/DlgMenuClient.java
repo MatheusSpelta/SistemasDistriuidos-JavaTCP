@@ -51,9 +51,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
             lblCEP.setForeground(Color.red);
         }
 
-        try {
-            int num = Integer.parseInt(txtCelular.getText());
-        } catch (NumberFormatException erro) {
+        if (txtCelular.getText().isEmpty()) {
             msgErro = msgErro + "Celular Invalido. \n";
             lblCelular.setForeground(Color.red);
         }

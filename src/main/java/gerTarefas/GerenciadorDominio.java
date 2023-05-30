@@ -75,24 +75,18 @@ public class GerenciadorDominio {
         List<Cliente> lista = null;
         switch (tipo) {
             case 0:
-                lista = cliDAO.pesquisarCodigo(pesq);
-                break;
-            case 1:
                 lista = cliDAO.pesquisarNome(pesq);
                 break;
-            case 2:
-                lista = cliDAO.pesquisarPontos(pesq);
-                break;
-            case 3:
+            case 1:
                 lista = cliDAO.pesquisarCPF(pesq);
                 break;
-            case 4:
+            case 2:
                 lista = cliDAO.pesquisarCNPJ(pesq);
                 break;
-            case 5:
+            case 3:
                 lista = cliDAO.pesquisarCidade(pesq);
                 break;
-            case 6:
+            case 4:
                 lista = cliDAO.pesquisarUF(pesq);
                 break;
 

@@ -38,26 +38,18 @@ public class ClienteDAO extends GenericDAO {
 
             switch (tipo) {
                 case 0:
-                    Expression exp = builder.function("Integer", Integer.class, tabela.get("idCliente"));
-                    restricoes = builder.equal(exp, pesq);
-                    break;
-                case 1:
                     restricoes = builder.like(tabela.get("nome"), pesq + "%");
                     break;
-                case 2:
-                    exp = builder.function("Integer", Integer.class, tabela.get("pontos"));
-                    restricoes = builder.equal(exp, pesq);
-                    break;
-                case 3:
+                case 1:
                     restricoes = builder.like(tabela.get("cpf"), pesq + "%");
                     break;
-                case 4:
+                case 2:
                     restricoes = builder.like(tabela.get("cnpj"), pesq + "%");
                     break;
-                case 5:
+                case 3:
                     restricoes = builder.like(tabela.get("endereco").get("cidade"), pesq + "%");
                     break;
-                case 6:
+                case 4:
                     restricoes = builder.like(tabela.get("endereco").get("UF"), pesq + "%");
                     break;
             }
@@ -76,31 +68,23 @@ public class ClienteDAO extends GenericDAO {
         return lista;
     }
 
-    public List<Cliente> pesquisarCodigo(String pesq) {
+    public List<Cliente> pesquisarNome(String pesq) {
         return pesquisar(pesq, 0);
     }
 
-    public List<Cliente> pesquisarNome(String pesq) {
+    public List<Cliente> pesquisarCPF(String pesq) {
         return pesquisar(pesq, 1);
     }
 
-    public List<Cliente> pesquisarPontos(String pesq) {
+    public List<Cliente> pesquisarCNPJ(String pesq) {
         return pesquisar(pesq, 2);
     }
 
-    public List<Cliente> pesquisarCPF(String pesq) {
+    public List<Cliente> pesquisarCidade(String pesq) {
         return pesquisar(pesq, 3);
     }
 
-    public List<Cliente> pesquisarCNPJ(String pesq) {
-        return pesquisar(pesq, 4);
-    }
-
-    public List<Cliente> pesquisarCidade(String pesq) {
-        return pesquisar(pesq, 5);
-    }
-
     public List<Cliente> pesquisarUF(String pesq) {
-        return pesquisar(pesq, 6);
+        return pesquisar(pesq, 4);
     }
 }

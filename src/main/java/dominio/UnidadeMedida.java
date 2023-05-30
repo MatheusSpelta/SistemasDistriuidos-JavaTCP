@@ -44,4 +44,33 @@ public class UnidadeMedida implements Serializable {
         return "UnidadeMedida{" + "unidadeMedida=" + unidadeMedida + '}';
     }
 
+    public int getIdUnidadeMedida() {
+        return idUnidadeMedida;
+    }
+
+    public void setIdUnidadeMedida(int idUnidadeMedida) {
+        this.idUnidadeMedida = idUnidadeMedida;
+    }
+
+    public String getUnidadeMedida() {
+        return unidadeMedida;
+    }
+
+    public void setUnidadeMedida(String unidadeMedida) {
+        this.unidadeMedida = unidadeMedida;
+    }
+
+    public UnidadeMedida(int idUnidadeMedida, String unidadeMedida) {
+        this.idUnidadeMedida = idUnidadeMedida;
+        this.unidadeMedida = unidadeMedida;
+    }
+
+    @Override
+    public String toString() {
+        return unidadeMedida;
+    }
+
+    public UnidadeMedida() {
+    }
+
 }

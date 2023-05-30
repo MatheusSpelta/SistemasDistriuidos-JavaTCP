@@ -170,7 +170,12 @@ public class Cliente {
     }
 
     public Object[] toArray() throws ParseException {
-        return new Object[]{this, endereco.getBairro(), endereco.getNumero(), endereco.getRua(), endereco.getCidade(), endereco.getUf()};
+        return new Object[]{this.idCliente, this.nome, this.Pontos, this.cpf, this.cnpj, endereco.getCidade(), endereco.getUf(), this.ativo};
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 
 }
