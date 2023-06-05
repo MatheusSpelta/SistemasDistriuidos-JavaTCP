@@ -43,10 +43,10 @@ public class Produto {
     private Integer quantidade;
 
     @Column(name = "valor_venda")
-    private String valorVenda;
+    private float valorVenda;
 
     @Column(name = "valor_Compra")
-    private String valorCompra;
+    private float valorCompra;
 
     @Column(name = "ativo")
     private boolean ativo;
@@ -67,7 +67,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(int id, String descricao, String descricaoLonga, String marca, Integer quantidade, UnidadeMedida unidadeMedida, String valorVenda, String valorCompra, boolean ativo, LocalDate dataCadastro) {
+    public Produto(int id, String descricao, String descricaoLonga, String marca, Integer quantidade, UnidadeMedida unidadeMedida, float valorVenda, float valorCompra, boolean ativo, LocalDate dataCadastro) {
         this.id = id;
         this.descricao = descricao;
         this.marca = marca;
@@ -79,7 +79,7 @@ public class Produto {
         this.dataCadastro = LocalDate.now();
     }
 
-    public Produto(String descricao, String marca, Integer quantidade, String valorVenda, String valorCompra, UnidadeMedida unidadeMedida) {
+    public Produto(String descricao, String marca, Integer quantidade, float valorVenda, float valorCompra, UnidadeMedida unidadeMedida) {
         this.descricao = descricao;
         this.marca = marca;
         this.quantidade = quantidade;
@@ -122,19 +122,19 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public String getValorVenda() {
+    public Float getValorVenda() {
         return valorVenda;
     }
 
-    public void setValorVenda(String valorVenda) {
+    public void setValorVenda(Float valorVenda) {
         this.valorVenda = valorVenda;
     }
 
-    public String getValorCompra() {
+    public Float getValorCompra() {
         return valorCompra;
     }
 
-    public void setValorCompra(String valorCompra) {
+    public void setValorCompra(Float valorCompra) {
         this.valorCompra = valorCompra;
     }
 
@@ -171,7 +171,7 @@ public class Produto {
     }
 
     public Object[] toArray() throws ParseException {
-        return new Object[]{this};
+        return new Object[]{this,};
     }
 
 }

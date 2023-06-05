@@ -177,7 +177,13 @@ public class DlgPesquisaProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
-        // TODO add your handling code here:
+        int linha = tblProdutos.getSelectedRow();
+        if (linha >= 0) {
+            proSelecionado = (Produto) tblProdutos.getValueAt(linha, 0);
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um produto.", "Pesquisar Produto.", JOptionPane.ERROR_MESSAGE);
+        }
+        this.setVisible(false);
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
     /**

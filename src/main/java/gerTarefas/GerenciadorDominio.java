@@ -41,7 +41,7 @@ public class GerenciadorDominio {
         venDAO = new VendaDAO();
     }
 
-    public int inserirProduto(String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, String valorVenda, String valorCompra) {
+    public int inserirProduto(String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, Float valorVenda, Float valorCompra) {
         Produto pro = new Produto(descricao, marca, estoque, valorVenda, valorCompra, unidadeMedida);
         proDAO.inserir(pro);
         return pro.getId();
@@ -54,7 +54,8 @@ public class GerenciadorDominio {
         return cli.getIdCliente();
     }
 
-    public void alterarCliente(Cliente cli, boolean ativo, int pontos, String nome, String CPF, String CNPJ, String celular, String CEP, String cidade, String rua, String bairro, int numero, String UF) throws HibernateException {
+    public void alterarCliente(Cliente cli, int id, boolean ativo, String nome, String CPF, String CNPJ, String celular, String CEP, String cidade, String rua, String bairro, int numero, String UF) throws HibernateException {
+        cli.setIdCliente(id);
         cli.setNome(nome);
         cli.setCpf(CPF);
         cli.setCnpj(CNPJ);
@@ -66,12 +67,11 @@ public class GerenciadorDominio {
         cli.getEndereco().setNumero(numero);
         cli.getEndereco().setUf(UF);
         cli.setAtivo(ativo);
-        cli.setPontos(pontos);
 
         cliDAO.alterar(cli);
     }
 
-    public void alterarProduto(Produto pro, String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, String valorVenda, String valorCompra) {
+    public void alterarProduto(Produto pro, String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, Float valorVenda, Float valorCompra) {
         pro.setDescricao(descricao);
         pro.setMarca(marca);
         pro.setUnidadeMedida(unidadeMedida);

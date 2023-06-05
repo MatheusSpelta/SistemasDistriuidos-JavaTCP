@@ -50,9 +50,6 @@ public class Cliente {
     @Column(name = "data_cadastro")
     private LocalDate dataCadastro;
 
-    @Column(name = "qtdPontos")
-    private int Pontos;
-
     @Column(name = "ativo")
     private Boolean ativo;
 
@@ -72,7 +69,6 @@ public class Cliente {
         this.celular = celular;
         this.endereco = endereco;
         this.dataCadastro = LocalDate.now();
-        this.Pontos = 0;
         this.ativo = true;
         endereco.setCliente(this);
 
@@ -118,14 +114,6 @@ public class Cliente {
         this.dataCadastro = dataCadastro;
     }
 
-    public Integer getPontos() {
-        return Pontos;
-    }
-
-    public void setPontos(Integer qtdProntos) {
-        this.Pontos = qtdProntos;
-    }
-
     public Boolean getAtivo() {
         return ativo;
     }
@@ -165,12 +153,8 @@ public class Cliente {
         return "Cliente{" + "idCliente=" + idCliente + '}';
     }
 
-    public String toStringPontos() {
-        return "Cliente{" + "Pontos=" + Pontos + '}';
-    }
-
     public Object[] toArray() throws ParseException {
-        return new Object[]{this.idCliente, this.nome, this.Pontos, this.cpf, this.cnpj, endereco.getCidade(), endereco.getUf(), this.ativo};
+        return new Object[]{this, this.idCliente, this.cpf, this.cnpj, endereco.getCidade(), endereco.getUf(), this.ativo};
     }
 
     @Override
