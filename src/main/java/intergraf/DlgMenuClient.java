@@ -84,7 +84,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
 
     private void limparCampos() {
         txtCodigo.setText("");
-        txtPontos.setText("");
+
         txtNome.setText("");
         rdbCPF.setSelected(true);
         rdbCNPJ.setSelected(false);
@@ -106,7 +106,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
     private void preencherCampos(Cliente cli) throws ParseException {
         if (cli != null) {
             txtCodigo.setText(String.valueOf(cli.getIdCliente()));
-            txtPontos.setText(String.valueOf(cli.getPontos()));
             txtNome.setText(cli.getNome());
             txtCelular.setText(cli.getCelular());
             txtCEP.setText(cli.getEndereco().getCep());
@@ -116,7 +115,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
             txtNumero.setText(String.valueOf(cli.getEndereco().getNumero()));
             txtUF.setText(cli.getEndereco().getUf());
 
-            if (cli.getCpf() != null) {
+            if (cli.getCnpj() == null) {
                 rdbCPF.setSelected(true);
                 txtCPF.setText(cli.getCpf());
             } else {
@@ -150,7 +149,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
         lblCNPJ = new javax.swing.JLabel();
         txtCPF = new javax.swing.JFormattedTextField();
         txtCNPJ = new javax.swing.JFormattedTextField();
-        jLabel5 = new javax.swing.JLabel();
         lblCelular = new javax.swing.JLabel();
         txtCelular = new javax.swing.JFormattedTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -171,7 +169,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         chckAtivo = new javax.swing.JCheckBox();
-        txtPontos = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -275,8 +272,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
                     .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-
-        jLabel5.setText("Pontos");
 
         lblCelular.setText("N° Celular");
 
@@ -419,8 +414,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
         chckAtivo.setSelected(true);
         chckAtivo.setText("Ativo");
 
-        txtPontos.setEnabled(false);
-
         btnPesquisar.setText("jButton1");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -455,10 +448,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
                                         .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(54, 54, 54)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPontos, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(chckAtivo))
                             .addComponent(txtNome)))
@@ -481,8 +470,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtPontos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnPesquisar)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -542,8 +529,8 @@ public class DlgMenuClient extends javax.swing.JDialog {
                     limparCampos();
                     JOptionPane.showMessageDialog(this, "Cliente " + id + " inseriddo com sucesso.", "Inserir Cliente", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    gerIG.getGerDominio().alterarCliente(cliSelecionado, ativo, pontos, nome, cpf, cnpj, celular, cep, cidade, rua, bairro, num, rua);
                     int id = cliSelecionado.getIdCliente();
+                    gerIG.getGerDominio().alterarCliente(cliSelecionado, id, ativo, nome, cpf, cnpj, celular, cep, cidade, rua, bairro, num, estado);
                     JOptionPane.showMessageDialog(this, "Cliente " + id + " alterado com sucesso!", "Alterar Cliente", JOptionPane.INFORMATION_MESSAGE);
                     cliSelecionado = null;
                 }
@@ -606,7 +593,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox chckAtivo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -633,7 +619,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumero;
-    private javax.swing.JTextField txtPontos;
     private javax.swing.JTextField txtRua;
     private javax.swing.JTextField txtUF;
     // End of variables declaration//GEN-END:variables
