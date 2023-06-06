@@ -115,12 +115,19 @@ public class DlgMenuClient extends javax.swing.JDialog {
             txtNumero.setText(String.valueOf(cli.getEndereco().getNumero()));
             txtUF.setText(cli.getEndereco().getUf());
 
-            if (cli.getCnpj() == null) {
+            if ((cli.getCpf().replaceAll("[^0-9]+", "")) != null) {
                 rdbCPF.setSelected(true);
+                rdbCNPJ.setSelected(false);
                 txtCPF.setText(cli.getCpf());
-            } else {
+                txtCPF.setEnabled(true);
+                txtCNPJ.setEnabled(false);
+            }
+            if ((cli.getCnpj().replaceAll("[^0-9]+", "")) != null) {
                 rdbCNPJ.setSelected(true);
+                rdbCPF.setSelected(false);
                 txtCNPJ.setText(cli.getCnpj());
+                txtCNPJ.setEnabled(true);
+                txtCPF.setEnabled(false);
             }
 
         }
@@ -526,13 +533,13 @@ public class DlgMenuClient extends javax.swing.JDialog {
 
                 if (cliSelecionado == null) {
                     int id = gerIG.getGerDominio().inserirCliente(nome, cpf, cnpj, celular, cep, cidade, rua, bairro, num, estado);
-                    limparCampos();
                     JOptionPane.showMessageDialog(this, "Cliente " + id + " inseriddo com sucesso.", "Inserir Cliente", JOptionPane.INFORMATION_MESSAGE);
+                    limparCampos();
                 } else {
                     int id = cliSelecionado.getIdCliente();
                     gerIG.getGerDominio().alterarCliente(cliSelecionado, id, ativo, nome, cpf, cnpj, celular, cep, cidade, rua, bairro, num, estado);
                     JOptionPane.showMessageDialog(this, "Cliente " + id + " alterado com sucesso!", "Alterar Cliente", JOptionPane.INFORMATION_MESSAGE);
-                    cliSelecionado = null;
+                    limparCampos();
                 }
             } catch (HibernateException ex) {
                 JOptionPane.showMessageDialog(this, ex, "Erro Cliente", JOptionPane.ERROR_MESSAGE);
@@ -540,8 +547,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, ex, "Erro Cliente", JOptionPane.ERROR_MESSAGE);
             }
         }
-        cliSelecionado = null;
-
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void rdbCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbCPFActionPerformed
@@ -569,6 +574,7 @@ public class DlgMenuClient extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        limparCampos();
         cliSelecionado = gerIG.janelaPesqCliente();
         try {
             preencherCampos(cliSelecionado);

@@ -149,17 +149,13 @@ public class Cliente {
     public Cliente() {
     }
 
-    public String toStringId() {
-        return "Cliente{" + "idCliente=" + idCliente + '}';
-    }
-
     public Object[] toArray() throws ParseException {
-        return new Object[]{this, this.idCliente, this.cpf, this.cnpj, endereco.getCidade(), endereco.getUf(), this.ativo};
+        return new Object[]{this, this.nome, this.cpf, this.cnpj, endereco.getCidade(), endereco.getUf(), this.ativo};
     }
 
     @Override
     public String toString() {
-        return nome;
+        return "" + idCliente;
     }
 
 }

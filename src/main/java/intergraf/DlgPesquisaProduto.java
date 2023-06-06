@@ -70,24 +70,28 @@ public class DlgPesquisaProduto extends javax.swing.JDialog {
 
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Descricao", "Marca", "Valor venda"
+                "Codigo", "Descricao", "Marca", "Valor Venda", "Valor venda"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tblProdutos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblProdutos);
+        if (tblProdutos.getColumnModel().getColumnCount() > 0) {
+            tblProdutos.getColumnModel().getColumn(0).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

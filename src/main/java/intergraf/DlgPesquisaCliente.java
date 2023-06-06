@@ -56,7 +56,7 @@ public class DlgPesquisaCliente extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", " ", "CPF", "CNPJ", "Telefone", "Cidade", "Estado", " " }));
+        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "CPF", "CNPJ", "Telefone", "Cidade", "Estado", " " }));
 
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -69,17 +69,17 @@ public class DlgPesquisaCliente extends javax.swing.JDialog {
 
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nome", "Pontos", "CPF", "CNPJ", "Cidade", "Estado", "Ativo"
+                "Codigo", "Nome", "CPF", "CNPJ", "Cidade", "Estado", "Ativo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

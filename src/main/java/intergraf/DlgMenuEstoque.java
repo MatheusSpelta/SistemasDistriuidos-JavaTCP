@@ -110,13 +110,13 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
         lblEstoque = new javax.swing.JLabel();
         spnEstoque = new javax.swing.JSpinner();
         lblValorCompra = new javax.swing.JLabel();
-        txtValorCompra = new javax.swing.JTextField();
         lblValorVenda = new javax.swing.JLabel();
-        txtValorVenda = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
+        txtValorCompra = new javax.swing.JFormattedTextField();
+        txtValorVenda = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Estoque");
@@ -138,6 +138,7 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
             }
         });
 
+        chckAtivo.setSelected(true);
         chckAtivo.setText("Ativo");
 
         lblDescricao.setText("Descrição");
@@ -199,6 +200,10 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
                 .addGap(14, 14, 14))
         );
 
+        txtValorCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+
+        txtValorVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -230,15 +235,15 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cmbUniMedida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtValorCompra))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblEstoque, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblValorVenda, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(spnEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44))))
+                            .addComponent(spnEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                            .addComponent(txtValorVenda))
+                        .addGap(59, 59, 59))))
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
@@ -266,11 +271,12 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
                     .addComponent(spnEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblValorVenda, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblValorCompra)
+                        .addComponent(txtValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblValorCompra)))
+                        .addComponent(lblValorVenda)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -292,19 +298,20 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
         String marca = txtMarca.getText();
         UnidadeMedida unidadeMedida = (UnidadeMedida) cmbUniMedida.getSelectedItem();
         int estoque = Integer.parseInt(spnEstoque.getValue().toString());
-        float valorCompra = Float.parseFloat(txtValorCompra.getText());
-        float valorVenda = Float.parseFloat(txtValorVenda.getText());
+        Float valorCompra = Float.parseFloat(txtValorCompra.getText());
+        Float valorVenda = Float.parseFloat(txtValorVenda.getText());
 
         if (validarCampos()) {
             try {
                 if (proSelecionado == null) {
-                    int id = gerIG.getGerDominio().inserirProduto(descricao, marca, unidadeMedida, estoque, valorCompra, valorVenda);
+                    int id = gerIG.getGerDominio().inserirProduto(descricao, marca, unidadeMedida, estoque, valorVenda, valorCompra);
                     limparCampos();
                     JOptionPane.showMessageDialog(this, "Produto " + id + " inseriddo com sucesso.", "Inserir Produto", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    gerIG.getGerDominio().alterarProduto(proSelecionado, descricao, marca, unidadeMedida, estoque, valorCompra, valorVenda);
+                    gerIG.getGerDominio().alterarProduto(proSelecionado, descricao, marca, unidadeMedida, estoque, valorVenda, valorCompra);
+                    JOptionPane.showMessageDialog(this, "Produto " + proSelecionado.getId() + " alterado com sucesso.", "Alterar produto", JOptionPane.INFORMATION_MESSAGE);
                     limparCampos();
-                    JOptionPane.showMessageDialog(this, "Produto" + proSelecionado.getId() + " alterado com sucesso.", "Alterar produto", JOptionPane.INFORMATION_MESSAGE);
+                    proSelecionado = null;
                 }
             } catch (HibernateException ex) {
                 JOptionPane.showMessageDialog(this, ex, "Erro Produto", JOptionPane.ERROR_MESSAGE);
@@ -348,8 +355,8 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtMarca;
-    private javax.swing.JTextField txtValorCompra;
-    private javax.swing.JTextField txtValorVenda;
+    private javax.swing.JFormattedTextField txtValorCompra;
+    private javax.swing.JFormattedTextField txtValorVenda;
     // End of variables declaration//GEN-END:variables
 
 }
