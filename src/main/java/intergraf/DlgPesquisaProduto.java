@@ -76,7 +76,7 @@ public class DlgPesquisaProduto extends javax.swing.JDialog {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Descricao", "Marca", "Valor Venda", "Valor venda"
+                "Codigo", "Descricao", "Marca", "Valor Venda", "Quantidade"
             }
         ) {
             boolean[] canEdit = new boolean [] {

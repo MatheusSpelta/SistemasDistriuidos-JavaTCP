@@ -115,14 +115,13 @@ public class DlgMenuClient extends javax.swing.JDialog {
             txtNumero.setText(String.valueOf(cli.getEndereco().getNumero()));
             txtUF.setText(cli.getEndereco().getUf());
 
-            if ((cli.getCpf().replaceAll("[^0-9]+", "")) != null) {
+            if (FuncoesUteis.isCPF(cli.getCpf())) {
                 rdbCPF.setSelected(true);
                 rdbCNPJ.setSelected(false);
                 txtCPF.setText(cli.getCpf());
                 txtCPF.setEnabled(true);
                 txtCNPJ.setEnabled(false);
-            }
-            if ((cli.getCnpj().replaceAll("[^0-9]+", "")) != null) {
+            } else {
                 rdbCNPJ.setSelected(true);
                 rdbCPF.setSelected(false);
                 txtCNPJ.setText(cli.getCnpj());
