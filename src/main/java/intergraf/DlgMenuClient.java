@@ -524,8 +524,6 @@ public class DlgMenuClient extends javax.swing.JDialog {
         String estado = txtUF.getText();
         String numero = txtNumero.getText();
 
-        char tipoPessoa = (char) btnGroupTipoPessoa.getSelection().getMnemonic();
-
         if (validarCampos()) {
             try {
                 int num = Integer.parseInt(numero);

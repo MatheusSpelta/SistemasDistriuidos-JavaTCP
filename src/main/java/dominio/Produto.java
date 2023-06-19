@@ -43,10 +43,10 @@ public class Produto {
     private Integer quantidade;
 
     @Column(name = "valor_venda")
-    private Float valorVenda;
+    private float valorVenda;
 
     @Column(name = "valor_Compra")
-    private Float valorCompra;
+    private float valorCompra;
 
     @Column(name = "ativo")
     private boolean ativo;
@@ -67,7 +67,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(int id, String descricao, String descricaoLonga, String marca, Integer quantidade, UnidadeMedida unidadeMedida, Float valorVenda, Float valorCompra, boolean ativo, LocalDate dataCadastro) {
+    public Produto(int id, String descricao, String descricaoLonga, String marca, Integer quantidade, UnidadeMedida unidadeMedida, float valorVenda, float valorCompra, boolean ativo, LocalDate dataCadastro) {
         this.id = id;
         this.descricao = descricao;
         this.marca = marca;

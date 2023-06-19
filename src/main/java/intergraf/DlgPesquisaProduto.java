@@ -184,10 +184,11 @@ public class DlgPesquisaProduto extends javax.swing.JDialog {
         int linha = tblProdutos.getSelectedRow();
         if (linha >= 0) {
             proSelecionado = (Produto) tblProdutos.getValueAt(linha, 0);
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um produto.", "Pesquisar Produto.", JOptionPane.ERROR_MESSAGE);
         }
-        this.setVisible(false);
+
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
     /**

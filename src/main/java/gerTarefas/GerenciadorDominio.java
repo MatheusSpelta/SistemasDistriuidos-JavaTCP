@@ -41,7 +41,7 @@ public class GerenciadorDominio {
         venDAO = new VendaDAO();
     }
 
-    public int inserirProduto(String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, Float valorVenda, Float valorCompra) {
+    public int inserirProduto(String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, float valorVenda, float valorCompra) {
         Produto pro = new Produto(descricao, marca, estoque, valorVenda, valorCompra, unidadeMedida);
         proDAO.inserir(pro);
         return pro.getId();
@@ -71,7 +71,7 @@ public class GerenciadorDominio {
         cliDAO.alterar(cli);
     }
 
-    public void alterarProduto(Produto pro, String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, Float valorVenda, Float valorCompra) {
+    public void alterarProduto(Produto pro, String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, float valorVenda, float valorCompra) {
         pro.setDescricao(descricao);
         pro.setMarca(marca);
         pro.setUnidadeMedida(unidadeMedida);

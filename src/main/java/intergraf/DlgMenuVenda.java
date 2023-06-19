@@ -9,6 +9,9 @@ import dominio.Produto;
 import dominio.Venda;
 import gerTarefas.FuncoesUteis;
 import gerTarefas.GerInterGrafica;
+import java.util.EventListener;
+import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +25,9 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     private Cliente cliSelecionado;
     private Produto proSelecionado;
     private float valorTotal = 0;
+    private float descontoTotal = 0;
+    private float totalVenda = 0;
+    private float freteTotal = 0;
 
     /**
      * Creates new form DlgMenuVenda
@@ -42,6 +48,8 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        mnuProduto = new javax.swing.JPopupMenu();
+        mnuExcluir = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lblNomeCliente = new javax.swing.JLabel();
@@ -68,9 +76,9 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         btnPesquisarProduto = new javax.swing.JButton();
         lblDescricaoProduto = new javax.swing.JLabel();
         txtDescricaoProduto = new javax.swing.JTextField();
-        lblValorUnitario = new javax.swing.JLabel();
+        lblUnitarioProduto = new javax.swing.JLabel();
         txtValorUnit = new javax.swing.JTextField();
-        lblQuantidadeProdutos = new javax.swing.JLabel();
+        lblQtdProduto = new javax.swing.JLabel();
         txtQuantidadeProduto = new javax.swing.JTextField();
         lblTotalProdutos = new javax.swing.JLabel();
         txtTotalProdutos = new javax.swing.JTextField();
@@ -99,6 +107,14 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
+
+        mnuExcluir.setText("jMenuItem1");
+        mnuExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuExcluirActionPerformed(evt);
+            }
+        });
+        mnuProduto.add(mnuExcluir);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -218,23 +234,20 @@ public class DlgMenuVenda extends javax.swing.JDialog {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 540, 140));
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setLayout(new java.awt.BorderLayout());
 
         jScrollPane2.setPreferredSize(new java.awt.Dimension(100, 100));
 
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Codigo", "Descricao", "Unitario", "Quantidade", "Desconto", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -243,24 +256,9 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tblProdutos);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 540, 180));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 540, 190));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Produto"));
 
@@ -280,9 +278,9 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         txtDescricaoProduto.setEditable(false);
         txtDescricaoProduto.setFocusable(false);
 
-        lblValorUnitario.setText("Valor Unit.");
+        lblUnitarioProduto.setText("Valor Unit.");
 
-        lblQuantidadeProdutos.setText("Quant.");
+        lblQtdProduto.setText("Quant.");
 
         lblTotalProdutos.setText("Total");
 
@@ -311,7 +309,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblQuantidadeProdutos)
+                    .addComponent(lblQtdProduto)
                     .addComponent(lblCodigoProduto)
                     .addComponent(lblTotalProdutos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -329,7 +327,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                             .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblValorUnitario, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblUnitarioProduto, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                 .addComponent(btnPesquisarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -356,23 +354,22 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                     .addComponent(lblDescricaoProduto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblValorUnitario)
+                    .addComponent(lblUnitarioProduto)
                     .addComponent(txtValorUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblQuantidadeProdutos)
+                    .addComponent(lblQtdProduto)
                     .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDescontoProduto)
                     .addComponent(txtDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAdicionarProduto)
-                        .addComponent(btnLimparProduto))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtTotalProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblTotalProdutos))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotalProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTotalProdutos)
+                    .addComponent(btnLimparProduto)
+                    .addComponent(btnAdicionarProduto))
+                .addGap(0, 7, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 540, 120));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 540, 110));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Totais"));
 
@@ -399,31 +396,31 @@ public class DlgMenuVenda extends javax.swing.JDialog {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTotalTotais)
-                            .addComponent(lblFreteTotais))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(txtFreteTotais, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblDescontoTotais)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDescontoTotais, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblTotalVenda))
-                            .addComponent(txtTotalTotais, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chckEntrega)
-                            .addComponent(txtTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(lblFormaPag)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbFormaPag, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                        .addComponent(cmbFormaPag, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDescontoTotais)
+                            .addComponent(lblTotalTotais))
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTotalTotais, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDescontoTotais, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblFreteTotais)
+                            .addComponent(lblTotalVenda))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtFreteTotais)
+                            .addComponent(txtTotalVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)))
+                    .addComponent(chckEntrega, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,24 +432,29 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                     .addComponent(chckEntrega))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFreteTotais)
-                    .addComponent(txtFreteTotais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDescontoTotais)
                     .addComponent(txtDescontoTotais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTotalVenda))
+                    .addComponent(txtFreteTotais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFreteTotais))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFormaPag)
-                    .addComponent(cmbFormaPag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblTotalVenda)
+                        .addComponent(txtTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(cmbFormaPag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblFormaPag)))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 540, 140));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 540, 120));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Venda"));
 
         lblCodigo.setText("Codigo");
+
+        txtCodigo.setEnabled(false);
+        txtCodigo.setFocusable(false);
 
         btnPesquisarVenda.setText("jButton4");
 
@@ -497,6 +499,11 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         });
 
         btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -519,10 +526,10 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar)
                     .addComponent(btnLimpar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 650, 500, 60));
+        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 630, 500, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -532,9 +539,9 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         pack();
@@ -572,9 +579,28 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         float unitario = Float.parseFloat(txtValorUnit.getText());
         float desconto = Float.parseFloat(txtDescontoProduto.getText());
         int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
-        valorTotal = valorTotal + (quantidade * unitario) - desconto;
+        valorTotal = valorTotal + (unitario * quantidade);
+        descontoTotal = descontoTotal + desconto;
         adicionarTabela(pro, descricao, unitario, quantidade, desconto, valorTotal);
+        txtTotalTotais.setText(Float.toString(valorTotal));
+        txtDescontoTotais.setText(Float.toString(descontoTotal));
+        calcularTotais(valorTotal, descontoTotal);
+
     }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
+
+    private void calcularTotais(float valorTot, float descTot) {
+        if (chckEntrega.isSelected()) {
+            float frete = Float.parseFloat(txtFreteTotais.getText());
+            totalVenda = valorTot - descTot + frete;
+        } else {
+            totalVenda = valorTot - descTot;
+        }
+        txtTotalVenda.setText(Float.toString(totalVenda));
+    }
+
+    private void validarCamposProdutos() {
+
+    }
 
     private void adicionarTabela(Produto cod, String descricao, float valorUni, int quantidade, float Desconto, float valorTotal) {
 
@@ -583,24 +609,44 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         int linha = tblProdutos.getRowCount() - 1;
         int col = 0;
         tblProdutos.setValueAt(cod, linha, col++);
-        tblProdutos.setValueAt(descricao, linha, col);
-        tblProdutos.setValueAt(valorUni, linha, col);
-        tblProdutos.setValueAt(quantidade, linha, col);
-        tblProdutos.setValueAt(Desconto, linha, col);
-        tblProdutos.setValueAt(valorTotal, linha, col);
+        tblProdutos.setValueAt(descricao, linha, col++);
+        tblProdutos.setValueAt(valorUni, linha, col++);
+        tblProdutos.setValueAt(quantidade, linha, col++);
+        tblProdutos.setValueAt(Desconto, linha, col++);
+        tblProdutos.setValueAt(valorTotal, linha, col++);
+        limparProduto();
     }
 
     private void btnLimparProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparProdutoActionPerformed
+        limparProduto();
+    }//GEN-LAST:event_btnLimparProdutoActionPerformed
+
+    private void limparProduto() {
         txtCodigoProduto.setText(null);
         txtDescricaoProduto.setText(null);
         txtValorUnit.setText(null);
         txtQuantidadeProduto.setText(null);
         txtDescontoProduto.setText(null);
-    }//GEN-LAST:event_btnLimparProdutoActionPerformed
+    }
+    private void mnuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExcluirActionPerformed
+        int linha = tblProdutos.getSelectedRow();
+        if (linha >= 0) {
+            if (JOptionPane.showConfirmDialog(this, "Deseja excluir produto?", "Excluir", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                descontoTotal -= (float) tblProdutos.getValueAt(5, linha);
+                valorTotal -= (float) tblProdutos.getValueAt(6, linha);
+                ((DefaultTableModel) tblProdutos.getModel()).removeRow(linha);
+                txtTotalTotais.setText(Float.toString(valorTotal));
+                txtDescontoTotais.setText(Float.toString(descontoTotal));
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um produto para excluir.", "Excluir", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_mnuExcluirActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarProduto;
     private javax.swing.JButton btnCancelar;
@@ -634,12 +680,14 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     private javax.swing.JLabel lblFreteTotais;
     private javax.swing.JLabel lblNomeCliente;
     private javax.swing.JLabel lblNumeroCliente;
-    private javax.swing.JLabel lblQuantidadeProdutos;
+    private javax.swing.JLabel lblQtdProduto;
     private javax.swing.JLabel lblRuaCliente;
     private javax.swing.JLabel lblTotalProdutos;
     private javax.swing.JLabel lblTotalTotais;
     private javax.swing.JLabel lblTotalVenda;
-    private javax.swing.JLabel lblValorUnitario;
+    private javax.swing.JLabel lblUnitarioProduto;
+    private javax.swing.JMenuItem mnuExcluir;
+    private javax.swing.JPopupMenu mnuProduto;
     private javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtBairroCliente;
     private javax.swing.JTextField txtCidadeCliente;

@@ -115,8 +115,8 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
-        txtValorCompra = new javax.swing.JFormattedTextField();
-        txtValorVenda = new javax.swing.JFormattedTextField();
+        txtValorCompra = new javax.swing.JTextField();
+        txtValorVenda = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Estoque");
@@ -200,10 +200,6 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
                 .addGap(14, 14, 14))
         );
 
-        txtValorCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-
-        txtValorVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -271,13 +267,16 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
                     .addComponent(spnEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblValorCompra)
-                        .addComponent(txtValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblValorVenda)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblValorVenda)
+                            .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblValorCompra)
+                            .addComponent(txtValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -298,8 +297,8 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
         String marca = txtMarca.getText();
         UnidadeMedida unidadeMedida = (UnidadeMedida) cmbUniMedida.getSelectedItem();
         int estoque = Integer.parseInt(spnEstoque.getValue().toString());
-        Float valorCompra = Float.parseFloat(txtValorCompra.getText());
-        Float valorVenda = Float.parseFloat(txtValorVenda.getText());
+        float valorCompra = Float.valueOf(txtValorCompra.getText().toString());
+        float valorVenda = Float.valueOf(txtValorVenda.getText().toString());
 
         if (validarCampos()) {
             try {
@@ -355,8 +354,8 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtMarca;
-    private javax.swing.JFormattedTextField txtValorCompra;
-    private javax.swing.JFormattedTextField txtValorVenda;
+    private javax.swing.JTextField txtValorCompra;
+    private javax.swing.JTextField txtValorVenda;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <NonVisualComponents>
+    <Container class="javax.swing.JPopupMenu" name="mnuProduto">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+      <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="mnuExcluir">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuExcluirActionPerformed"/>
+          </Events>
+        </MenuItem>
+      </SubComponents>
+    </Container>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -28,9 +46,9 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <Component id="jPanel1" pref="716" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -231,39 +249,13 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel3">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder/>
-              </Border>
-            </Property>
-          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="320" width="540" height="180"/>
+              <AbsoluteConstraints x="0" y="310" width="540" height="190"/>
             </Constraint>
           </Constraints>
 
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="526" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="166" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
           <SubComponents>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
               <Properties>
@@ -274,17 +266,22 @@
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                  <BorderConstraints direction="Center"/>
+                </Constraint>
+              </Constraints>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
                 <Component class="javax.swing.JTable" name="tblProdutos">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="6" rowCount="4">
+                      <Table columnCount="6" rowCount="0">
                         <Column editable="false" title="Codigo" type="java.lang.Object"/>
                         <Column editable="false" title="Descricao" type="java.lang.Object"/>
                         <Column editable="false" title="Unitario" type="java.lang.Object"/>
-                        <Column editable="true" title="Quantidade" type="java.lang.Object"/>
+                        <Column editable="false" title="Quantidade" type="java.lang.Object"/>
                         <Column editable="false" title="Desconto" type="java.lang.Object"/>
                         <Column editable="false" title="Total" type="java.lang.Object"/>
                       </Table>
@@ -342,7 +339,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="200" width="540" height="120"/>
+              <AbsoluteConstraints x="0" y="200" width="540" height="110"/>
             </Constraint>
           </Constraints>
 
@@ -352,7 +349,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblQuantidadeProdutos" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblQtdProduto" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblCodigoProduto" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblTotalProdutos" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -373,7 +370,7 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblValorUnitario" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblUnitarioProduto" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="btnPesquisarProduto" min="-2" pref="26" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -409,24 +406,21 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblValorUnitario" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblUnitarioProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtValorUnit" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblQuantidadeProdutos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblQtdProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtQuantidadeProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblDescontoProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtDescontoProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="btnAdicionarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnLimparProduto" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtTotalProdutos" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblTotalProdutos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtTotalProdutos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblTotalProdutos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnLimparProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAdicionarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -461,14 +455,14 @@
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblValorUnitario">
+            <Component class="javax.swing.JLabel" name="lblUnitarioProduto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Valor Unit."/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtValorUnit">
             </Component>
-            <Component class="javax.swing.JLabel" name="lblQuantidadeProdutos">
+            <Component class="javax.swing.JLabel" name="lblQtdProduto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Quant."/>
               </Properties>
@@ -520,7 +514,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="500" width="540" height="140"/>
+              <AbsoluteConstraints x="0" y="500" width="540" height="120"/>
             </Constraint>
           </Constraints>
 
@@ -529,38 +523,40 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblTotalTotais" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblFreteTotais" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="txtFreteTotais" min="-2" pref="64" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="lblDescontoTotais" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtDescontoTotais" min="-2" pref="64" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="lblTotalVenda" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="txtTotalTotais" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="chckEntrega" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtTotalVenda" min="-2" pref="92" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <Component id="lblFormaPag" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="cmbFormaPag" min="-2" pref="64" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblDescontoTotais" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblTotalTotais" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtTotalTotais" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
+                                  <Component id="txtDescontoTotais" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="69" max="32767" attributes="0"/>
+                      <EmptySpace pref="158" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lblFreteTotais" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblTotalVenda" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtFreteTotais" max="32767" attributes="0"/>
+                                  <Component id="txtTotalVenda" pref="92" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="chckEntrega" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -575,19 +571,23 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblFreteTotais" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFreteTotais" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblDescontoTotais" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtDescontoTotais" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtTotalVenda" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblTotalVenda" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFreteTotais" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblFreteTotais" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblFormaPag" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmbFormaPag" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblTotalVenda" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTotalVenda" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="cmbFormaPag" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblFormaPag" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="15" max="32767" attributes="0"/>
+                      <EmptySpace pref="7" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -698,6 +698,10 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtCodigo">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnPesquisarVenda">
               <Properties>
@@ -714,7 +718,7 @@
         <Container class="javax.swing.JPanel" name="jPanel7">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="20" y="650" width="500" height="60"/>
+              <AbsoluteConstraints x="20" y="630" width="500" height="50"/>
             </Constraint>
           </Constraints>
 
@@ -741,7 +745,7 @@
                           <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnLimpar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="19" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -764,6 +768,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Limpar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
