@@ -9,6 +9,7 @@ import dominio.Produto;
 import dominio.Venda;
 import gerTarefas.FuncoesUteis;
 import gerTarefas.GerInterGrafica;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,6 +21,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     private Venda venSelecionada;
     private Cliente cliSelecionado;
     private Produto proSelecionado;
+    private float valorTotal = 0;
 
     /**
      * Creates new form DlgMenuVenda
@@ -69,7 +71,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         lblValorUnitario = new javax.swing.JLabel();
         txtValorUnit = new javax.swing.JTextField();
         lblQuantidadeProdutos = new javax.swing.JLabel();
-        txtQuantidadeProdutos = new javax.swing.JTextField();
+        txtQuantidadeProduto = new javax.swing.JTextField();
         lblTotalProdutos = new javax.swing.JLabel();
         txtTotalProdutos = new javax.swing.JTextField();
         lblDescontoProduto = new javax.swing.JLabel();
@@ -222,17 +224,17 @@ public class DlgMenuVenda extends javax.swing.JDialog {
 
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Descricao", "Valor Uni", "Desconto", "Valor Total"
+                "Codigo", "Descricao", "Unitario", "Quantidade", "Desconto", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -289,8 +291,18 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         lblDescontoProduto.setText("Desconto");
 
         btnAdicionarProduto.setText("Adicionar");
+        btnAdicionarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarProdutoActionPerformed(evt);
+            }
+        });
 
         btnLimparProduto.setText("Limpar");
+        btnLimparProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparProdutoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -308,13 +320,13 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                         .addComponent(txtTotalProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(109, 109, 109)
                         .addComponent(btnLimparProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAdicionarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                        .addGap(42, 42, 42))
+                        .addGap(36, 36, 36))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtCodigoProduto)
-                            .addComponent(txtQuantidadeProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblValorUnitario, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -347,16 +359,17 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                     .addComponent(lblValorUnitario)
                     .addComponent(txtValorUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblQuantidadeProdutos)
-                    .addComponent(txtQuantidadeProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDescontoProduto)
                     .addComponent(txtDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTotalProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTotalProdutos)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAdicionarProduto)
-                        .addComponent(btnLimparProduto))))
+                        .addComponent(btnLimparProduto))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtTotalProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblTotalProdutos))))
         );
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 540, 120));
@@ -528,7 +541,13 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void chckEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chckEntregaActionPerformed
-        // TODO add your handling code here:
+        if (chckEntrega.isSelected()) {
+            txtFreteTotais.setEnabled(true);
+            txtFreteTotais.setText(null);
+        } else {
+            txtFreteTotais.setEnabled(false);
+            txtFreteTotais.setText(null);
+        }
     }//GEN-LAST:event_chckEntregaActionPerformed
 
     private void btnPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClienteActionPerformed
@@ -546,6 +565,38 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         limparCampos();
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarProdutoActionPerformed
+        String descricao = txtDescricaoProduto.getText();
+        Produto pro = proSelecionado;
+        float unitario = Float.parseFloat(txtValorUnit.getText());
+        float desconto = Float.parseFloat(txtDescontoProduto.getText());
+        int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
+        valorTotal = valorTotal + (quantidade * unitario) - desconto;
+        adicionarTabela(pro, descricao, unitario, quantidade, desconto, valorTotal);
+    }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
+
+    private void adicionarTabela(Produto cod, String descricao, float valorUni, int quantidade, float Desconto, float valorTotal) {
+
+        ((DefaultTableModel) tblProdutos.getModel()).addRow(new Object[9]);
+
+        int linha = tblProdutos.getRowCount() - 1;
+        int col = 0;
+        tblProdutos.setValueAt(cod, linha, col++);
+        tblProdutos.setValueAt(descricao, linha, col);
+        tblProdutos.setValueAt(valorUni, linha, col);
+        tblProdutos.setValueAt(quantidade, linha, col);
+        tblProdutos.setValueAt(Desconto, linha, col);
+        tblProdutos.setValueAt(valorTotal, linha, col);
+    }
+
+    private void btnLimparProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparProdutoActionPerformed
+        txtCodigoProduto.setText(null);
+        txtDescricaoProduto.setText(null);
+        txtValorUnit.setText(null);
+        txtQuantidadeProduto.setText(null);
+        txtDescontoProduto.setText(null);
+    }//GEN-LAST:event_btnLimparProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -602,7 +653,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     private javax.swing.JTextField txtFreteTotais;
     private javax.swing.JTextField txtNomeCliente;
     private javax.swing.JTextField txtNumeroCliente;
-    private javax.swing.JTextField txtQuantidadeProdutos;
+    private javax.swing.JTextField txtQuantidadeProduto;
     private javax.swing.JTextField txtRuaCliente;
     private javax.swing.JTextField txtTotalProdutos;
     private javax.swing.JTextField txtTotalTotais;
@@ -642,5 +693,29 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         proSelecionado = null;
         cliSelecionado = null;
         venSelecionada = null;
+
+        txtCodigoCliente.setText(null);
+        txtNomeCliente.setText(null);
+        txtCidadeCliente.setText(null);
+        txtRuaCliente.setText(null);
+        txtBairroCliente.setText(null);
+        txtNumeroCliente.setText(null);
+        txtDocumentoCliente.setText(null);
+
+        txtCodigoProduto.setText(null);
+        txtDescricaoProduto.setText(null);
+        txtValorUnit.setText(null);
+        txtQuantidadeProduto.setText(null);
+        txtDescontoProduto.setText(null);
+
+        ((DefaultTableModel) tblProdutos.getModel()).setRowCount(0);
+
+        txtTotalTotais.setText(null);
+        txtFreteTotais.setText(null);
+        chckEntrega.setSelected(false);
+        txtDescontoTotais.setText(null);
+        txtTotalVenda.setText(null);
+        cmbFormaPag.setSelectedIndex(0);
+
     }
 }

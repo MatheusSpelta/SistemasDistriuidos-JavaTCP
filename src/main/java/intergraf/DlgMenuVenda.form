@@ -280,16 +280,22 @@
                 <Component class="javax.swing.JTable" name="tblProdutos">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="4">
+                      <Table columnCount="6" rowCount="4">
                         <Column editable="false" title="Codigo" type="java.lang.Object"/>
                         <Column editable="false" title="Descricao" type="java.lang.Object"/>
-                        <Column editable="false" title="Valor Uni" type="java.lang.Object"/>
+                        <Column editable="false" title="Unitario" type="java.lang.Object"/>
+                        <Column editable="true" title="Quantidade" type="java.lang.Object"/>
                         <Column editable="false" title="Desconto" type="java.lang.Object"/>
-                        <Column editable="false" title="Valor Total" type="java.lang.Object"/>
+                        <Column editable="false" title="Total" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -356,14 +362,14 @@
                               <Component id="txtTotalProdutos" min="-2" pref="144" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
                               <Component id="btnLimparProduto" min="-2" pref="81" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnAdicionarProduto" pref="97" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="txtCodigoProduto" max="32767" attributes="0"/>
-                                  <Component id="txtQuantidadeProdutos" min="-2" pref="76" max="-2" attributes="0"/>
+                                  <Component id="txtQuantidadeProduto" min="-2" pref="76" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -406,17 +412,19 @@
                           <Component id="lblValorUnitario" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtValorUnit" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblQuantidadeProdutos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtQuantidadeProdutos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtQuantidadeProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblDescontoProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtDescontoProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtTotalProdutos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblTotalProdutos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="btnAdicionarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnLimparProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtTotalProdutos" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblTotalProdutos" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -465,7 +473,7 @@
                 <Property name="text" type="java.lang.String" value="Quant."/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtQuantidadeProdutos">
+            <Component class="javax.swing.JTextField" name="txtQuantidadeProduto">
             </Component>
             <Component class="javax.swing.JLabel" name="lblTotalProdutos">
               <Properties>
@@ -488,11 +496,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Adicionar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarProdutoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnLimparProduto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Limpar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparProdutoActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
