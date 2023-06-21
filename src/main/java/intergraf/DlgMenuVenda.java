@@ -5,10 +5,12 @@
 package intergraf;
 
 import dominio.Cliente;
+import dominio.FormaPagamento;
 import dominio.Produto;
 import dominio.Venda;
 import gerTarefas.FuncoesUteis;
 import gerTarefas.GerInterGrafica;
+import java.awt.Color;
 import java.util.EventListener;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
@@ -102,13 +104,15 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         lblCodigo = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         btnPesquisarVenda = new javax.swing.JButton();
-        btnNovaVenda = new javax.swing.JButton();
+        btnCancelarVenda = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
 
-        mnuExcluir.setText("jMenuItem1");
+        mnuProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        mnuExcluir.setText("Excluir");
         mnuExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuExcluirActionPerformed(evt);
@@ -117,6 +121,11 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         mnuProduto.add(mnuExcluir);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -280,13 +289,32 @@ public class DlgMenuVenda extends javax.swing.JDialog {
 
         lblUnitarioProduto.setText("Valor Unit.");
 
+        txtValorUnit.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtValorUnitFocusLost(evt);
+            }
+        });
+
         lblQtdProduto.setText("Quant.");
+
+        txtQuantidadeProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtQuantidadeProdutoFocusLost(evt);
+            }
+        });
 
         lblTotalProdutos.setText("Total");
 
         txtTotalProdutos.setFocusable(false);
 
         lblDescontoProduto.setText("Desconto");
+
+        txtDescontoProduto.setText("0.00");
+        txtDescontoProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDescontoProdutoFocusLost(evt);
+            }
+        });
 
         btnAdicionarProduto.setText("Adicionar");
         btnAdicionarProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -316,11 +344,11 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(txtTotalProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(109, 109, 109)
+                        .addGap(131, 131, 131)
                         .addComponent(btnLimparProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAdicionarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                        .addGap(36, 36, 36))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAdicionarProduto)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtCodigoProduto)
@@ -341,7 +369,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 38, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,6 +411,8 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         });
 
         lblFreteTotais.setText("Frete");
+
+        txtFreteTotais.setEnabled(false);
 
         lblDescontoTotais.setText("Desconto");
 
@@ -438,9 +468,8 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                     .addComponent(lblFreteTotais))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblTotalVenda)
-                        .addComponent(txtTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTotalVenda)
+                    .addComponent(txtTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(cmbFormaPag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblFormaPag)))
@@ -458,7 +487,12 @@ public class DlgMenuVenda extends javax.swing.JDialog {
 
         btnPesquisarVenda.setText("jButton4");
 
-        btnNovaVenda.setText("Nova Venda");
+        btnCancelarVenda.setText("Cancelar Venda");
+        btnCancelarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarVendaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -471,8 +505,8 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                 .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnPesquisarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
-                .addComponent(btnNovaVenda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
+                .addComponent(btnCancelarVenda)
                 .addGap(21, 21, 21))
         );
         jPanel6Layout.setVerticalGroup(
@@ -483,13 +517,18 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                     .addComponent(lblCodigo)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNovaVenda))
+                    .addComponent(btnCancelarVenda))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 70));
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -576,29 +615,63 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     private void btnAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarProdutoActionPerformed
         String descricao = txtDescricaoProduto.getText();
         Produto pro = proSelecionado;
-        float unitario = Float.parseFloat(txtValorUnit.getText());
-        float desconto = Float.parseFloat(txtDescontoProduto.getText());
-        int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
-        valorTotal = valorTotal + (unitario * quantidade);
-        descontoTotal = descontoTotal + desconto;
-        adicionarTabela(pro, descricao, unitario, quantidade, desconto, valorTotal);
-        txtTotalTotais.setText(Float.toString(valorTotal));
-        txtDescontoTotais.setText(Float.toString(descontoTotal));
-        calcularTotais(valorTotal, descontoTotal);
-
+        if (validarCamposProdutos()) {
+            float unitario = Float.parseFloat(txtValorUnit.getText());
+            float desconto = Float.parseFloat(txtDescontoProduto.getText());
+            int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
+            float total = (unitario * quantidade) - desconto;
+            adicionarTabela(pro, descricao, unitario, quantidade, desconto, total);
+            calcularTotais(unitario, desconto, quantidade);
+            limparProduto();
+        }
     }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
 
-    private void calcularTotais(float valorTot, float descTot) {
+    private void calcularTotais(float unitario, float desconto, int quantidade) {
+        valorTotal = valorTotal + (unitario * quantidade);
+        descontoTotal = descontoTotal + desconto;
+        txtTotalTotais.setText(Float.toString(valorTotal));
+        txtDescontoTotais.setText(Float.toString(descontoTotal));
+        calcularTotalPedido();
+
+    }
+
+    private void calcularTotalPedido() {
         if (chckEntrega.isSelected()) {
             float frete = Float.parseFloat(txtFreteTotais.getText());
-            totalVenda = valorTot - descTot + frete;
+            totalVenda = valorTotal - descontoTotal + frete;
         } else {
-            totalVenda = valorTot - descTot;
+            totalVenda = totalVenda - descontoTotal;
         }
         txtTotalVenda.setText(Float.toString(totalVenda));
     }
 
-    private void validarCamposProdutos() {
+    private boolean validarCamposProdutos() {
+        String msgErro = "";
+        lblCodigoProduto.setForeground(Color.black);
+        lblQtdProduto.setForeground(Color.black);
+        lblDescontoProduto.setForeground(Color.black);
+        float desconto = Float.parseFloat(txtDescontoProduto.getText());
+        float valor = Float.parseFloat(txtValorUnit.getText());
+
+        if (txtCodigoProduto.getText().isEmpty()) {
+            msgErro = msgErro + "Produto não informado; \n";
+            lblCodigoProduto.setForeground(Color.red);
+        }
+        if (txtQuantidadeProduto.getText().isEmpty()) {
+            msgErro = msgErro + "Quantidade não informada. \n";
+            lblQtdProduto.setForeground(Color.red);
+        }
+        if (desconto >= valor) {
+            msgErro = msgErro + "Desconto maior ou igual ao valor do produto. \n";
+            lblDescontoProduto.setForeground(Color.red);
+            lblUnitarioProduto.setForeground(Color.red);
+        }
+        if (msgErro.isEmpty()) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, msgErro, "Erro adicionar Produto", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
     }
 
@@ -626,33 +699,71 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         txtDescricaoProduto.setText(null);
         txtValorUnit.setText(null);
         txtQuantidadeProduto.setText(null);
-        txtDescontoProduto.setText(null);
+        txtDescontoProduto.setText("0.00");
     }
-    private void mnuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExcluirActionPerformed
-        int linha = tblProdutos.getSelectedRow();
-        if (linha >= 0) {
-            if (JOptionPane.showConfirmDialog(this, "Deseja excluir produto?", "Excluir", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                descontoTotal -= (float) tblProdutos.getValueAt(5, linha);
-                valorTotal -= (float) tblProdutos.getValueAt(6, linha);
-                ((DefaultTableModel) tblProdutos.getModel()).removeRow(linha);
-                txtTotalTotais.setText(Float.toString(valorTotal));
-                txtDescontoTotais.setText(Float.toString(descontoTotal));
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione um produto para excluir.", "Excluir", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_mnuExcluirActionPerformed
-
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         limparCampos();
     }//GEN-LAST:event_btnLimparActionPerformed
 
+    private void txtQuantidadeProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuantidadeProdutoFocusLost
+        calcularTotalProdutoIndividual();
+    }//GEN-LAST:event_txtQuantidadeProdutoFocusLost
+
+    private void txtDescontoProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescontoProdutoFocusLost
+        calcularTotalProdutoIndividual();
+    }//GEN-LAST:event_txtDescontoProdutoFocusLost
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void mnuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExcluirActionPerformed
+        int linha = tblProdutos.getSelectedRow();
+        if (linha >= 0) {
+
+            if (JOptionPane.showConfirmDialog(this, "Desejar realmente excluir?", "Excluir Produto", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                descontoTotal -= (float) tblProdutos.getValueAt(5, linha);
+                valorTotal -= (float) tblProdutos.getValueAt(6, linha);
+                txtTotalTotais.setText(Float.toString(valorTotal));
+                txtDescontoTotais.setText(Float.toString(descontoTotal));
+                calcularTotalPedido();
+                ((DefaultTableModel) tblProdutos.getModel()).removeRow(linha);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione uma linha.", "Excluir produto",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_mnuExcluirActionPerformed
+
+    private void txtValorUnitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorUnitFocusLost
+        calcularTotalProdutoIndividual();
+    }//GEN-LAST:event_txtValorUnitFocusLost
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        gerIG.carregarComboFormaPagamento(cmbFormaPag, FormaPagamento.class);
+    }//GEN-LAST:event_formComponentShown
+
+    private void btnCancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarVendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarVendaActionPerformed
+
+    private void calcularTotalProdutoIndividual() {
+        if (proSelecionado != null) {
+            float valor = Float.parseFloat(txtValorUnit.getText());
+            float qtd = Float.parseFloat(txtQuantidadeProduto.getText());
+            float desconto = Float.parseFloat(txtDescontoProduto.getText());
+            float total = (valor * qtd) - desconto;
+            txtTotalProdutos.setText(Float.toString(total));
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarProduto;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCancelarVenda;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnLimparProduto;
-    private javax.swing.JButton btnNovaVenda;
     private javax.swing.JButton btnPesquisarCliente;
     private javax.swing.JButton btnPesquisarProduto;
     private javax.swing.JButton btnPesquisarVenda;
@@ -754,7 +865,8 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         txtDescricaoProduto.setText(null);
         txtValorUnit.setText(null);
         txtQuantidadeProduto.setText(null);
-        txtDescontoProduto.setText(null);
+        txtDescontoProduto.setText("0.00");
+        txtTotalProdutos.setText(null);
 
         ((DefaultTableModel) tblProdutos.getModel()).setRowCount(0);
 

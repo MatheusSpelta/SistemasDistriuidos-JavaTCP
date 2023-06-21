@@ -20,62 +20,64 @@ import javax.persistence.Table;
  *
  * @author Matheus
  */
-
 @Entity
 @Table(name = "produto_venda")
 
 //Tabela auxiliar, que relaciona os produtos as vendas feitas
 public class ProdutoVenda {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
+    private Integer id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "produto_id")
     private Produto produto;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "venda_id")
     private Venda venda;
-    
+
     @Column(name = "quantidade")
     private Integer quantidade;
-    
-    @Column(name = "valor_unit")
-    private BigDecimal valorUnit;
-    
-    @Column(name = "valor_total")
-    private BigDecimal valorTotal;
-    
-    @Column(name = "desconto_unit")
-    private BigDecimal descontoUnit;
-    
-    @Column(name = "desconto_total")
-    private BigDecimal descontoTotal;
-    
-    
-    
-    //Setter, Getter and Constructors
 
+    @Column(name = "valor_unit")
+    private Float valorUnit;
+
+    @Column(name = "valor_total")
+    private Float valorTotal;
+
+    @Column(name = "desconto")
+    private Float desconto;
+
+    //Setter, Getter and Constructors
     public ProdutoVenda() {
     }
 
-    public ProdutoVenda(Long id, Produto produto, Venda venda, Integer quantidade, BigDecimal valorUnit, BigDecimal valorTotal, BigDecimal descontoUnit, BigDecimal descontoTotal) {
+    public ProdutoVenda(int id, Produto produto, Venda venda, Integer quantidade, Float valorUnit, Float valorTotal, Float descontoUnit, Float desconto) {
         this.id = id;
         this.produto = produto;
         this.venda = venda;
         this.quantidade = quantidade;
         this.valorUnit = valorUnit;
         this.valorTotal = valorTotal;
-        this.descontoUnit = descontoUnit;
-        this.descontoTotal = descontoTotal;
+        this.desconto = desconto;
     }
 
-    public Long getId() {
+    public ProdutoVenda(Produto produto, Venda venda, Integer quantidade, Float valorUnit, Float valorTotal, Float desconto) {
+        this.produto = produto;
+        this.venda = venda;
+        this.quantidade = quantidade;
+        this.valorUnit = valorUnit;
+        this.valorTotal = valorTotal;
+        this.desconto = desconto;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -103,37 +105,28 @@ public class ProdutoVenda {
         this.quantidade = quantidade;
     }
 
-    public BigDecimal getValorUnit() {
+    public Float getValorUnit() {
         return valorUnit;
     }
 
-    public void setValorUnit(BigDecimal valorUnit) {
+    public void setValorUnit(Float valorUnit) {
         this.valorUnit = valorUnit;
     }
 
-    public BigDecimal getValorTotal() {
+    public Float getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(BigDecimal valorTotal) {
+    public void setValorTotal(Float valorTotal) {
         this.valorTotal = valorTotal;
     }
 
-    public BigDecimal getDescontoUnit() {
-        return descontoUnit;
+    public Float getDesconto() {
+        return desconto;
     }
 
-    public void setDescontoUnit(BigDecimal descontoUnit) {
-        this.descontoUnit = descontoUnit;
+    public void setDesconto(Float desconto) {
+        this.desconto = desconto;
     }
 
-    public BigDecimal getDescontoTotal() {
-        return descontoTotal;
-    }
-
-    public void setDescontoTotal(BigDecimal descontoTotal) {
-        this.descontoTotal = descontoTotal;
-    }
-    
-    
 }

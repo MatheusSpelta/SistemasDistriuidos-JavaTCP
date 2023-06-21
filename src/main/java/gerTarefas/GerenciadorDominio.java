@@ -15,6 +15,7 @@ import dao.VendaDAO;
 import dominio.Endereco;
 import dominio.Produto;
 import dominio.UnidadeMedida;
+import dominio.Venda;
 import java.util.List;
 import org.hibernate.HibernateException;
 
@@ -52,6 +53,11 @@ public class GerenciadorDominio {
         Cliente cli = new Cliente(nome, CPF, CNPJ, celular, endereco);
         cliDAO.inserir(cli);
         return cli.getIdCliente();
+    }
+
+    public int inserirVenda() {
+        Venda ven = new Venda();
+        return ven.getIdVenda();
     }
 
     public void alterarCliente(Cliente cli, int id, boolean ativo, String nome, String CPF, String CNPJ, String celular, String CEP, String cidade, String rua, String bairro, int numero, String UF) throws HibernateException {

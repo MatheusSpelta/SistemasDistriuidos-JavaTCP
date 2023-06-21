@@ -7,6 +7,7 @@ package dominio;
 import dominio.ProdutoVenda;
 import dominio.Cliente;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,72 +29,82 @@ import javax.persistence.Table;
  *
  * @author Matheus
  */
-
 @Entity
 @Table(name = "venda")
 
 public class Venda {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_venda")
-    private Long idVenda;
-    
+    private Integer idVenda;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
-    
+
     @Column(name = "data_venda")
-    private LocalDateTime dataVenda;
-    
+    private LocalDate dataVenda;
+
     @Column(name = "valor_total")
-    private BigDecimal valorTotal;
-    
+    private Float valorTotal;
+
     @Column(name = "entrega")
     private boolean entrega;
-    
+
     @Column(name = "valor_frete")
-    private BigDecimal valorFrete;
-    
+    private Float valorFrete;
+
     @Column(name = "desconto")
-    private BigDecimal valorDesconto;
-    
+    private Float valorDesconto;
+
     @Column(name = "cancelada")
     private boolean cancelada;
-    
+
     @Column(name = "funcionario")
     private String funcionario;
-    
+
     @OneToMany(mappedBy = "venda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProdutoVenda> produtos = new ArrayList<>();
-    
-    @OneToOne 
-    @MapsId
-    @JoinColumn (name = "idFP")
-    private FormaPagamento fp;
-    
-    //Setter, Getter and Constructors
 
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "idFP")
+    private FormaPagamento fp;
+
+    //Setter, Getter and Constructors
     public Venda() {
     }
 
-    public Venda(Long idVenda, Cliente cliente, LocalDateTime dataVenda, BigDecimal valorTotal, FormaPagamento formaPagamento, boolean entrega, BigDecimal valorFrete, BigDecimal valorDesconto, boolean cancelada, String funcionario) {
+    public Venda(Integer idVenda, Cliente cliente, Float valorTotal, FormaPagamento formaPagamento, boolean entrega, Float valorFrete, Float valorDesconto, String funcionario) {
         this.idVenda = idVenda;
         this.cliente = cliente;
-        this.dataVenda = dataVenda;
         this.valorTotal = valorTotal;
         this.fp = formaPagamento;
         this.entrega = entrega;
         this.valorFrete = valorFrete;
         this.valorDesconto = valorDesconto;
-        this.cancelada = cancelada;
         this.funcionario = funcionario;
+        this.dataVenda = LocalDate.now();
     }
 
-    public Long getIdVenda() {
+    public Venda(Cliente cliente, LocalDate dataVenda, Float valorTotal, boolean entrega, Float valorFrete, Float valorDesconto, String funcionario, FormaPagamento fp) {
+        this.cliente = cliente;
+        this.dataVenda = LocalDate.now();
+        this.valorTotal = valorTotal;
+        this.entrega = entrega;
+        this.valorFrete = valorFrete;
+        this.valorDesconto = valorDesconto;
+        this.funcionario = funcionario;
+        this.fp = fp;
+        this.cancelada = false;
+    }
+
+    public Integer getIdVenda() {
         return idVenda;
     }
 
-    public void setIdVenda(Long idVenda) {
+    public void setIdVenda(Integer idVenda) {
         this.idVenda = idVenda;
     }
 
@@ -105,19 +116,19 @@ public class Venda {
         this.cliente = cliente;
     }
 
-    public LocalDateTime getDataVenda() {
+    public LocalDate getDataVenda() {
         return dataVenda;
     }
 
-    public void setDataVenda(LocalDateTime dataVenda) {
+    public void setDataVenda(LocalDate dataVenda) {
         this.dataVenda = dataVenda;
     }
 
-    public BigDecimal getValorTotal() {
+    public Float getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(BigDecimal valorTotal) {
+    public void setValorTotal(Float valorTotal) {
         this.valorTotal = valorTotal;
     }
 
@@ -129,11 +140,11 @@ public class Venda {
         this.entrega = entrega;
     }
 
-    public BigDecimal getValorFrete() {
+    public Float getValorFrete() {
         return valorFrete;
     }
 
-    public void setValorFrete(BigDecimal valorFrete) {
+    public void setValorFrete(Float valorFrete) {
         this.valorFrete = valorFrete;
     }
 
@@ -161,11 +172,11 @@ public class Venda {
         this.produtos = produtos;
     }
 
-    public BigDecimal getValorDesconto() {
+    public Float getValorDesconto() {
         return valorDesconto;
     }
 
-    public void setValorDesconto(BigDecimal valorDesconto) {
+    public void setValorDesconto(Float valorDesconto) {
         this.valorDesconto = valorDesconto;
     }
 
@@ -176,7 +187,5 @@ public class Venda {
     public void setFp(FormaPagamento fp) {
         this.fp = fp;
     }
-    
-    
-    
+
 }

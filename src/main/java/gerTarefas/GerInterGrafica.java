@@ -5,8 +5,11 @@
 package gerTarefas;
 
 import dominio.Cliente;
+import dominio.FormaPagamento;
 import dominio.Produto;
 import dominio.UnidadeMedida;
+import dominio.Venda;
+import intergraf.DlgCancelarVenda;
 import intergraf.DlgMenuEstoque;
 import intergraf.DlgMenuVenda;
 import intergraf.DlgMenuClient;
@@ -34,6 +37,7 @@ public class GerInterGrafica {
     private DlgMenuVenda janVenda = null;
     private DlgPesquisaCliente janPesqCli = null;
     private DlgPesquisaProduto janPesqPro = null;
+    private DlgCancelarVenda janCancVenda = null;
 
     GerenciadorDominio gerDominio;
 
@@ -90,6 +94,11 @@ public class GerInterGrafica {
         return janPesqPro.getProduto();
     }
 
+    public Venda janelaCancVenda() {
+        janCancVenda = (DlgCancelarVenda) abrirDialog(janPrinc, janCancVenda, DlgCancelarVenda.class);
+        return janCancVenda.getVenda();
+    }
+
     public void carregarComboUnidadeMedida(JComboBox combo, Class classe) {
         try {
             List<UnidadeMedida> lista = gerDominio.listar(classe);
@@ -102,6 +111,15 @@ public class GerInterGrafica {
     public static void main(String args[]) {
         GerInterGrafica gerIG = new GerInterGrafica();
         gerIG.JanelaPrincipal();
+    }
+
+    public void carregarComboFormaPagamento(JComboBox combo, Class classe) {
+        try {
+            List<FormaPagamento> lista = gerDominio.listar(classe);
+            combo.setModel(new DefaultComboBoxModel(lista.toArray()));
+        } catch (HibernateException ex) {
+            JOptionPane.showMessageDialog(janPrinc, "Erro ao carregar unidades de medida." + ex.getMessage());
+        }
     }
 
 }

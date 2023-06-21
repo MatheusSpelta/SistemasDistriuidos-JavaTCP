@@ -61,7 +61,6 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Venda> vendas = new ArrayList<>();
 
-    //Constructor para CPF
     public Cliente(String nome, String cpf, String cnpj, String celular, Endereco endereco) {
         this.nome = nome;
         this.cpf = cpf;
