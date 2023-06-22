@@ -13,10 +13,13 @@ import dao.ProdutoDAO;
 import dao.VendaDAO;
 
 import dominio.Endereco;
+import dominio.FormaPagamento;
 import dominio.Produto;
+import dominio.ProdutoVenda;
 import dominio.UnidadeMedida;
 import dominio.Venda;
 import java.util.List;
+import javax.swing.JTable;
 import org.hibernate.HibernateException;
 
 /**
@@ -42,7 +45,7 @@ public class GerenciadorDominio {
         venDAO = new VendaDAO();
     }
 
-    public int inserirProduto(String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, float valorVenda, float valorCompra) {
+    public int inserirProduto(String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, Double valorVenda, Double valorCompra) {
         Produto pro = new Produto(descricao, marca, estoque, valorVenda, valorCompra, unidadeMedida);
         proDAO.inserir(pro);
         return pro.getId();
@@ -55,9 +58,31 @@ public class GerenciadorDominio {
         return cli.getIdCliente();
     }
 
-    public int inserirVenda() {
-        Venda ven = new Venda();
-        return ven.getIdVenda();
+    public int inserirVenda(Cliente cliente, Double valorTotal, boolean entrega, Double valorFrete, Double valorDesconto, FormaPagamento fp, JTable tblProdutos) {
+        Venda ven = new Venda(cliente, valorTotal, entrega, valorFrete, valorDesconto, fp);
+        List produtos = ven.getProdutos();
+        int tam = tblProdutos.getRowCount();
+        if (tam > 0) {
+            for (int lin = 0; lin < tam; lin++) {
+                int col = 0;
+                Produto produto = (Produto) tblProdutos.getValueAt(lin, col++);
+                //Pulando a linha de descrição
+                col++;
+                Double unitario = (Double) tblProdutos.getValueAt(lin, col++);
+                int qtd = (int) tblProdutos.getValueAt(lin, col++);
+                Double desc = (Double) tblProdutos.getValueAt(lin, col++);
+                Double total = (Double) tblProdutos.getValueAt(lin, col++);
+
+                ProdutoVenda proven = new ProdutoVenda(produto, ven, qtd, unitario, total, desc);
+                produtos.add(proven);
+
+            }
+            venDAO.inserir(ven);
+            return ven.getIdVenda();
+        } else {
+            return -1;
+        }
+
     }
 
     public void alterarCliente(Cliente cli, int id, boolean ativo, String nome, String CPF, String CNPJ, String celular, String CEP, String cidade, String rua, String bairro, int numero, String UF) throws HibernateException {
@@ -77,7 +102,7 @@ public class GerenciadorDominio {
         cliDAO.alterar(cli);
     }
 
-    public void alterarProduto(Produto pro, String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, float valorVenda, float valorCompra) {
+    public void alterarProduto(Produto pro, String descricao, String marca, UnidadeMedida unidadeMedida, int estoque, Double valorVenda, Double valorCompra) {
         pro.setDescricao(descricao);
         pro.setMarca(marca);
         pro.setUnidadeMedida(unidadeMedida);

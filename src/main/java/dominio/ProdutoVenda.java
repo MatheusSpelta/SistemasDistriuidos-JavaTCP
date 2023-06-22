@@ -42,19 +42,19 @@ public class ProdutoVenda {
     private Integer quantidade;
 
     @Column(name = "valor_unit")
-    private Float valorUnit;
+    private Double valorUnit;
 
     @Column(name = "valor_total")
-    private Float valorTotal;
+    private Double valorTotal;
 
     @Column(name = "desconto")
-    private Float desconto;
+    private Double desconto;
 
     //Setter, Getter and Constructors
     public ProdutoVenda() {
     }
 
-    public ProdutoVenda(int id, Produto produto, Venda venda, Integer quantidade, Float valorUnit, Float valorTotal, Float descontoUnit, Float desconto) {
+    public ProdutoVenda(int id, Produto produto, Venda venda, Integer quantidade, Double valorUnit, Double valorTotal, Double descontoUnit, Double desconto) {
         this.id = id;
         this.produto = produto;
         this.venda = venda;
@@ -64,7 +64,7 @@ public class ProdutoVenda {
         this.desconto = desconto;
     }
 
-    public ProdutoVenda(Produto produto, Venda venda, Integer quantidade, Float valorUnit, Float valorTotal, Float desconto) {
+    public ProdutoVenda(Produto produto, Venda venda, int quantidade, Double valorUnit, Double valorTotal, Double desconto) {
         this.produto = produto;
         this.venda = venda;
         this.quantidade = quantidade;
@@ -105,27 +105,27 @@ public class ProdutoVenda {
         this.quantidade = quantidade;
     }
 
-    public Float getValorUnit() {
+    public Double getValorUnit() {
         return valorUnit;
     }
 
-    public void setValorUnit(Float valorUnit) {
+    public void setValorUnit(Double valorUnit) {
         this.valorUnit = valorUnit;
     }
 
-    public Float getValorTotal() {
+    public Double getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(Float valorTotal) {
+    public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
     }
 
-    public Float getDesconto() {
+    public Double getDesconto() {
         return desconto;
     }
 
-    public void setDesconto(Float desconto) {
+    public void setDesconto(Double desconto) {
         this.desconto = desconto;
     }
 

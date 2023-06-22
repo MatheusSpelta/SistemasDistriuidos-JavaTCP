@@ -245,6 +245,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
+        jScrollPane2.setComponentPopupMenu(mnuProduto);
         jScrollPane2.setPreferredSize(new java.awt.Dimension(100, 100));
 
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
@@ -263,6 +264,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblProdutos.setInheritsPopupMenu(true);
         jScrollPane2.setViewportView(tblProdutos);
 
         jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -394,7 +396,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                     .addComponent(lblTotalProdutos)
                     .addComponent(btnLimparProduto)
                     .addComponent(btnAdicionarProduto))
-                .addGap(0, 7, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 540, 110));
@@ -473,7 +475,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(cmbFormaPag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblFormaPag)))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 540, 120));
@@ -700,6 +702,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         txtValorUnit.setText(null);
         txtQuantidadeProduto.setText(null);
         txtDescontoProduto.setText("0.00");
+        txtTotalProdutos.setText(null);
     }
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         limparCampos();
@@ -714,7 +717,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     }//GEN-LAST:event_txtDescontoProdutoFocusLost
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-
+        int id = inserirVenda(cliSelecionado,)
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void mnuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExcluirActionPerformed
@@ -722,8 +725,8 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         if (linha >= 0) {
 
             if (JOptionPane.showConfirmDialog(this, "Desejar realmente excluir?", "Excluir Produto", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                descontoTotal -= (float) tblProdutos.getValueAt(5, linha);
-                valorTotal -= (float) tblProdutos.getValueAt(6, linha);
+                descontoTotal = descontoTotal - (float) tblProdutos.getValueAt(linha, 4);
+                valorTotal = valorTotal - (float) tblProdutos.getValueAt(linha, 5);
                 txtTotalTotais.setText(Float.toString(valorTotal));
                 txtDescontoTotais.setText(Float.toString(descontoTotal));
                 calcularTotalPedido();

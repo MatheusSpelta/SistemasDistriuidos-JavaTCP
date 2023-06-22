@@ -47,16 +47,16 @@ public class Venda {
     private LocalDate dataVenda;
 
     @Column(name = "valor_total")
-    private Float valorTotal;
+    private Double valorTotal;
 
     @Column(name = "entrega")
     private boolean entrega;
 
     @Column(name = "valor_frete")
-    private Float valorFrete;
+    private Double valorFrete;
 
     @Column(name = "desconto")
-    private Float valorDesconto;
+    private Double valorDesconto;
 
     @Column(name = "cancelada")
     private boolean cancelada;
@@ -76,7 +76,7 @@ public class Venda {
     public Venda() {
     }
 
-    public Venda(Integer idVenda, Cliente cliente, Float valorTotal, FormaPagamento formaPagamento, boolean entrega, Float valorFrete, Float valorDesconto, String funcionario) {
+    public Venda(Integer idVenda, Cliente cliente, Double valorTotal, FormaPagamento formaPagamento, boolean entrega, Double valorFrete, Double valorDesconto, String funcionario) {
         this.idVenda = idVenda;
         this.cliente = cliente;
         this.valorTotal = valorTotal;
@@ -88,14 +88,14 @@ public class Venda {
         this.dataVenda = LocalDate.now();
     }
 
-    public Venda(Cliente cliente, LocalDate dataVenda, Float valorTotal, boolean entrega, Float valorFrete, Float valorDesconto, String funcionario, FormaPagamento fp) {
+    public Venda(Cliente cliente, Double valorTotal, boolean entrega, Double valorFrete, Double valorDesconto, FormaPagamento fp) {
         this.cliente = cliente;
         this.dataVenda = LocalDate.now();
         this.valorTotal = valorTotal;
         this.entrega = entrega;
         this.valorFrete = valorFrete;
         this.valorDesconto = valorDesconto;
-        this.funcionario = funcionario;
+        this.funcionario = null;
         this.fp = fp;
         this.cancelada = false;
     }
@@ -124,11 +124,11 @@ public class Venda {
         this.dataVenda = dataVenda;
     }
 
-    public Float getValorTotal() {
+    public Double getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(Float valorTotal) {
+    public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
     }
 
@@ -140,11 +140,11 @@ public class Venda {
         this.entrega = entrega;
     }
 
-    public Float getValorFrete() {
+    public Double getValorFrete() {
         return valorFrete;
     }
 
-    public void setValorFrete(Float valorFrete) {
+    public void setValorFrete(Double valorFrete) {
         this.valorFrete = valorFrete;
     }
 
@@ -172,11 +172,11 @@ public class Venda {
         this.produtos = produtos;
     }
 
-    public Float getValorDesconto() {
+    public Double getValorDesconto() {
         return valorDesconto;
     }
 
-    public void setValorDesconto(Float valorDesconto) {
+    public void setValorDesconto(Double valorDesconto) {
         this.valorDesconto = valorDesconto;
     }
 
