@@ -85,6 +85,10 @@ public class GerenciadorDominio {
 
     }
 
+    public void alterarVenda() {
+
+    }
+
     public void alterarCliente(Cliente cli, int id, boolean ativo, String nome, String CPF, String CNPJ, String celular, String CEP, String cidade, String rua, String bairro, int numero, String UF) throws HibernateException {
         cli.setIdCliente(id);
         cli.setNome(nome);
@@ -156,5 +160,4 @@ public class GerenciadorDominio {
         }
         return lista;
     }
-
 }

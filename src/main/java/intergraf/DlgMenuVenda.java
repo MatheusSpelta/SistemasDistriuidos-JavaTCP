@@ -11,10 +11,13 @@ import dominio.Venda;
 import gerTarefas.FuncoesUteis;
 import gerTarefas.GerInterGrafica;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.util.EventListener;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -26,10 +29,10 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     private Venda venSelecionada;
     private Cliente cliSelecionado;
     private Produto proSelecionado;
-    private float valorTotal = 0;
-    private float descontoTotal = 0;
-    private float totalVenda = 0;
-    private float freteTotal = 0;
+    private Double valorTotal = 0.00;
+    private Double descontoTotal = 0.00;
+    private Double totalVenda = 0.00;
+    private Double freteTotal = 0.00;
 
     /**
      * Creates new form DlgMenuVenda
@@ -405,6 +408,8 @@ public class DlgMenuVenda extends javax.swing.JDialog {
 
         lblTotalTotais.setText("Total produtos");
 
+        txtTotalTotais.setEditable(false);
+
         chckEntrega.setText("Entrega");
         chckEntrega.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -418,7 +423,11 @@ public class DlgMenuVenda extends javax.swing.JDialog {
 
         lblDescontoTotais.setText("Desconto");
 
+        txtDescontoTotais.setEditable(false);
+
         lblTotalVenda.setText("Total da Venda");
+
+        txtTotalVenda.setEditable(false);
 
         lblFormaPag.setText("Forma de pagamento");
 
@@ -618,33 +627,33 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         String descricao = txtDescricaoProduto.getText();
         Produto pro = proSelecionado;
         if (validarCamposProdutos()) {
-            float unitario = Float.parseFloat(txtValorUnit.getText());
-            float desconto = Float.parseFloat(txtDescontoProduto.getText());
+            Double unitario = Double.parseDouble(txtValorUnit.getText());
+            Double desconto = Double.parseDouble(txtDescontoProduto.getText());
             int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
-            float total = (unitario * quantidade) - desconto;
+            Double total = (unitario * quantidade) - desconto;
             adicionarTabela(pro, descricao, unitario, quantidade, desconto, total);
             calcularTotais(unitario, desconto, quantidade);
             limparProduto();
         }
     }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
 
-    private void calcularTotais(float unitario, float desconto, int quantidade) {
+    private void calcularTotais(Double unitario, Double desconto, int quantidade) {
         valorTotal = valorTotal + (unitario * quantidade);
         descontoTotal = descontoTotal + desconto;
-        txtTotalTotais.setText(Float.toString(valorTotal));
-        txtDescontoTotais.setText(Float.toString(descontoTotal));
+        txtTotalTotais.setText(Double.toString(valorTotal));
+        txtDescontoTotais.setText(Double.toString(descontoTotal));
         calcularTotalPedido();
 
     }
 
     private void calcularTotalPedido() {
         if (chckEntrega.isSelected()) {
-            float frete = Float.parseFloat(txtFreteTotais.getText());
-            totalVenda = valorTotal - descontoTotal + frete;
+            freteTotal = Double.parseDouble(txtFreteTotais.getText());
+            totalVenda = valorTotal - descontoTotal + freteTotal;
         } else {
             totalVenda = totalVenda - descontoTotal;
         }
-        txtTotalVenda.setText(Float.toString(totalVenda));
+        txtTotalVenda.setText(Double.toString(totalVenda));
     }
 
     private boolean validarCamposProdutos() {
@@ -677,7 +686,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
 
     }
 
-    private void adicionarTabela(Produto cod, String descricao, float valorUni, int quantidade, float Desconto, float valorTotal) {
+    private void adicionarTabela(Produto cod, String descricao, Double valorUni, int quantidade, Double Desconto, Double valorTotal) {
 
         ((DefaultTableModel) tblProdutos.getModel()).addRow(new Object[9]);
 
@@ -717,7 +726,28 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     }//GEN-LAST:event_txtDescontoProdutoFocusLost
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        int id = inserirVenda(cliSelecionado,)
+        boolean entrega;
+        if (chckEntrega.isSelected()) {
+            entrega = true;
+        } else {
+            entrega = false;
+        }
+        FormaPagamento fp = (FormaPagamento) cmbFormaPag.getSelectedItem();
+        if (validarCampos()) {
+            try {
+                if (venSelecionada == null) {
+                    int id = gerIG.getGerDominio().inserirVenda(cliSelecionado, valorTotal, entrega, freteTotal, descontoTotal, fp, tblProdutos);
+                    limparCampos();
+                    JOptionPane.showMessageDialog(this, "Venda" + id + " registrada com sucesso.", "Realizar venda", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    gerIG.getGerDominio().alterarVenda();
+                }
+            } catch (HibernateException ex) {
+                JOptionPane.showMessageDialog(this, ex, "Erro ao inserir venda", JOptionPane.ERROR_MESSAGE);
+            } catch (HeadlessException ex) {
+                JOptionPane.showMessageDialog(this, ex, "Erro ao inserir venda", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void mnuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExcluirActionPerformed
@@ -727,8 +757,8 @@ public class DlgMenuVenda extends javax.swing.JDialog {
             if (JOptionPane.showConfirmDialog(this, "Desejar realmente excluir?", "Excluir Produto", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 descontoTotal = descontoTotal - (float) tblProdutos.getValueAt(linha, 4);
                 valorTotal = valorTotal - (float) tblProdutos.getValueAt(linha, 5);
-                txtTotalTotais.setText(Float.toString(valorTotal));
-                txtDescontoTotais.setText(Float.toString(descontoTotal));
+                txtTotalTotais.setText(Double.toString(valorTotal));
+                txtDescontoTotais.setText(Double.toString(descontoTotal));
                 calcularTotalPedido();
                 ((DefaultTableModel) tblProdutos.getModel()).removeRow(linha);
             }
@@ -880,5 +910,26 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         txtTotalVenda.setText(null);
         cmbFormaPag.setSelectedIndex(0);
 
+    }
+
+    private boolean validarCampos() {
+        String msgErro = "";
+
+        lblCodigoCliente.setForeground(Color.black);
+        lblCodigoProduto.setForeground(Color.black);
+        if (cliSelecionado == null) {
+            msgErro = msgErro + "Cliente não informado. \n";
+            lblCodigoCliente.setForeground(Color.red);
+        }
+        if (tblProdutos.getRowCount() == 0) {
+            msgErro = msgErro + "Lista de produtos vazia. \n";
+            lblCodigoProduto.setForeground(Color.red);
+        }
+        if (msgErro.isEmpty()) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, msgErro, "Erro ao gerar venda", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 }

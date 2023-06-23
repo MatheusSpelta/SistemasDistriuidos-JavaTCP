@@ -621,6 +621,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTotalTotais">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="chckEntrega">
               <Properties>
@@ -646,6 +649,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDescontoTotais">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTotalVenda">
               <Properties>
@@ -653,6 +659,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTotalVenda">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblFormaPag">
               <Properties>
