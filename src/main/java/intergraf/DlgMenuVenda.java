@@ -187,6 +187,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
 
         lblTefone.setText("Telefone");
 
+        txtTelefone.setEditable(false);
         txtTelefone.setEnabled(false);
         txtTelefone.setFocusable(false);
 
@@ -918,6 +919,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
             txtRuaCliente.setText(cli.getEndereco().getRua());
             txtBairroCliente.setText(cli.getEndereco().getBairro());
             txtNumeroCliente.setText(String.valueOf(cli.getEndereco().getNumero()));
+            txtTelefone.setText(cli.getCelular());
             if (FuncoesUteis.isCPF(cli.getCpf())) {
                 txtCPF.setText(cli.getCpf());
             } else {

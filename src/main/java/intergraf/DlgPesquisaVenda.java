@@ -21,7 +21,7 @@ public class DlgPesquisaVenda extends javax.swing.JDialog {
     private GerInterGrafica gerIG;
     private Venda venSelecionada;
 
-    public DlgPesquisaVenda(java.awt.Frame parent, boolean modal) {
+    public DlgPesquisaVenda(java.awt.Frame parent, boolean modal, GerInterGrafica gerIG) {
         super(parent, modal);
         initComponents();
         this.gerIG = gerIG;
