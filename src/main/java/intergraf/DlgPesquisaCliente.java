@@ -165,6 +165,7 @@ public class DlgPesquisaCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        ((DefaultTableModel) tblClientes.getModel()).setRowCount(0);
         cliSelecionado = null;
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -188,7 +189,7 @@ public class DlgPesquisaCliente extends javax.swing.JDialog {
         if (linha >= 0) {
             cliSelecionado = (Cliente) tblClientes.getValueAt(linha, 0);
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um cliente.", "Pesquisar Cliente", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Selecione um cliente.", "Pesquisar Cliente", JOptionPane.INFORMATION_MESSAGE);
         }
 
         this.setVisible(false);

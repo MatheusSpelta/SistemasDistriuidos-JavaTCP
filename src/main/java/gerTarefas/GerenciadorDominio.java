@@ -58,8 +58,8 @@ public class GerenciadorDominio {
         return cli.getIdCliente();
     }
 
-    public int inserirVenda(Cliente cliente, Double valorTotal, boolean entrega, Double valorFrete, Double valorDesconto, FormaPagamento fp, JTable tblProdutos) {
-        Venda ven = new Venda(cliente, valorTotal, entrega, valorFrete, valorDesconto, fp);
+    public int inserirVenda(Cliente cliente, Double valorTotal, boolean entrega, Double valorFrete, Double valorDesconto, Double totalVenda, FormaPagamento fp, JTable tblProdutos) {
+        Venda ven = new Venda(cliente, valorTotal, entrega, valorFrete, valorDesconto, totalVenda, fp);
         List produtos = ven.getProdutos();
         int tam = tblProdutos.getRowCount();
         if (tam > 0) {
@@ -75,6 +75,7 @@ public class GerenciadorDominio {
 
                 ProdutoVenda proven = new ProdutoVenda(produto, ven, qtd, unitario, total, desc);
                 produtos.add(proven);
+                produto.setQuantidade(produto.getQuantidade() - qtd);
 
             }
             venDAO.inserir(ven);
@@ -85,7 +86,7 @@ public class GerenciadorDominio {
 
     }
 
-    public void alterarVenda() {
+    public void cancelarVenda(Venda venda, JTable tblProdutos, String funcionario) {
 
     }
 
@@ -159,5 +160,9 @@ public class GerenciadorDominio {
                 break;
         }
         return lista;
+    }
+
+    public List<Venda> pesquisarVenda(String text, int selectedIndex) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

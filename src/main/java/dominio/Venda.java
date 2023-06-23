@@ -7,6 +7,7 @@ package dominio;
 import dominio.ProdutoVenda;
 import dominio.Cliente;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -58,11 +59,11 @@ public class Venda {
     @Column(name = "desconto")
     private Double valorDesconto;
 
+    @Column(name = "total_venda")
+    private Double totalVenda;
+
     @Column(name = "cancelada")
     private boolean cancelada;
-
-    @Column(name = "funcionario")
-    private String funcionario;
 
     @OneToMany(mappedBy = "venda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProdutoVenda> produtos = new ArrayList<>();
@@ -84,18 +85,16 @@ public class Venda {
         this.entrega = entrega;
         this.valorFrete = valorFrete;
         this.valorDesconto = valorDesconto;
-        this.funcionario = funcionario;
-        this.dataVenda = LocalDate.now();
     }
 
-    public Venda(Cliente cliente, Double valorTotal, boolean entrega, Double valorFrete, Double valorDesconto, FormaPagamento fp) {
+    public Venda(Cliente cliente, Double valorTotal, boolean entrega, Double valorFrete, Double valorDesconto, Double totalVenda, FormaPagamento fp) {
         this.cliente = cliente;
         this.dataVenda = LocalDate.now();
         this.valorTotal = valorTotal;
         this.entrega = entrega;
         this.valorFrete = valorFrete;
         this.valorDesconto = valorDesconto;
-        this.funcionario = null;
+        this.totalVenda = totalVenda;
         this.fp = fp;
         this.cancelada = false;
     }
@@ -156,14 +155,6 @@ public class Venda {
         this.cancelada = cancelada;
     }
 
-    public String getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(String funcionario) {
-        this.funcionario = funcionario;
-    }
-
     public List<ProdutoVenda> getProdutos() {
         return produtos;
     }
@@ -186,6 +177,24 @@ public class Venda {
 
     public void setFp(FormaPagamento fp) {
         this.fp = fp;
+    }
+
+    public Double getTotalVenda() {
+        return totalVenda;
+    }
+
+    public void setTotalVenda(Double totalVenda) {
+        this.totalVenda = totalVenda;
+    }
+
+    public Object[] toArray() throws ParseException {
+        return new Object[]{this, this.cliente.getNome(), this.getDataVenda(), this.getTotalVenda()};
+        //return new Object[]{this, this.cliente.getIdCliente(), this.cliente.getNome(), this.cliente.getCpf(), this.cliente.getCnpj(), this.cliente.getCelular(), this.cliente.getEndereco().getRua(), this.cliente.getEndereco().getNumero(), this.cliente.getEndereco().getBairro(), this.cliente.getEndereco().getCidade(), this.getProdutos(), this.getValorTotal(), this.getValorDesconto(), this.entrega, this.getValorFrete(), this.getFp(), this.getTotalVenda()};
+    }
+
+    @Override
+    public String toString() {
+        return "" + idVenda;
     }
 
 }

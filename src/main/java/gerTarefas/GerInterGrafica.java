@@ -9,12 +9,12 @@ import dominio.FormaPagamento;
 import dominio.Produto;
 import dominio.UnidadeMedida;
 import dominio.Venda;
-import intergraf.DlgCancelarVenda;
 import intergraf.DlgMenuEstoque;
 import intergraf.DlgMenuVenda;
 import intergraf.DlgMenuClient;
 import intergraf.DlgPesquisaCliente;
 import intergraf.DlgPesquisaProduto;
+import intergraf.DlgPesquisaVenda;
 import intergraf.FrmPrincipal;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
@@ -37,7 +37,7 @@ public class GerInterGrafica {
     private DlgMenuVenda janVenda = null;
     private DlgPesquisaCliente janPesqCli = null;
     private DlgPesquisaProduto janPesqPro = null;
-    private DlgCancelarVenda janCancVenda = null;
+    private DlgPesquisaVenda janPesqVen = null;
 
     GerenciadorDominio gerDominio;
 
@@ -94,9 +94,9 @@ public class GerInterGrafica {
         return janPesqPro.getProduto();
     }
 
-    public Venda janelaCancVenda() {
-        janCancVenda = (DlgCancelarVenda) abrirDialog(janPrinc, janCancVenda, DlgCancelarVenda.class);
-        return janCancVenda.getVenda();
+    public Venda janelaPesqVenda() {
+        janPesqVen = (DlgPesquisaVenda) abrirDialog(janPrinc, janPesqVen, DlgPesquisaVenda.class);
+        return janPesqVen.getVenda();
     }
 
     public void carregarComboUnidadeMedida(JComboBox combo, Class classe) {

@@ -12,7 +12,10 @@ import gerTarefas.FuncoesUteis;
 import gerTarefas.GerInterGrafica;
 import java.awt.Color;
 import java.awt.HeadlessException;
+import java.text.ParseException;
 import java.util.EventListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
@@ -70,8 +73,12 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         lblCodigoCliente = new javax.swing.JLabel();
         txtCodigoCliente = new javax.swing.JTextField();
         btnPesquisarCliente = new javax.swing.JButton();
-        lblDocumentoCliente = new javax.swing.JLabel();
-        txtDocumentoCliente = new javax.swing.JTextField();
+        lblCPF = new javax.swing.JLabel();
+        txtCPF = new javax.swing.JTextField();
+        lblCNPJ = new javax.swing.JLabel();
+        txtCNPJ = new javax.swing.JTextField();
+        lblTefone = new javax.swing.JLabel();
+        txtTelefone = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblProdutos = new javax.swing.JTable();
@@ -168,10 +175,20 @@ public class DlgMenuVenda extends javax.swing.JDialog {
             }
         });
 
-        lblDocumentoCliente.setText("Documento");
+        lblCPF.setText("CPF");
 
-        txtDocumentoCliente.setEditable(false);
-        txtDocumentoCliente.setFocusable(false);
+        txtCPF.setEditable(false);
+        txtCPF.setFocusable(false);
+
+        lblCNPJ.setText("CNPJ");
+
+        txtCNPJ.setEditable(false);
+        txtCNPJ.setEnabled(false);
+
+        lblTefone.setText("Telefone");
+
+        txtTelefone.setEnabled(false);
+        txtTelefone.setFocusable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -180,13 +197,15 @@ public class DlgMenuVenda extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblRuaCliente)
-                        .addComponent(lblBairroCliente)
-                        .addComponent(lblNomeCliente))
-                    .addComponent(lblCodigoCliente))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblRuaCliente)
+                            .addComponent(lblBairroCliente)))
+                    .addComponent(lblCodigoCliente)
+                    .addComponent(lblCPF, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtBairroCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
@@ -195,40 +214,54 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNumeroCliente)
                             .addComponent(lblCidadeCliente))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCidadeCliente)
-                            .addComponent(txtDocumentoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                            .addComponent(txtNumeroCliente)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNumeroCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCidadeCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(txtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnPesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(9, 9, 9)
-                        .addComponent(lblDocumentoCliente)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                            .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblNomeCliente)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(lblCNPJ)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTefone)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblCodigoCliente))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnPesquisarCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(lblCodigoCliente, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnPesquisarCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblNomeCliente)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDocumentoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDocumentoCliente)
-                    .addComponent(lblNomeCliente))
+                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCPF)
+                    .addComponent(lblCNPJ)
+                    .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTefone)
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRuaCliente)
@@ -497,6 +530,11 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         txtCodigo.setFocusable(false);
 
         btnPesquisarVenda.setText("jButton4");
+        btnPesquisarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarVendaActionPerformed(evt);
+            }
+        });
 
         btnCancelarVenda.setText("Cancelar Venda");
         btnCancelarVenda.addActionListener(new java.awt.event.ActionListener() {
@@ -516,9 +554,9 @@ public class DlgMenuVenda extends javax.swing.JDialog {
                 .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnPesquisarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
                 .addComponent(btnCancelarVenda)
-                .addGap(21, 21, 21))
+                .addGap(29, 29, 29))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -736,12 +774,12 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         if (validarCampos()) {
             try {
                 if (venSelecionada == null) {
-                    int id = gerIG.getGerDominio().inserirVenda(cliSelecionado, valorTotal, entrega, freteTotal, descontoTotal, fp, tblProdutos);
+                    int id = gerIG.getGerDominio().inserirVenda(cliSelecionado, valorTotal, entrega, freteTotal, descontoTotal, totalVenda, fp, tblProdutos);
                     limparCampos();
-                    JOptionPane.showMessageDialog(this, "Venda" + id + " registrada com sucesso.", "Realizar venda", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    gerIG.getGerDominio().alterarVenda();
+                    JOptionPane.showMessageDialog(this, "Venda" + id + " registrada com sucesso.", "Venda realizada", JOptionPane.INFORMATION_MESSAGE);
                 }
+                /*else {
+                    //g*/
             } catch (HibernateException ex) {
                 JOptionPane.showMessageDialog(this, ex, "Erro ao inserir venda", JOptionPane.ERROR_MESSAGE);
             } catch (HeadlessException ex) {
@@ -778,8 +816,23 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     }//GEN-LAST:event_formComponentShown
 
     private void btnCancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarVendaActionPerformed
-        // TODO add your handling code here:
+        if (venSelecionada != null) {
+            String funcionario = JOptionPane.showInputDialog(this, "Informe o seu nome para cancelar a venda", "Cancelar Venda", JOptionPane.WARNING_MESSAGE);
+            gerIG.getGerDominio().cancelarVenda(venSelecionada, tblProdutos, funcionario);
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione a venda que deseja excluir", "Erro ao excluir", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnCancelarVendaActionPerformed
+
+    private void btnPesquisarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarVendaActionPerformed
+        limparCampos();
+        venSelecionada = gerIG.janelaPesqVenda();
+        try {
+            preencherCamposVenda(venSelecionada);
+        } catch (ParseException ex) {
+            Logger.getLogger(DlgMenuVenda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnPesquisarVendaActionPerformed
 
     private void calcularTotalProdutoIndividual() {
         if (proSelecionado != null) {
@@ -812,6 +865,8 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblBairroCliente;
+    private javax.swing.JLabel lblCNPJ;
+    private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblCidadeCliente;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCodigoCliente;
@@ -819,13 +874,13 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     private javax.swing.JLabel lblDescontoProduto;
     private javax.swing.JLabel lblDescontoTotais;
     private javax.swing.JLabel lblDescricaoProduto;
-    private javax.swing.JLabel lblDocumentoCliente;
     private javax.swing.JLabel lblFormaPag;
     private javax.swing.JLabel lblFreteTotais;
     private javax.swing.JLabel lblNomeCliente;
     private javax.swing.JLabel lblNumeroCliente;
     private javax.swing.JLabel lblQtdProduto;
     private javax.swing.JLabel lblRuaCliente;
+    private javax.swing.JLabel lblTefone;
     private javax.swing.JLabel lblTotalProdutos;
     private javax.swing.JLabel lblTotalTotais;
     private javax.swing.JLabel lblTotalVenda;
@@ -834,6 +889,8 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     private javax.swing.JPopupMenu mnuProduto;
     private javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtBairroCliente;
+    private javax.swing.JTextField txtCNPJ;
+    private javax.swing.JTextField txtCPF;
     private javax.swing.JTextField txtCidadeCliente;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCodigoCliente;
@@ -841,12 +898,12 @@ public class DlgMenuVenda extends javax.swing.JDialog {
     private javax.swing.JTextField txtDescontoProduto;
     private javax.swing.JTextField txtDescontoTotais;
     private javax.swing.JTextField txtDescricaoProduto;
-    private javax.swing.JTextField txtDocumentoCliente;
     private javax.swing.JTextField txtFreteTotais;
     private javax.swing.JTextField txtNomeCliente;
     private javax.swing.JTextField txtNumeroCliente;
     private javax.swing.JTextField txtQuantidadeProduto;
     private javax.swing.JTextField txtRuaCliente;
+    private javax.swing.JTextField txtTelefone;
     private javax.swing.JTextField txtTotalProdutos;
     private javax.swing.JTextField txtTotalTotais;
     private javax.swing.JTextField txtTotalVenda;
@@ -862,9 +919,9 @@ public class DlgMenuVenda extends javax.swing.JDialog {
             txtBairroCliente.setText(cli.getEndereco().getBairro());
             txtNumeroCliente.setText(String.valueOf(cli.getEndereco().getNumero()));
             if (FuncoesUteis.isCPF(cli.getCpf())) {
-                txtDocumentoCliente.setText(cli.getCpf());
+                txtCPF.setText(cli.getCpf());
             } else {
-                txtDocumentoCliente.setText(cli.getCnpj());
+                txtCNPJ.setText(cli.getCnpj());
             }
         }
     }
@@ -877,8 +934,10 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         }
     }
 
-    private void preencherCamposVenda(Venda venSelecionada) {
+    private void preencherCamposVenda(Venda ven) throws ParseException {
+        if (ven != null) {
 
+        }
     }
 
     private void limparCampos() {
@@ -892,7 +951,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         txtRuaCliente.setText(null);
         txtBairroCliente.setText(null);
         txtNumeroCliente.setText(null);
-        txtDocumentoCliente.setText(null);
+        txtCPF.setText(null);
 
         txtCodigoProduto.setText(null);
         txtDescricaoProduto.setText(null);
