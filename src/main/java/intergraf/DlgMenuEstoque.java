@@ -297,8 +297,8 @@ public class DlgMenuEstoque extends javax.swing.JDialog {
         String marca = txtMarca.getText();
         UnidadeMedida unidadeMedida = (UnidadeMedida) cmbUniMedida.getSelectedItem();
         int estoque = Integer.parseInt(spnEstoque.getValue().toString());
-        double valorCompra = Float.parseFloat(txtValorCompra.getText());
-        double valorVenda = Float.parseFloat(txtValorVenda.getText());
+        Double valorCompra = Double.parseDouble(txtValorCompra.getText());
+        Double valorVenda = Double.parseDouble(txtValorVenda.getText());
 
         if (validarCampos()) {
             try {

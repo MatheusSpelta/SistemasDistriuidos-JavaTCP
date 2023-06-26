@@ -669,10 +669,15 @@ public class DlgMenuVenda extends javax.swing.JDialog {
             Double unitario = Double.parseDouble(txtValorUnit.getText());
             Double desconto = Double.parseDouble(txtDescontoProduto.getText());
             int quantidade = Integer.parseInt(txtQuantidadeProduto.getText());
-            Double total = (unitario * quantidade) - desconto;
-            adicionarTabela(pro, descricao, unitario, quantidade, desconto, total);
-            calcularTotais(unitario, desconto, quantidade);
-            limparProduto();
+            if (proSelecionado.getQuantidade() > quantidade) {
+                Double total = (unitario * quantidade) - desconto;
+                adicionarTabela(pro, descricao, unitario, quantidade, desconto, total);
+                calcularTotais(unitario, desconto, quantidade);
+                limparProduto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Quantidade em estoque indiponivel!", "Adicionar produto", JOptionPane.INFORMATION_MESSAGE);
+            }
+
         }
     }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
 
@@ -938,7 +943,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
 
     private void preencherCamposVenda(Venda ven) throws ParseException {
         if (ven != null) {
-
+            txtCodigoCliente.setText(String.valueOf(ven.getCliente().getIdCliente()));
         }
     }
 
