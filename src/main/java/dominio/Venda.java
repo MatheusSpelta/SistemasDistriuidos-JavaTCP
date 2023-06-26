@@ -40,7 +40,7 @@ public class Venda {
     @Column(name = "id_venda")
     private Integer idVenda;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 

@@ -162,7 +162,19 @@ public class GerenciadorDominio {
         return lista;
     }
 
-    public List<Venda> pesquisarVenda(String text, int selectedIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Venda> pesquisarVenda(String pesq, int tipo) throws HibernateException {
+        List<Venda> lista = null;
+        switch (tipo) {
+            case 0:
+                lista = venDAO.pesquisarCodigo(pesq);
+                break;
+            case 1:
+                lista = venDAO.pesquisarCliente(pesq);
+                break;
+            case 2:
+                lista = venDAO.pesquisarData(pesq);
+                break;
+        }
+        return lista;
     }
 }

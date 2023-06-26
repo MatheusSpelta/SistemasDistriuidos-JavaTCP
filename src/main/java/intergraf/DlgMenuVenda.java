@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import org.hibernate.HibernateException;
 
 /**
@@ -695,7 +696,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
             freteTotal = Double.parseDouble(txtFreteTotais.getText());
             totalVenda = valorTotal - descontoTotal + freteTotal;
         } else {
-            totalVenda = totalVenda - descontoTotal;
+            totalVenda = valorTotal - descontoTotal;
         }
         txtTotalVenda.setText(Double.toString(totalVenda));
     }
@@ -943,7 +944,15 @@ public class DlgMenuVenda extends javax.swing.JDialog {
 
     private void preencherCamposVenda(Venda ven) throws ParseException {
         if (ven != null) {
-            txtCodigoCliente.setText(String.valueOf(ven.getCliente().getIdCliente()));
+            txtCodigo.setText(String.valueOf(ven.getIdVenda()));
+            preencherCamposCliente(ven.getCliente());
+            tblProdutos.setModel((TableModel) ven.getProdutos());
+            txtTotalTotais.setText(String.valueOf(ven.getValorTotal()));
+            txtDescontoTotais.setText(String.valueOf(ven.getValorDesconto()));
+            chckEntrega.setSelected(ven.isEntrega());
+            txtFreteTotais.setText(String.valueOf(ven.getValorFrete()));
+            txtTotalVenda.setText(String.valueOf(ven.getTotalVenda()));
+            cmbFormaPag.setSelectedItem(ven.getFp());
         }
     }
 
