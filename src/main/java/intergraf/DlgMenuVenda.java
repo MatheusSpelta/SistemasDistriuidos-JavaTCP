@@ -946,7 +946,7 @@ public class DlgMenuVenda extends javax.swing.JDialog {
         if (ven != null) {
             txtCodigo.setText(String.valueOf(ven.getIdVenda()));
             preencherCamposCliente(ven.getCliente());
-            tblProdutos.setModel((TableModel) ven.getProdutos());
+            //tblProdutos.setModel((TableModel) ven.getProdutos());
             txtTotalTotais.setText(String.valueOf(ven.getValorTotal()));
             txtDescontoTotais.setText(String.valueOf(ven.getValorDesconto()));
             chckEntrega.setSelected(ven.isEntrega());

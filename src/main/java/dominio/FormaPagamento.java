@@ -49,4 +49,10 @@ public class FormaPagamento {
 
     public FormaPagamento() {
     }
+
+    @Override
+    public String toString() {
+        return forma_Pagamento;
+    }
+
 }

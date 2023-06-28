@@ -168,6 +168,7 @@ public class DlgPesquisaVenda extends javax.swing.JDialog {
         int linha = tblVendas.getSelectedRow();
         if (linha >= 0) {
             venSelecionada = (Venda) tblVendas.getValueAt(linha, 0);
+            setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma venda.", "Pesquisar Venda", JOptionPane.INFORMATION_MESSAGE);
         }
