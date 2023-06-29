@@ -40,6 +40,8 @@ public class ProdutoDAO extends GenericDAO {
                 case 1:
                     restricoes = builder.like(tabela.get("marca"), pesq + "%");
                     break;
+                case 2:
+                    restricoes = builder.like(tabela.get("idProduto").as(String.class), pesq + "%");
             }
 
             consulta.where(restricoes);
@@ -63,6 +65,10 @@ public class ProdutoDAO extends GenericDAO {
 
     public List<Produto> pesquisarMarca(String pesq) throws HibernateException {
         return pesquisar(pesq, 1);
+    }
+
+    public List<Produto> pesquisaPorID(String pesq) throws HibernateException {
+        return pesquisar(pesq, 2);
     }
 
 }

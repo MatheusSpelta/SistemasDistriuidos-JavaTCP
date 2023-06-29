@@ -38,7 +38,7 @@ public class VendaDAO extends GenericDAO {
 
             switch (tipo) {
                 case 0:
-                    restricoes = builder.equal(tabela.get("idVenda"), pesq);
+                    restricoes = builder.like(tabela.get("idVenda").as(String.class), pesq + "%");
                     break;
                 case 1:
                     restricoes = builder.like(tabela.get("cliente"), pesq + "%");

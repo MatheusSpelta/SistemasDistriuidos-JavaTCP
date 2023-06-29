@@ -158,6 +158,9 @@ public class GerenciadorDominio {
             case 1:
                 lista = proDAO.pesquisarMarca(pesq);
                 break;
+            case 2:
+                lista = proDAO.pesquisaPorID(pesq);
+                break;
         }
         return lista;
     }

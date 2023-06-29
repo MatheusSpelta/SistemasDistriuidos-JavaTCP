@@ -40,10 +40,12 @@ public class GerInterGrafica {
     private DlgPesquisaVenda janPesqVen = null;
 
     GerenciadorDominio gerDominio;
+    GerenciadorRelatorio gerRelatorio;
 
     public GerInterGrafica() {
         try {
             gerDominio = new GerenciadorDominio();
+            gerRelatorio = new GerenciadorRelatorio();
         } catch (HibernateException ex) {
             JOptionPane.showMessageDialog(janPrinc, "Erro de conexão com o banco." + ex.getMessage());
             System.exit(-1);
@@ -52,6 +54,10 @@ public class GerInterGrafica {
 
     public GerenciadorDominio getGerDominio() {
         return gerDominio;
+    }
+
+    public GerenciadorRelatorio getGerRelatorio() {
+        return gerRelatorio;
     }
 
     private JDialog abrirDialog(java.awt.Frame parent, JDialog dlg, Class classe) {

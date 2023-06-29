@@ -25,7 +25,7 @@ public class GerenciadorRelatorio {
 
     public void relComLista(List lista, String nome) {
         try {
-            InputStream rel = getClass().getResourceAsStream("../relatorios/" + nome);
+            InputStream rel = getClass().getResourceAsStream("C:/Users/Matheus/Documents/NetBeansProjects/ProjetoPoo2/src/main/java/relatorios/" + nome);
             Map parametros = new HashMap();
 
             JRBeanCollectionDataSource dados = new JRBeanCollectionDataSource(lista);

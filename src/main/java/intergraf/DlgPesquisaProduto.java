@@ -53,11 +53,12 @@ public class DlgPesquisaProduto extends javax.swing.JDialog {
         tblProdutos = new javax.swing.JTable();
         btnSelecionar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        btnRelatorio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Descricao", "Marca" }));
+        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Descricao", "Marca", "Codigo" }));
 
         btnPesq.setText("Pesquisar");
         btnPesq.addActionListener(new java.awt.event.ActionListener() {
@@ -118,6 +119,13 @@ public class DlgPesquisaProduto extends javax.swing.JDialog {
             }
         });
 
+        btnRelatorio.setText("Relatorio");
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelatorioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -138,7 +146,9 @@ public class DlgPesquisaProduto extends javax.swing.JDialog {
                 .addComponent(btnSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(138, 138, 138))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRelatorio)
+                .addGap(77, 77, 77))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +163,8 @@ public class DlgPesquisaProduto extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSelecionar)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnRelatorio))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -191,12 +202,23 @@ public class DlgPesquisaProduto extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
+        try {
+            List<Produto> lista = gerIG.getGerDominio().pesquisarProduto(txtPesq.getText(), cmbTipo.getSelectedIndex());
+
+            gerIG.getGerRelatorio().relComLista(lista, "Produtos.jasper");
+        } catch (HibernateException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Erro ao PESQUISAR produto", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRelatorioActionPerformed
+
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnPesq;
+    private javax.swing.JButton btnRelatorio;
     private javax.swing.JButton btnSelecionar;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JPanel jPanel1;

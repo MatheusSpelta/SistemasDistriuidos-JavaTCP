@@ -53,6 +53,7 @@ public class DlgPesquisaCliente extends javax.swing.JDialog {
         tblClientes = new javax.swing.JTable();
         btnSelecionar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        btnRelatorio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -113,6 +114,13 @@ public class DlgPesquisaCliente extends javax.swing.JDialog {
             }
         });
 
+        btnRelatorio.setText("Relatorio");
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelatorioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -129,9 +137,11 @@ public class DlgPesquisaCliente extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSelecionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(145, 145, 145))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRelatorio)
+                .addGap(96, 96, 96))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +156,8 @@ public class DlgPesquisaCliente extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSelecionar)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnRelatorio))
                 .addContainerGap())
         );
 
@@ -195,9 +206,20 @@ public class DlgPesquisaCliente extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
+        try {
+            List<Cliente> lista = gerIG.getGerDominio().pesquisarCliente(txtTipo.getText(), cmbTipo.getSelectedIndex());
+
+            gerIG.getGerRelatorio().relComLista(lista, "Clientes.jasper");
+        } catch (HibernateException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Erro ao gerar relatorio", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRelatorioActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnRelatorio;
     private javax.swing.JButton btnSelecionar;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JPanel jPanel1;
