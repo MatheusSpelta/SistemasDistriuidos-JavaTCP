@@ -63,7 +63,16 @@
                     <artifactId>itext</artifactId>
                 </exclusion>
             </exclusions>
+            <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>4.0.12</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
         
     <properties>

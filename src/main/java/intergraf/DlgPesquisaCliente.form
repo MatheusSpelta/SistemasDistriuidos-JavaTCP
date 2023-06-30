@@ -85,14 +85,15 @@
         <Component class="javax.swing.JComboBox" name="cmbTipo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="7">
-                <StringItem index="0" value="Nome"/>
-                <StringItem index="1" value="CPF"/>
-                <StringItem index="2" value="CNPJ"/>
-                <StringItem index="3" value="Telefone"/>
-                <StringItem index="4" value="Cidade"/>
-                <StringItem index="5" value="Estado"/>
-                <StringItem index="6" value=" "/>
+              <StringArray count="8">
+                <StringItem index="0" value="Codigo"/>
+                <StringItem index="1" value="Nome"/>
+                <StringItem index="2" value="CPF"/>
+                <StringItem index="3" value="CNPJ"/>
+                <StringItem index="4" value="Telefone"/>
+                <StringItem index="5" value="Cidade"/>
+                <StringItem index="6" value="Estado"/>
+                <StringItem index="7" value=" "/>
               </StringArray>
             </Property>
           </Properties>

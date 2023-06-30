@@ -14,7 +14,6 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.query.JRHibernateQueryExecuterFactory;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -25,7 +24,8 @@ public class GerenciadorRelatorio {
 
     public void relComLista(List lista, String nome) {
         try {
-            InputStream rel = getClass().getResourceAsStream("C:/Users/Matheus/Documents/NetBeansProjects/ProjetoPoo2/src/main/java/relatorios/" + nome);
+            InputStream rel = getClass().getResourceAsStream("../relatorios/" + nome);
+
             Map parametros = new HashMap();
 
             JRBeanCollectionDataSource dados = new JRBeanCollectionDataSource(lista);
@@ -35,7 +35,6 @@ public class GerenciadorRelatorio {
             if (print.getPages().size() > 0) {
 
                 JasperViewer jrViewer = new JasperViewer(print, true);
-
                 JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
                 viewer.setSize(800, 600);
                 viewer.setLocationRelativeTo(null);
@@ -47,9 +46,8 @@ public class GerenciadorRelatorio {
             }
 
         } catch (JRException erro) {
-            JOptionPane.showMessageDialog(null, "ERRO ao abrir relatório de clientes. " + erro.getMessage());
+            JOptionPane.showMessageDialog(null, "ERRO ao abrir relatório. " + erro.getMessage());
 
         }
-
     }
 }

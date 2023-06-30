@@ -17,9 +17,6 @@
 	<field name="valorCompra" class="java.lang.Double">
 		<fieldDescription><![CDATA[valorCompra]]></fieldDescription>
 	</field>
-	<field name="unidadeMedida" class="dominio.UnidadeMedida">
-		<fieldDescription><![CDATA[unidadeMedida]]></fieldDescription>
-	</field>
 	<field name="valorVenda" class="java.lang.Double">
 		<fieldDescription><![CDATA[valorVenda]]></fieldDescription>
 	</field>
@@ -46,7 +43,7 @@
 	</title>
 	<pageHeader>
 		<band height="60" splitType="Stretch">
-			<textField pattern="MMMMM dd, yyyy">
+			<textField pattern="dd MMMM, yyyy">
 				<reportElement x="650" y="0" width="100" height="30" uuid="457acaa3-3f20-433f-b483-33a091dd6133"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>

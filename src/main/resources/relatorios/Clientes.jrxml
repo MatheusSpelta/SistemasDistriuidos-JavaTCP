@@ -26,20 +26,24 @@
 	<title>
 		<band height="76" splitType="Stretch">
 			<staticText>
-				<reportElement x="220" y="46" width="120" height="30" uuid="8431aa4b-c89e-43be-ada3-defbbdd08721"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="180" y="46" width="199" height="30" uuid="8431aa4b-c89e-43be-ada3-defbbdd08721"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
 				<text><![CDATA[Clientes Cadastrados]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="180" y="10" width="199" height="30" uuid="9661e85a-9bd4-4da4-9a50-21a9abc9b164"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
 				<text><![CDATA[Sistema gerenciador de vendas]]></text>
 			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="59" splitType="Stretch">
-			<textField pattern="MMMMM dd, yyyy">
+		<band height="32" splitType="Stretch">
+			<textField pattern="dd MMMMM, yyyy">
 				<reportElement x="450" y="0" width="100" height="30" uuid="fd26514e-ce72-4cc3-8d41-ed8378f85430">
 					<property name="com.jaspersoft.layout.grid.weight.fixed" value="true"/>
 				</reportElement>
